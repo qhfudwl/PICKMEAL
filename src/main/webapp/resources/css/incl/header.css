@@ -1,0 +1,45 @@
+@charset "UTF-8";
+header{
+  height: 150px;
+  background: #596271;
+}
+#logout {
+	outline: none; border: 0; background-color: #596271;
+	color: #fff; font-size: 13px; font-weight: bold; cursor: pointer;
+	float: right; padding: 10px 20px;
+}
+#logout:hover {text-decoration: underline;}
+#gnb{
+  width: 80%; height: 150px; margin: 0 auto;
+}
+#gnb ul {
+  height: 150px;
+  display: flex; box-sizing: border-box;
+  justify-content: space-around;
+  align-items: center;
+}
+#gnb .display_none {
+	display: none;
+}
+#gnb input {
+  outline: none; border: 0; background-color: #596271; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  color:#fff;
+}
+#gnb li {position: relative;}
+#gnb li::after {
+  content:""; position: absolute; left: 0; top: 100%;
+  width: 0; height: 2px; background-color: #fff;
+  transition-duration: 0.3s;
+}
+#gnb li::before {
+  content:""; position: absolute; right: 0; bottom: 100%;
+  width: 0; height: 2px; background-color: #fff;
+  transition-duration: 0.3s;
+}
+#gnb li:hover::after {width: 100%;}
+#gnb li:hover::before {width: 100%;}
+#gnb li.on::after {width: 100%;}
+#gnb li.on::before {width: 100%;}

@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+body, html {height: 100%;}
+body, h1, h2, h3, h4, h5, h6, p, ul, dl, dd, figure, fieldset, input, th, td,img,div,p {margin: 0; padding: 0;}
+body, input, button {font-family: 'twayair';}
+input[type="text"] {text-indent: 5px;}
+input[type="submit"] {cursor: pointer;}
+li {list-style: none;}
+a {text-decoration: none; color: #000;}
+address, small, em, th {font: normal normal 1em 'twayair', sans-serif;}
+.hidden {position: absolute; left: -9999px;}
+.text_hidden {text-indent: -9999px;}
+fieldset, img {border: 0;}
+table {border-collapse: collapse;}
+body{
+  font-family: 'Noto Sans KR', sans-serif;
+}
+/*
+font-family: 'Noto Sans KR', sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800&display=swap');
+
