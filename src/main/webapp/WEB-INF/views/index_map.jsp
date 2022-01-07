@@ -16,7 +16,7 @@
 }
 #sInfoW {background-color: #ffecec; border: 1px solid #f23f3f;}
 #eInfoW {background-color: #d4ffe7; border: 1px solid #2ecc71;}
-#findUrl {
+#findUrl, #restaurantUrl {
 	width: 100%; height: 100%;
 }
 </style>
@@ -36,7 +36,7 @@
 	<p id="memberPosition"></p>
 	<div id="map"></div>
 	<%--<div id="direction"><iframe id="findUrl"></iframe></div> --%>
-	<div id="restaurantInfo"></div>
+	<div id="restaurantInfo"><iframe id="restaurantUrl"></iframe></div>
 </section>
 </body>
 </html>

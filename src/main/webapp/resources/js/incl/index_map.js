@@ -66,6 +66,31 @@ if (navigator.geolocation) {
 			$("#eInfoW").show();
 			
 			eInfoW.setPosition(latlng);
+			
+			console.log(latlng)
+			
+		let callback = function(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        console.log(result[0].address.address_name);
+			
+				$.ajax({
+					url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
+					 + result[0].address.address_name,
+					x: latlng.getLng(),
+					y: latlng.getLat(),
+					type: "get",
+					headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
+					dataType: "json",
+					success: function(data){
+						console.log(data)
+						console.log(data["documents"])
+						$("#restaurantUrl").attr("src", data["documents"][0].place_url);
+					}
+				})
+		    }
+		};
+		geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
+			
 		});
 	});
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
