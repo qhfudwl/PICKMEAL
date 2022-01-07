@@ -1,14 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>밥찡코</title>
 <style>
-#map {
-	width: 500px; height: 500px;
-	border: 5px solid #ffecec;
+#map, #direction, #restaurantInfo {
+	width: 650px; height: 500px;
+	box-shadow: 0 0 5px #ffecec; border-radius: 10px;
+}
+#sInfoW, #eInfoW {
+	font-family: 'DungGeunMo'; font-size: 14px; position: relative; bottom:50px;
+	padding: 8px; border-radius: 10px;
+}
+#sInfoW {background-color: #ffecec; border: 1px solid #f23f3f;}
+#eInfoW {background-color: #d4ffe7; border: 1px solid #2ecc71;}
+#findUrl {
+	width: 100%; height: 100%;
 }
 </style>
 <%@ include file="/WEB-INF/views/incl/link.jsp" %>
@@ -21,10 +30,13 @@
 	<div id="mapRadius">
 		<button name="radius" value="300">300m</button>
 		<button name="radius" value="600">600m</button>
-		<button name="radius" value="1000">1000m</button>
+		<button name="radius" value="900">900m</button>
+		<button id="gameDone">게임끝</button>
 	</div>
 	<p id="memberPosition"></p>
 	<div id="map"></div>
+	<%--<div id="direction"><iframe id="findUrl"></iframe></div> --%>
+	<div id="restaurantInfo"></div>
 </section>
 </body>
 </html>

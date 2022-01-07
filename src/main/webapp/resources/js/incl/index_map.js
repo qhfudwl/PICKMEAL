@@ -1,5 +1,6 @@
-let nowLat, nowLng, map, geocoder, marker, ps, nowAddress, circle;
+let nowLat, nowLng, map, geocoder, sMarker, eMarker, ps, nowAddress, circle;
 let wtmY, wtmX; // y = lat, x = lng
+let sInfoW, eInfoW;
 let earth = 6371000;
 
 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
@@ -11,9 +12,6 @@ if (navigator.geolocation) {
     	nowLat = position.coords.latitude, // 위도
     	nowLng = position.coords.longitude; // 경도
 
-        let locPosition = new kakao.maps.LatLng(nowLat, nowLng), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-        
 		let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = { 
 	    center: new kakao.maps.LatLng(nowLat, nowLng), // 지도의 중심좌표
@@ -31,7 +29,11 @@ if (navigator.geolocation) {
 		});
 		
         // 마커와 인포윈도우를 표시합니다
-        displayMarker(locPosition, message);
+        displayStartMarker(); // user position
+		displayArriveMarker(nowLat, nowLng); // click position
+		// click marker hide
+		eMarker.setVisible(false);
+		$("#eInfoW").hide();
 /*
 		// 지도에 표시할 원을 생성합니다
 		circle = new kakao.maps.Circle({
@@ -47,7 +49,25 @@ if (navigator.geolocation) {
 		
 		circle.setMap(map);
 */    
-      });    
+
+		// *** 여기다가 좌표값을 넣으면 된다!!! *************************************
+		// 지도에 클릭 이벤트를 등록합니다
+		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		    
+		    // 클릭한 위도, 경도 정보를 가져옵니다 
+		    let latlng = mouseEvent.latLng;
+		
+		    // 마커 위치를 클릭한 위치로 옮깁니다
+		    eMarker.setPosition(latlng);
+
+			// click marker show
+			eMarker.setVisible(true);
+			$("#eInfoW").show();
+			
+			eInfoW.setPosition(latlng);
+		});
+	});
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     
     let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
@@ -83,22 +103,65 @@ $("button[name=radius]").click(function() {
 })
 
 // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-function displayMarker(locPosition, message) {
+function setMarkerImg(imgName, marker) {
+	let imageSrc = getContextPath() + '/resources/img/map/' + imgName + '.png', // 마커이미지의 주소입니다    
+    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(20, 35)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+ 
+	let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+	
     // 마커를 생성합니다
-    marker = new kakao.maps.Marker({  
+
+    marker.setImage(markerImage);
+}
+
+function displayArriveMarker(lat, lng) {
+	let locPosition = new kakao.maps.LatLng(lat, lng), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        message = '<div id="eInfoW">여기로 가시면돼요!!</div>'; // 인포윈도우에 표시될 내용입니다
+	eMarker = new kakao.maps.Marker({  
         map: map, 
         position: locPosition
-    }); 
-    
-    let iwContent = message, // 인포윈도우에 표시할 내용
-        iwRemoveable = true;
-
-    // 인포윈도우를 생성합니다
-    let infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
-        removable : iwRemoveable
     });
-    
-    // 인포윈도우를 마커위에 표시합니다 
-    infowindow.open(map, marker);
+
+	// 커스텀 오버레이를 생성합니다
+	eInfoW = new kakao.maps.CustomOverlay({
+	    position: locPosition,
+	    content: message   
+	});
+	
+	// 커스텀 오버레이를 지도에 표시합니다
+	eInfoW.setMap(map);
+	
+	setMarkerImg("emarker", eMarker);
 }
+
+function displayStartMarker() {
+	let locPosition = new kakao.maps.LatLng(nowLat, nowLng), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        message = '<div id="sInfoW">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+	sMarker = new kakao.maps.Marker({  
+        map: map, 
+        position: locPosition
+    });
+
+	// 커스텀 오버레이를 생성합니다
+	sInfoW = new kakao.maps.CustomOverlay({
+	    position: locPosition,
+	    content: message   
+	});
+	
+	// 커스텀 오버레이를 지도에 표시합니다
+	sInfoW.setMap(map);
+	
+	setMarkerImg("smarker", sMarker);
+}
+/*
+$("#gameDone").click(function() {
+	displayFindWay("서울시청", "광화문");
+})
+
+// https://map.kakao.com/?sName=서울시청&eName=광화문
+function displayFindWay(sName, eName) {
+	let findUrl = 'https://map.kakao.com/?sName=' + sName + '&eName=' + eName;
+	$("#findUrl").attr("src", findUrl);
+}
+*/
