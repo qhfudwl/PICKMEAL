@@ -11,6 +11,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/graph/nv.d3.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/graph/stream_layers.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <!--  가게 부가 정보 -->
 <link href="${pageContext.request.contextPath}/resources/css/incl/chart.css" rel="stylesheet" type="text/css">
 <script src="${pageContext.request.contextPath}/resources/js/incl/chart.js" defer></script>
@@ -30,6 +32,15 @@
 		</div>
 		
 		
+	</div>
+	<div class="temp" >
+		<div id="genderChart2">
+			
+		</div>
+		
+		<div id="ageChart2">
+		
+		</div>
 	</div>
 </section>
 </body>
