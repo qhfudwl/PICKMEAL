@@ -40,10 +40,10 @@ public class MenuServiceIpml implements MenuService{
 			int randomMenuIndex = random.nextInt(2);
 			menuclassify.setHot_ice(randomMenuIndex);
 		}
-		if(menuclassify.getCarhobydrate() == 4) {
+		if(menuclassify.getCarbohydrate() == 4) {
 			Random random = new Random();
 			int randomMenuIndex = random.nextInt(4);
-			menuclassify.setCarhobydrate(randomMenuIndex);
+			menuclassify.setCarbohydrate(randomMenuIndex);
 		}
 		if(menuclassify.getMainFood() == 3) {
 			Random random = new Random();
