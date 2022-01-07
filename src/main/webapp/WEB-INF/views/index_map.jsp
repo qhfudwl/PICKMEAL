@@ -7,8 +7,8 @@
 <title>밥찡코</title>
 <style>
 #map {
-	width: 800px; height: 800px;
-	border-radius: 50%; border: 5px solid #ffecec;
+	width: 500px; height: 500px;
+	border: 5px solid #ffecec;
 }
 </style>
 <%@ include file="/WEB-INF/views/incl/link.jsp" %>

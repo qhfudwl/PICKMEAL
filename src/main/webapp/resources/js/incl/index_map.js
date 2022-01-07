@@ -1,4 +1,4 @@
-let nowLat, nowLng, map, geocoder, ps, nowAddress, circle;
+let nowLat, nowLng, map, geocoder, marker, ps, nowAddress, circle;
 let wtmY, wtmX; // y = lat, x = lng
 let earth = 6371000;
 
@@ -32,7 +32,7 @@ if (navigator.geolocation) {
 		
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
-
+/*
 		// 지도에 표시할 원을 생성합니다
 		circle = new kakao.maps.Circle({
 		    center : new kakao.maps.LatLng(nowLat, nowLng),  // 원의 중심좌표 입니다 
@@ -46,7 +46,7 @@ if (navigator.geolocation) {
 		});
 		
 		circle.setMap(map);
-            
+*/    
       });    
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     
@@ -74,9 +74,8 @@ $("button[name=radius]").click(function() {
 			for(i=0; i<points.length; i++){
 				bounds.extend(points[i]);
 			}
-			
 			map.setBounds(bounds);
-			circle.setRadius(diffM);
+			//circle.setRadius(diffM);
 		}
 	})
 	
@@ -86,7 +85,7 @@ $("button[name=radius]").click(function() {
 // 지도에 마커와 인포윈도우를 표시하는 함수입니다
 function displayMarker(locPosition, message) {
     // 마커를 생성합니다
-    let marker = new kakao.maps.Marker({  
+    marker = new kakao.maps.Marker({  
         map: map, 
         position: locPosition
     }); 
