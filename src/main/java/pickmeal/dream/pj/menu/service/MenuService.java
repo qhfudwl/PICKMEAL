@@ -11,7 +11,7 @@ public interface MenuService {
 	
 	List<Menu> findAllMenus();
 	
-	List<Menu> findMenuByClassify(Menuclassify menuclassify);
+	Menu findMenuByClassify(Menuclassify menuclassify);
 	
-	List<Menu> findMenuBywheather(int weather);
+	Menu findMenuBywheather(int weather);
 }

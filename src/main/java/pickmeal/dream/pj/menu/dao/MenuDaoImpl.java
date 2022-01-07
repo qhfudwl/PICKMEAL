@@ -30,16 +30,16 @@ public class MenuDaoImpl implements MenuDao{
 	public List<Menu> findAllMenus() {
 		String sql = "SELECT id, Menuname, weather, imgPath, soupy, hot_ice, carhobydrate, mainFood, spicy"
 				+ " FROM Menu";
-		List<Menu> menus = jt.query(sql, new MenuRowMapper());
-		return menus;
+		List<Menu> menulist = jt.query(sql, new MenuRowMapper());
+		return menulist;
 	}
 
 	@Override
 	public List<Menu> findMenuByClassify(Menuclassify menuclassify) {
 		String sql = "SELECT id, Menuname, weather, imgPath, soupy, hot_ice, carhobydrate, mainFood, spicy"
 				+ "FROM Menu WHERE soupy = ? AND hot_ice = ? AND carhobydrate = ? AND mainFood = ? AND spicy = ?";
-		List<Menu> menus = jt.query(sql, new MenuRowMapper(),menuclassify);
-		return menus;
+		List<Menu> menulist = jt.query(sql, new MenuRowMapper(), menuclassify.getSoupy(), menuclassify.getHot_ice(), menuclassify.getCarhobydrate(), menuclassify.getMainFood(), menuclassify.getSpicy());
+		return menulist;
 	}
 
 	@Override

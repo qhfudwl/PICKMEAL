@@ -7,6 +7,17 @@ SELECT * FROM Member;
 
 INSERT INTO Member(memberName) VALUES ("아아아");
 
+CREATE TABLE Menu (
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
+	menuName		VARCHAR(20),
+	weather			INT,	
+	imgPath			VARCHAR(100),
+	soupy			INT,
+	hot_ice			INT,
+	carbohydrate	INT,
+	mainFood		INT, 
+	spicy			INT
+)
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
@@ -16,6 +27,8 @@ CREATE TABLE RestaurantPreference (
 )
 
 SELECT * FROM RestaurantPreference;
+
+INSERT INTO Menu(menuName,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말일",1,0,2,2,1);
 
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',10);
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',11);
