@@ -1,45 +1,271 @@
 @charset "UTF-8";
+/*
+    공통
+*/
 header{
-  height: 150px;
-  background: #596271;
+  position: relative;
+  /* 임시 */
+  width: 70%; margin: 0 auto;
+  min-width: 1280px;
+  height: 80px;
+  border-bottom: 1px solid #f4f4f4;
 }
-#logout {
-	outline: none; border: 0; background-color: #596271;
-	color: #fff; font-size: 13px; font-weight: bold; cursor: pointer;
-	float: right; padding: 10px 20px;
+
+
+/*
+    로고
+*/
+.logo{
+  position: absolute;
+  left: 20px;
+  line-height: 80px;
+  font-weight:800;
+  color:#f23f3f;
+  font-family: 'DungGeunMo';
+  cursor: pointer;
 }
-#logout:hover {text-decoration: underline;}
+.logo:hover, .logo:focus{
+ 	animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; 
+
+ } 
+
+@keyframes rainbowLink {     
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; } 
+ 100% { color: #e82aff; }
+
+}
+/*
+    게시판메뉴
+*/
 #gnb{
-  width: 80%; height: 150px; margin: 0 auto;
+  width: 500px;line-height: 80px;
+  margin: 0 auto;
+  background-color: #8e6af4;
 }
-#gnb ul {
-  height: 150px;
-  display: flex; box-sizing: border-box;
-  justify-content: space-around;
+#gnb ul li {
+  float:left;
+  margin: 0 50px;
+  font-weight: 600;
+  font-size: 1.2em;
+  
+}
+
+
+/*
+    유저메뉴
+*/
+#snb {
+  position: absolute; right: 20px;
+
+}
+#snb > ul {
+  display: flex;
+  height: 80px;
+  justify-content: center;
   align-items: center;
 }
-#gnb .display_none {
-	display: none;
-}
-#gnb input {
-  outline: none; border: 0; background-color: #596271; cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
+#snb > ul  > li {
+  float:left;
+  margin: 0 2px;
+  font-weight: 600;
   font-size: 1.2em;
-  font-weight: 500;
+  height: 35px;
+}
+#snb > ul  > li:first-child{
+  margin-right: 10px;
+}
+
+  
+
+
+.navi_nickname{
+  font-weight: normal; font-size: 0.6em;
+}
+
+
+
+
+/*
+    프로필, 알림 부분
+*/
+/* 서브네비게이션 공통 */
+.navAlarmTextCom > ul > li {
+  font-size: 0.75em;
+  font-weight: 400;
+  padding: 15px 22px;
+  /* 2줄 막아주기 */
+  white-space:nowrap;
+}
+
+.navAlarmTextCom > ul > li:hover{
+  background: #f23f3f;
+  color:#fff;
+  cursor: pointer;
+}
+.alarmTextBold{
+  font-weight: 600;
+}
+.alarmTextClock{
+  /* float: right; */
+  margin-left:20px;
+  color: #c2c2c2;
+}
+.navAlarmTextCom > ul > li:hover .alarmTextClock{
   color:#fff;
 }
-#gnb li {position: relative;}
-#gnb li::after {
-  content:""; position: absolute; left: 0; top: 100%;
-  width: 0; height: 2px; background-color: #fff;
-  transition-duration: 0.3s;
+
+
+/*
+    프로필
+*/
+.snbProfileLine{
+  position: relative;
+    
 }
-#gnb li::before {
-  content:""; position: absolute; right: 0; bottom: 100%;
-  width: 0; height: 2px; background-color: #fff;
-  transition-duration: 0.3s;
+.profileImgWrap{
+  width: 35px;height: 35px;
+  
+  
 }
-#gnb li:hover::after {width: 100%;}
-#gnb li:hover::before {width: 100%;}
-#gnb li.on::after {width: 100%;}
-#gnb li.on::before {width: 100%;}
+.profileImg{
+  width: 35px; height: 35px;
+}
+.profileImg:hover{
+  cursor: pointer;
+}
+
+/* 프로필 서브 네비게이션 */
+
+.profileAreaWrap{
+  position: absolute; top:55px; right:0;
+  background: #fffafa;
+  width: 120px;
+  padding: 10px 0;
+  border-radius:7px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  
+  display: none;
+}
+.profileAreaWrap::after{
+  border-top:0px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fffafa;
+  content:"";
+  position:absolute;
+  top:-8px;
+  right:10px;
+}
+
+.profileAreaWrap > ul > li {
+  padding: 5px 22px;
+}
+
+
+/*
+    알림내역
+*/
+.alarmIconWrap, .comIconWrap{
+  position: relative;
+  width: 35px;height: 35px;
+  display: flex; justify-content: center; align-items: center;
+}
+.alarmImg, .comIconImg{
+  display: inline-block;
+  width: 22px; height: 22px;
+}
+.alarmImg:hover, .comIconImg:hover{
+  cursor: pointer;
+}
+.alarmMark, .comIconMark{
+  position: absolute; top:2px; right:1px;
+  width: 16px; height: 16px; background: #cf0a0a;
+  border-radius: 50%;
+  color:#fff;
+  font-size: 0.5em;
+  text-align: center;
+}
+
+/* 알림내역 서브네비게이션 */
+.alarmTitle{
+  position: relative; z-index: 3;
+  width: 100%; text-align: center;
+  font-size: 0.75em;
+  font-weight: 400;
+  margin-bottom: 30px;
+  color: #fff;
+
+}
+.alarmTitle::before{
+  content: "";
+  position: absolute; z-index: -1;
+  top:-15px; left: 0;
+  width: 100%; height: 50px;
+  background: #f23f3f;
+  border-radius: 7px 7px 0 0;
+}
+.alarmAreaWrap{
+  position: absolute; top:70px; right:35px;
+  background: #fffafa;
+  /* width: 300px; */
+  
+  padding: 15px 0;
+  border-radius:7px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  
+   display: none;
+}
+.alarmAreaWrap::after{
+  border-top:0px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #f23f3f;
+  content:"";
+  position:absolute;z-index: -1;
+  top:-7px;
+  right:10px;
+}
+.alarmProfileImg{
+  width: 45px; height: 45px;
+  margin-right: 15px;
+}
+.alarmAreaWrap > ul > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #fff;
+}
+
+
+/*
+     채팅
+
+.chatIconWrap{
+  width: 45px; height: 45px;
+}
+
+.chatImg{
+  display: inline-block;
+  width: 27px; height: 27px;
+}
+*/
+
+
+
+
+
+
+/* js 단 add Class */
+
+.header_BoardOnclick{
+  color:#f23f3f !important;
+}
+
+
