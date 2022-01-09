@@ -27,6 +27,11 @@ public class MemberDaoImpl implements MemberDao {
 	public Member findMemberByMemberEmail(String email) {
 		String sql = "SELECT id, memberType, email, passwd, nickName, birth, gender, profileImgPath, regDate"
 				+ " FROM Member WHERE email=?";
+		
+//		String sql = "SELECT m.id, m.memberType, m.email, m.passwd, m.nickName, m.birth, m.gender, m.profileImgPath, m.regDate"
+//				+ ", mt.temperature FROM MannerTemperature AS mt INNER JOIN Member AS m"
+//				+ " ON mt.memberId=m.id WHERE m.email=?";
+		
 		return jt.queryForObject(sql, new MemberRowMapper(), email);
 	}
 
@@ -34,6 +39,11 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> findAllMembers() {
 		String sql = "SELECT id, memberType, email, passwd, nickName, birth, gender, profileImgPath, regDate"
 				+ " FROM Member";
+		
+//		String sql = "SELECT m.id, m.memberType, m.email, m.passwd, m.nickName, m.birth, m.gender, m.profileImgPath, m.regDate"
+//				+ ", mt.temperature FROM MannerTemperature AS mt INNER JOIN Member AS m"
+//				+ " ON mt.memberId=m.id";
+				
 		return jt.query(sql, new MemberRowMapper());
 	}
 
@@ -65,6 +75,10 @@ public class MemberDaoImpl implements MemberDao {
 	public Member findLastAddMember() {
 		String sql = "SELECT * FROM Member WHERE id=LAST_INSERT_ID()";
 		
+//		String sql = "SELECT m.id, m.memberType, m.email, m.passwd, m.nickName, m.birth, m.gender, m.profileImgPath, m.regDate"
+//				+ ", mt.temperature FROM MannerTemperature AS mt INNER JOIN Member AS m"
+//				+ " ON mt.memberId=m.id WHERE m.id=LAST_INSERT_ID()";
+		
 		return jt.queryForObject(sql, new MemberRowMapper());
 	}
 
@@ -72,6 +86,11 @@ public class MemberDaoImpl implements MemberDao {
 	public Member findMemberById(long id) {
 		String sql = "SELECT id, memberType, email, passwd, nickName, birth, gender, profileImgPath, regDate"
 				+ " FROM Member WHERE id=?";
+		
+//		String sql = "SELECT m.id, m.memberType, m.email, m.passwd, m.nickName, m.birth, m.gender, m.profileImgPath, m.regDate"
+//				+ ", mt.temperature FROM MannerTemperature AS mt INNER JOIN Member AS m"
+//				+ " ON mt.memberId=m.id WHERE m.id=?";
+		
 		return jt.queryForObject(sql, new MemberRowMapper(), id);
 	}
 

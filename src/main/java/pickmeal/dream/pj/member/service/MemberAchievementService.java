@@ -1,11 +1,11 @@
-package pickmeal.dream.pj.member.dao;
+package pickmeal.dream.pj.member.service;
 
 import java.util.List;
 
 import pickmeal.dream.pj.member.domain.FoodPowerPointItem;
 import pickmeal.dream.pj.member.domain.Member;
 
-public interface MemberAchievementDao {
+public interface MemberAchievementService {
 	/**
 	 * 해당 멤버의 식력 포인트 내역을 기록한다.
 	 * @param fppi
@@ -23,7 +23,7 @@ public interface MemberAchievementDao {
 	 * 해당 멤버의 신뢰 온도 업데이트
 	 */
 	public void addMannerTemperature(Member member);
-	
+
 	/**
 	 * 해당 사용자의 매너 온도 찾기
 	 * @param memberId

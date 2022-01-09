@@ -73,7 +73,7 @@ public class Member {
 	 * 싫어요의 경우 5도를 낮춘다.
 	 * 보통이였어요는 그대로
 	 */
-	public void addMannerTemperature(Constants c) {
+	public void saveMannerTemperature(Constants c) {
 		switch(c) {
 		case GOOD:
 			this.mannerTemperature += GOOD.getPoint();

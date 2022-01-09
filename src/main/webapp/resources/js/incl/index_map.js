@@ -73,7 +73,7 @@ $("button[name=radius]").click(function() {
 	let json = {"nowLat" : nowLat, "nowLng" : nowLng, "diffM" : diffM};
 	
 	$.ajax({
-		url: getContextPath() + "/calculateMap",
+		url: "calculateMap",
 		type: "get",
 		data: json,
 		dataType: 'json',

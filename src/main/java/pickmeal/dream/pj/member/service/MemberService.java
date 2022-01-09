@@ -18,6 +18,13 @@ public interface MemberService {
 	public Member findMemberByMemberEmail(String email);
 	
 	/**
+	 * member 를 id 로 찾기
+	 * @param id
+	 * @return
+	 */
+	public Member findMemberById(long id);
+	
+	/**
 	 * 모든 멤버 가져오기
 	 * @return
 	 */

@@ -1,9 +1,9 @@
 package pickmeal.dream.pj.member.service;
 
-import java.util.List;
+import static pickmeal.dream.pj.web.constant.Constants.SIGN_UP_MANNER;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.SIGN_UP;
 
-import static pickmeal.dream.pj.web.constant.Constants.*;
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.member.dao.MemberDao;
+import pickmeal.dream.pj.member.domain.FoodPowerPointItem;
 import pickmeal.dream.pj.member.domain.Member;
 
 @Service("memberService")
@@ -19,19 +20,43 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberDao md;
+	
+	@Autowired
+	private MemberAchievementService mas;
 
 	@Override
 	@Transactional
 	public Member addMember(Member member) {
-		// 사용자를 추가하고
+		// 추가 전 사용자 타입 세팅
+		member.setMemberType('M');
+		// 사용자 추가
 		md.addMember(member);
-		// 추가한 사용자의 정보를 찾아온다.
+		
+		// 마지막으로 추가한 사용자 들고오기
 		Member m = findLastAddMember();
-		// 사용자에 대한 식력 포인트 / 신뢰 온도 / 출석률을 체크해준다.
-		// 다만 식력 포인트는 0으로
+		
+		// 사용자에게 신뢰온도 세팅
+		m.saveMannerTemperature(SIGN_UP_MANNER);
+		
+		// 사용자에게 식력포인트 세팅
 		m.saveFoodPowerPoint(SIGN_UP);
-		// 신뢰 온도는 36.5도로 항상 처음에 셋팅해준다.
-		m.addMannerTemperature(SIGN_UP_MANNER);
+		
+		// 신뢰온도 테이블에 넣기
+		mas.addMannerTemperature(m);
+		
+		// 식력포인트 내역 만들기
+		FoodPowerPointItem fppi = new FoodPowerPointItem();
+		fppi.setMember(m);
+		fppi.setDetail(SIGN_UP);
+		fppi.setPoint(SIGN_UP.getPoint());
+		
+		// 식력포인트 테이블에 넣기
+		mas.addFoodPowerPointItem(fppi);
+		
+		// 해당 사용자의 현재 신뢰온도를 가져와서 사용자에게 적용
+		m.setMannerTemperature(mas.findMannerTemperatureByMemberId(m.getId()));
+		
+		// 마지막 사용자를 가져온다.
 		return m;
 	}
 
@@ -67,6 +92,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findLastAddMember() {
 		return md.findLastAddMember();
+	}
+
+	@Override
+	public Member findMemberById(long id) {
+		return md.findMemberById(id);
 	}
 
 }
