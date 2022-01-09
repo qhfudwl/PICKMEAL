@@ -1,0 +1,37 @@
+@charset "UTF-8";
+/* 전체 구성 */
+#content {
+	width: 90%; height: calc(100% - 80px);
+	display: flex; justify-content: space-around; align-items: center;
+	margin: 0 auto;
+}
+/* 지도 */
+#mapWrap {height: 90%;}
+#map {
+	width: 500px; height: 500px;
+	box-shadow: 0 0 10px #ffecec; border-radius: 50%;
+	overflow: hidden;
+}
+/* 지도 내 말풍선 */
+#sInfoW, #eInfoW {
+	font-family: 'DungGeunMo'; font-size: 14px; position: relative; bottom:50px;
+	padding: 8px; border-radius: 10px;
+}
+#sInfoW {background-color: #ffecec; border: 1px solid #f23f3f;}
+#eInfoW {background-color: #d4ffe7; border: 1px solid #2ecc71;}
+
+/* 식당 표시 */
+#restaurantWrap {height: 90%;}
+#restaurantInfo {
+	width: 800px; height: 65%;
+	border: 5px solid #ffecec; border-radius: 10px;
+	overflow: hidden;
+}
+#findUrl, #restaurantUrl {
+	width: 100%; height: 100%; outline: none; border: 0;
+}
+/* 아무말 채팅 */
+#chatWrap {
+	width: 300px; height: 90%;
+	background-color: #ffecec; border-radius: 10px;
+}
