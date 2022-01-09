@@ -15,8 +15,8 @@ public class MenuRowMapper implements RowMapper<Menu>{
 		Menu menu = new Menu();
 		menu.setId(rs.getLong("id"));
 		Menuclassify menuclassify = new Menuclassify(rs.getInt("soupy"),rs.getInt("hot_ice"),rs.getInt("carbohydrate"),rs.getInt("mainFood"),rs.getInt("spicy"));
-//		Menu menu = new Menu(rs.getLong("id"),rs.getString("Menuname"),rs.getInt("weather"),rs.getString("imgPath"),rs.getObject(menuclassify));
-		menu.setMenuname(rs.getString("menuname"));
+//		Menu menu = new Menu(rs.getLong("id"),rs.getString("menuName"),rs.getInt("weather"),rs.getString("imgPath"),rs.getObject(menuclassify));
+		menu.setMenuName(rs.getString("menuName"));
 		menu.setWeather(rs.getInt("weather"));
 		menu.setImgPath(rs.getString("imgPath"));
 		menu.setMenuclassify(menuclassify);
