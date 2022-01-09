@@ -50,47 +50,14 @@ if (navigator.geolocation) {
 		circle.setMap(map);
 */    
 
-		// *** 여기다가 좌표값을 넣으면 된다!!! *************************************
 		// 지도에 클릭 이벤트를 등록합니다
 		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-		    
 		    // 클릭한 위도, 경도 정보를 가져옵니다 
 		    let latlng = mouseEvent.latLng;
-		
-		    // 마커 위치를 클릭한 위치로 옮깁니다
-		    eMarker.setPosition(latlng);
 
-			// click marker show
-			eMarker.setVisible(true);
-			$("#eInfoW").show();
-			
-			eInfoW.setPosition(latlng);
-			
-			console.log(latlng)
-			
-		let callback = function(result, status) {
-		    if (status === kakao.maps.services.Status.OK) {
-		        console.log(result[0].address.address_name);
-			
-				$.ajax({
-					url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
-					 + result[0].address.address_name,
-					x: latlng.getLng(),
-					y: latlng.getLat(),
-					type: "get",
-					headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
-					dataType: "json",
-					success: function(data){
-						console.log(data)
-						console.log(data["documents"])
-						$("#restaurantUrl").attr("src", data["documents"][0].place_url);
-					}
-				})
-		    }
-		};
-		geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
-			
+			// 실제 동작 시에는 클릭이벤트 대신 여기다가 좌표값을 넣어서 팝업이 닫힐 때 동작시키면 된다*****************
+			displayRestaurantInfo(latlng.getLat(), latlng.getLng());
 		});
 	});
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -178,6 +145,38 @@ function displayStartMarker() {
 	sInfoW.setMap(map);
 	
 	setMarkerImg("smarker", sMarker);
+}
+
+// 좌표를 인자로 넣어 식당 정보를 가져와 표시하는 함수
+// 이 함수를 발생시키면 된다.===============================================
+function displayRestaurantInfo(lat, lng) {
+	let latlng = new kakao.maps.LatLng(lat, lng);
+	// 마커 위치를 좌표 위치로 옮깁니다
+    eMarker.setPosition(latlng);
+ 	// click marker show
+	eMarker.setVisible(true);
+	$("#eInfoW").show();
+	eInfoW.setPosition(latlng);
+	// 식당 정보 페이지 url 가져오기
+	let callback = function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	        console.log(result[0].address.address_name);
+		
+			$.ajax({
+				url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
+				 + result[0].address.address_name,
+				x: latlng.getLng(),
+				y: latlng.getLat(),
+				type: "get",
+				headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
+				dataType: "json",
+				success: function(data){
+					$("#restaurantUrl").attr("src", data["documents"][0].place_url);
+				}
+			})
+	    }
+	};
+	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
 }
 /*
 $("#gameDone").click(function() {

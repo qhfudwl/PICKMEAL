@@ -1,11 +1,51 @@
 CREATE TABLE Member (
-	id			BIGINT			PRIMARY KEY	AUTO_INCREMENT,
-	memberName	VARCHAR(100)
+	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
+	memberType		CHAR(1)			NOT NULL,
+	email			VARCHAR(30)		NOT NULL	UNIQUE,
+	passwd			VARCHAR(30)		NOT NULL,
+	nickName		VARCHAR(30)		NOT NULL	UNIQUE,
+	birth			CHAR(8)			NOT NULL,
+	gender			CHAR(1)			NOT NULL,
+	profileImgPath	VARCHAR(100)	NOT NULL,
+	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP
 )
 
-SELECT * FROM Member;
+CREATE TABLE FoodPowerPoint (
+	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,
+	memberId	BIGINT		NOT NULL,
+	point		INT			NOT NULL,
+	detail		INT			NOT NULL,
+	regDate		TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT	FoodPowerPoint_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
+)
 
-INSERT INTO Member(memberName) VALUES ("아아아");
+CREATE TABLE MannerTemperature (
+	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,
+	memberId	BIGINT		NOT NULL,
+	temperature	DOUBLE		NOT NULL,
+	CONSTRAINT	MannerTemperature_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
+)
+
+CREATE TABLE Attendance (
+	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,
+	memberId	BIGINT		NOT NULL,
+	attendance	INT			NOT NULL,
+	regDate		TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT	Attendance_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
+)
+
+
+DROP TABLE Member;
+DROP TABLE FoodPowerPoint;
+DROP TABLE MannerTemperature;
+DROP TABLE Attendance;
+
+SELECT * FROM Member;
+SELECT * FROM FoodPowerPoint;
+SELECT * FROM MannerTemperature;
+SELECT * FROM Attendance;
+
+
 
 CREATE TABLE Menu (
 	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
