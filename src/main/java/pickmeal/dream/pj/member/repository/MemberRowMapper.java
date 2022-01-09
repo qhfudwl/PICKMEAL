@@ -1,4 +1,4 @@
-package pickmeal.dream.pj.member.dao;
+package pickmeal.dream.pj.member.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

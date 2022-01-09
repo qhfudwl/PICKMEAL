@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.config.DataSourceConfig;
-import pickmeal.dream.pj.member.dao.MemberDao;
 import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.repository.MemberDao;
 import pickmeal.dream.pj.member.service.MemberService;
 
 

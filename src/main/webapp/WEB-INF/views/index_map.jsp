@@ -12,6 +12,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
+<h1>${member.nickName}</h1>
 <section id="content">
 	<h2 class="hidden">게임하기</h2>
 	<section id="mapWrap">
