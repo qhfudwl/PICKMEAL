@@ -15,37 +15,27 @@ CREATE TABLE RestaurantPreference (
 	age CHAR(3)
 )
 
+CREATE TABLE Review (
+	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
+	restaurantId	BIGINT,
+	bathroom		INT,
+	kind			INT,
+	specialDay		INT,
+	clean			INT,
+	parking			INT,
+	goodgroup		INT,
+	alone			INT,
+	big				INT,
+	interior		INT
+)
+
+ALTER TABLE Review ADD userCount INT NOT NULL DEFAULT '0';
+
+INSERT INTO Review(restaurantId, bathroom, kind, specialDay, clean, parking, goodgroup, alone, big, interior, usercount)
+VALUES (1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 );
+
+
 SELECT * FROM RestaurantPreference;
 
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',10);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',11);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',12);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',13);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',14);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',15);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',11);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',11);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',11);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',19);
+SELECT * FROM Review;
 
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',20);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',21);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',21);
-
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',30);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',31);
-INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'M',30);
