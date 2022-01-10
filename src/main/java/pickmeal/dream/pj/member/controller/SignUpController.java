@@ -86,7 +86,7 @@ public class SignUpController {
 		enterMember.setEmail(member.getEmail());
 		enterMember.setNickName(member.getNickName());
 		
-		log.info(String.valueOf(member.getId()));
+		log.info(member.toString());
 		
 		
 		// 완료 후 세션에 멤버를 넣어준다 (자동 로그인)

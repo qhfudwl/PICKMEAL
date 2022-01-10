@@ -63,12 +63,16 @@ SELECT * FROM Menu;
 
 CREATE TABLE Restaurant (
 	id			BIGINT 			PRIMARY KEY AUTO_INCREMENT,
+	apiId		BIGINT			NOT NULL, 
 	rType		BOOLEAN			DEFAULT FALSE,
 	lat			DOUBLE			NOT NULL,
 	lng			DOUBLE			NOT	NULL,
 	address		VARCHAR(100)	NOT NULL,
 	rName		VARCHAR(50)		NOT NULL
 )
+DROP TABLE Restaurant;
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(1,true,31.0000,24.0000,"주소값이에욤","식당이름이에욤");
+INSERT INTO Restaurant(apiId,lat,lng,address,rName) VALUES(1,31.0000,24.0000,"주소값2에욤","식당2름이에욤");
 SELECT * FROM Restaurant;
 
 CREATE TABLE CouponCategory (
@@ -81,21 +85,23 @@ INSERT INTO CouponCategory(couponName,couponType) VALUES("3000원 쿠폰",'B');
 INSERT INTO CouponCategory(couponName,couponType) VALUES("5000원 쿠폰",'C');
 SELECT * FROM CouponCategory;
 
+
 CREATE TABLE Coupon(
 	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
 	memberId		BIGINT			NOT NULL,
 	couponId		BIGINT			NOT NULL,
 	restaurantId	BIGINT			NOT NULL,
-	couponNumber	BIGINT			NOT NULL,
-	used			BOOLEAN			NOT NULL,
-	regDate			TIMESTAMP		NOT NULL,
+	couponNumber	VARCHAR(13)		NOT NULL,
+	used			BOOLEAN			DEFAULT FALSE,
+	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (memberId) REFERENCES Member (id),
 	FOREIGN KEY (couponId) REFERENCES CouponCategory (id),
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
 )
-
+DROP TABLE Coupon;
 SELECT * FROM Coupon;
-INSERT 
+INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(1,1,1,"11111111111");
+DELETE FROM Coupon WHERE id =1;
 
 
 CREATE TABLE RestaurantPreference (

@@ -17,22 +17,28 @@
 	<h2 class="hidden">게임하기</h2>
 	<section id="mapWrap">
 		<h3 class="hidden">지도 표시</h3>
-		<div id="buttonWrap">
-			<button name="radius" value="300">300m</button>
-			<button name="radius" value="600">600m</button>
-			<button name="radius" value="900">900m</button>
-			<button id="gameDone">게임끝</button>
+		<div id="mapWindow">
+			<div id="buttonWrap">
+				<button name="radius" value="300">300m</button>
+				<button name="radius" value="600">600m</button>
+				<button name="radius" value="900">900m</button>
+				<button id="gameDone">게임끝</button>
+			</div>
+			<p id="memberPosition"></p>
+			<div id="map"></div>
 		</div>
-		<p id="memberPosition"></p>
-		<div id="map"></div>
 	</section>
 		<%--<div id="direction"><iframe id="findUrl"></iframe></div> --%>
 	<section id="restaurantWrap">
 		<h3 class="hidden">식당 정보 표시</h3>
-		<div id="restaurantInfo"><iframe id="restaurantUrl"></iframe></div>
+		<div id="restaurantInfo">
+			<div id="restaurantWindow">
+				<iframe id="restaurantUrl"></iframe>
+				<button id="open" value="open">펼치기</button>
+			</div>
+		</div>
 	</section>
 	<section id="chatWrap">
-	
 	</section>
 </section>
 </body>
