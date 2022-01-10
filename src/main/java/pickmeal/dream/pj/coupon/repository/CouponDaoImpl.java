@@ -19,7 +19,9 @@ public class CouponDaoImpl implements CouponDao{
 	JdbcTemplate jt;
 
 	
-	
+	/**
+	 * 쿠폰카테고리 발생
+	 */
 	@Override
 	public CouponCategory generateCouponTypeByRestaurant(char couponType) {
 		String sql = "SELECT id, couponName, couponType FROM CouponCategory WHERE couponType = ?";
