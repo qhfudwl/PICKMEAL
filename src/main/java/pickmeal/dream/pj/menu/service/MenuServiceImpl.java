@@ -7,9 +7,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pickmeal.dream.pj.menu.dao.MenuDao;
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
+import pickmeal.dream.pj.menu.repository.MenuDao;
 
 @Service("menuService")
 public class MenuServiceImpl implements MenuService{
