@@ -1,4 +1,4 @@
-package pickmeal.dream.pj.member.dao;
+package pickmeal.dream.pj.member.repository;
 
 import java.util.List;
 
@@ -48,10 +48,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public boolean isMember(String email) {
+	public boolean isMemberByEmail(String email) {
 		String sql = "SELECT EXISTS (SELECT id from Member WHERE email=?)";
 		
 		return jt.queryForObject(sql, Boolean.class, email);
+	}
+
+	@Override
+	public boolean isMemberByNickName(String nickName) {
+		String sql = "SELECT EXISTS (SELECT id from Member WHERE nickName=?)";
+		
+		return jt.queryForObject(sql, Boolean.class, nickName);
 	}
 
 	@Override

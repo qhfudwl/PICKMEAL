@@ -164,9 +164,7 @@ function displayRestaurantInfo(lat, lng) {
 		
 			$.ajax({
 				url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
-				 + result[0].address.address_name,
-				x: latlng.getLng(),
-				y: latlng.getLat(),
+				 + result[0].address.address_name + "&x=" + latlng.getLng() + "&y=" + latlng.getLat(),
 				type: "get",
 				headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
 				dataType: "json",

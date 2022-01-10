@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
-import pickmeal.dream.pj.member.dao.MemberDao;
 import pickmeal.dream.pj.member.domain.FoodPowerPointItem;
 import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.repository.MemberDao;
 
 @Service("memberService")
 @Log
@@ -29,6 +29,8 @@ public class MemberServiceImpl implements MemberService {
 	public Member addMember(Member member) {
 		// 추가 전 사용자 타입 세팅
 		member.setMemberType('M');
+		// 추가 전 사용자 프로필 이미지 경로 세팅
+		member.setProfileImgPath("/pickmeal/resources/img/profile/nonUser.png");
 		// 사용자 추가
 		md.addMember(member);
 		
@@ -73,8 +75,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean isMember(String email) {
-		return md.isMember(email);
+	public boolean isMemberByEmail(String email) {
+		return md.isMemberByEmail(email);
+	}
+
+	@Override
+	public boolean isMemberByNickName(String nickName) {
+		return md.isMemberByNickName(nickName);
 	}
 
 	@Override

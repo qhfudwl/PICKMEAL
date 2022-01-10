@@ -1,4 +1,4 @@
-package pickmeal.dream.pj.member.dao;
+package pickmeal.dream.pj.member.repository;
 
 import java.util.List;
 
@@ -31,11 +31,18 @@ public interface MemberDao {
 	public List<Member> findAllMembers();
 	
 	/**
-	 * 이미 존재하는 id 인지 확인
+	 * 이미 존재하는 이메일 인지 확인
 	 * @param email
 	 * @return
 	 */
-	public boolean isMember(String email);
+	public boolean isMemberByEmail(String email);
+	
+	/**
+	 * 이미 존재하는 닉네임인지 확인
+	 * @param nickName
+	 * @return
+	 */
+	public boolean isMemberByNickName(String nickName);
 	
 	/**
 	 * 멤버 정보 수정
