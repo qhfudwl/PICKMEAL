@@ -10,12 +10,19 @@ $("#signUpBtn").click(function(e) {
 		infoChkArr[5] = 1;
 		errMsg.text("")
 		infoChk = true;
-	}
+	}	
 	let submitChk = false;
 	let arr = [1, 1, 1, 1, 1, 1];
 	if (JSON.stringify(infoChkArr) === JSON.stringify(arr)) {
 		submitChk = true;
 	} else {
+		for (let i = 0; i < infoChkArr.length; i++){
+			if (infoChkArr[i] == 0) {
+				$(".errMsg").eq(i).text("필수 입력값입니다.");
+			} else {
+				$(".errMsg").eq(i).text("");
+			}
+		}
 		submitChk = false;
 	}
 	
@@ -56,7 +63,14 @@ function checkSignUpInfo(signInfo, type, errMsg){
 				errMsg.text("");
 				infoChk = true;
 				if (type == "email") {
-					infoChkArr[0] = 1;
+					let pattern = new RegExp("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$");
+					if(pattern.test(signInfo)) { // 패턴에 맞을 때
+						infoChkArr[0] = 1;
+						errMsg.text("");
+					} else { // 패턴에 맞지 않을 때
+						infoChkArr[0] = 0;
+						errMsg.text("이메일 형식에 맞게 입력해주세요.");
+					}
 				} else if (type == "nickName"){
 					infoChkArr[3] = 1;
 				}

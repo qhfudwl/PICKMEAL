@@ -79,9 +79,18 @@ public class SignUpController {
 		
 		// 셋팅한 객체를 서비스로 보낸다.
 		member = ms.addMember(member);
+
+		// session에 들어갈 member
+		Member enterMember = new Member();
+		enterMember.setId(member.getId());
+		enterMember.setEmail(member.getEmail());
+		enterMember.setNickName(member.getNickName());
+		
+		log.info(String.valueOf(member.getId()));
+		
 		
 		// 완료 후 세션에 멤버를 넣어준다 (자동 로그인)
-		session.setAttribute("member", member);
+		session.setAttribute("member", enterMember);
 		
 		// 요청 정보를 버리고 리다이렉션으로 메인화면으로 보낸다.
 		return "redirect:/viewIndexMap";
