@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Menu {
 	private long id;
-	private String Menuname;
+	private String menuName;
 	private int weather;
 	private String imgPath;
 	private Menuclassify menuclassify;
@@ -16,16 +16,16 @@ public class Menu {
 		
 	}
 
-	public Menu(long id, String Menuname, int weather, String imgPath, Menuclassify menuclassify) {
+	public Menu(long id, String menuName, int weather, String imgPath, Menuclassify menuclassify) {
 		this.id = id;
-		this.Menuname = Menuname;
+		this.menuName = menuName;
 		this.weather = weather;
 		this.imgPath = imgPath;
 		this.menuclassify = menuclassify;
 	}
 	
-	public Menu(String Menuname, int weather, String imgPath, Menuclassify menuclassify) {
-		this.Menuname = Menuname;
+	public Menu(String menuName, int weather, String imgPath, Menuclassify menuclassify) {
+		this.menuName = menuName;
 		this.weather = weather;
 		this.imgPath = imgPath;
 		this.menuclassify = menuclassify;
@@ -33,7 +33,7 @@ public class Menu {
 	
 	@Override
 	public String toString() {
-		return "Menu [id=" + id + ", Menuname=" + Menuname + ", weather=" + weather + ", imgPath=" + imgPath
+		return "Menu [id=" + id + ", menuName=" + menuName + ", weather=" + weather + ", imgPath=" + imgPath
 				+ ", menuclassify=" + menuclassify + "]";
 	}
 }

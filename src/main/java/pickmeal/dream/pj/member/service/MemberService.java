@@ -35,7 +35,14 @@ public interface MemberService {
 	 * @param email
 	 * @return
 	 */
-	public boolean isMember(String email);
+	public boolean isMemberByEmail(String email);
+	
+	/**
+	 * 이미 존재하는 닉네임인지 확인
+	 * @param nickName
+	 * @return
+	 */
+	public boolean isMemberByNickName(String nickName);
 	
 	/**
 	 * 멤버 정보 수정

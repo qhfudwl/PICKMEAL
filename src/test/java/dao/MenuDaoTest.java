@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.config.DataSourceConfig;
-import pickmeal.dream.pj.menu.dao.MenuDao;
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
+import pickmeal.dream.pj.menu.repository.MenuDao;
 
 @SpringJUnitConfig(classes= {DataSourceConfig.class})
 @Log

@@ -9,6 +9,7 @@ header{
   min-width: 1280px;
   height: 80px;
   border-bottom: 1px solid #f4f4f4;
+  
 }
 
 
@@ -44,7 +45,7 @@ header{
     게시판메뉴
 */
 #gnb{
-  width: 500px;line-height: 80px;
+  width: 600px;line-height: 80px;
   margin: 0 auto;
   background-color: #8e6af4;
 }

@@ -5,43 +5,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>밥찡코 메뉴추천</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu/menu_game_popup.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<section id="popupScreen">
+    <section id="popupScreen">
         <h2>메뉴를 골라뿌자</h2>
         <h3>!묵츠묵츠!</h3>
-    <form action="menugamepopup" method="get">
+    <form action="menuGameSuccess" method="get">
         <div id="select1">
-            <div class="soupybox" id="soupybox1">
+            <div class="soupybox buttonbox" id="soupybox1">
                 <input class="soupyradio" type="radio" id="soupy0" name="soupy" value="0">국(물)있
                 <label for="soupy0"></label>
             </div>
-            <div class="soupybox" id="soupybox2">
+            <div class="soupybox buttonbox" id="soupybox2">
                 <input class="soupyradio" type="radio" id="soupy1" name="soupy" value="1">국(물)없
                 <label for="soupy1"></label>
             </div>
-            <div class="soupybox" id="soupybox3">
+            <div class="soupybox buttonbox" id="soupybox3">
                 <input class="soupyradio" type="radio" id="soupy2" name="soupy" value="2">상관없
                 <label for="soupy2"></label>
             </div>
-            <button id="select2veiw" class="btn" type="button">선택완료</button>
+            <button class="select2veiw btn" type="button">선택완료</button>
         </div>
         <div id="select2">
-            <div class="hot_icebox" id="hot_icebox1">
+            <div class="hot_icebox buttonbox" id="hot_icebox1">
                 <input class="hot_iceradio" type="radio" id="hot_ice0" name="hot_ice" value="0">뜨거운
                 <label for="hot_ice0"></label>
             </div>
-            <div class="hot_icebox" id="hot_icebox2">
+            <div class="hot_icebox buttonbox" id="hot_icebox2">
                 <input class="hot_iceradio" type="radio" id="hot_ice1" name="hot_ice" value="1">차가운
                 <label for="hot_ice1"></label>
             </div>
-            <div class="hot_icebox" id="hot_icebox3">
+            <div class="hot_icebox buttonbox" id="hot_icebox3">
                 <input class="hot_iceradio" type="radio" id="hot_ice2" name="hot_ice" value="2">상관없음
                 <label for="hot_ice2"></label>
             </div>
-            <button id="select3veiw" class="btn" type="button">선택완료</button>
+            <button class="select3veiw btn" type="button">선택완료</button>
         </div>
         <div id="select3">
             <div class="carbohydrateboxline1 carbohydratebox" id="carbohydratebox1">
@@ -64,7 +65,7 @@
                 <input class="carbohydrateradio" type="radio" id="carbohydrate4" name="carbohydrate" value="4">상관없음
                 <label for="carbohydrate4"></label>
             </div>
-            <button id="select4veiw" class="btn" type="button">선택완료</button>
+            <button class="select4veiw btn" type="button">선택완료</button>
         </div>
         <div id="select4">
             <div class="mainFoodbox mainFoodboxline1" id="mainFoodbox1">
@@ -83,22 +84,23 @@
                 <input class="mainFoodradio" type="radio" id="mainFood3" name="mainFood" value="3">상관없음
                 <label for="mainFood3"></label>
             </div>
-            <button id="select5veiw" class="btn" type="button">선택완료</button>
+            <button class="select5veiw btn" type="button">선택완료</button>
         </div>
         <div id="select5">
-            <div class="spicybox" id="spicybox1">
+            <div class="spicybox buttonbox" id="spicybox1">
                 <input class="spicyradio" type="radio" id="spicy0" name="spicy" value="0">매운거
                 <label for="spicy0"></label>
             </div>
-            <div class="spicybox" id="spicybox2">
+            <div class="spicybox buttonbox" id="spicybox2">
                 <input class="spicyradio" type="radio" id="spicy1" name="spicy" value="1">안매운거
                 <label for="spicy1"></label>
             </div>
-            <div class="spicybox" id="spicybox3">
+            <div class="spicybox buttonbox" id="spicybox3">
                 <input class="spicyradio" type="radio" id="spicy2" name="spicy" value="2">상관없음
                 <label for="spicy2"></label>
             </div>
-            <button id="select6veiw" class="btn" type="button">선택완료</button>
+            <input  type="submit" class="btn select6veiw" value="선택완료">
+
         </div>
     </form>
     </section>
@@ -142,7 +144,7 @@
                 }
             });
         
-            $("#select2veiw").click(function(){
+            $(".select2veiw").click(function(){
            if(!$('input:radio[name=soupy]:checked').val()){
                return false;
            }else{
@@ -152,7 +154,7 @@
         }
         
         })
-        $("#select3veiw").click(function(){
+        $(".select3veiw").click(function(){
             if(!$('input:radio[name=hot_ice]:checked').val()){
                return false;
            }else{
@@ -162,7 +164,7 @@
            }
             })
 
-        $("#select4veiw").click(function(){
+        $(".select4veiw").click(function(){
             if(!$('input:radio[name=carbohydrate]:checked').val()){
                return false;
            }else{
@@ -172,7 +174,7 @@
            }
         })
 
-        $("#select5veiw").click(function(e){
+        $(".select5veiw").click(function(e){
             if(!$('input:radio[name=mainFood]:checked').val()){
                 e.preventDefault();
                return false;
@@ -184,5 +186,5 @@
            }
         })
     </script>
-</body>
 </html>
+<!--             <button  class="select6veiw btn" >선택완료</button> -->

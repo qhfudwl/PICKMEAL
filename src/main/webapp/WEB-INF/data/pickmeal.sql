@@ -35,6 +35,7 @@ CREATE TABLE Attendance (
 )
 
 
+
 DROP TABLE Member;
 DROP TABLE FoodPowerPoint;
 DROP TABLE MannerTemperature;
@@ -58,6 +59,44 @@ CREATE TABLE Menu (
 	mainFood		INT, 
 	spicy			INT
 )
+SELECT * FROM Menu; 
+
+CREATE TABLE Restaurant (
+	id			BIGINT 			PRIMARY KEY AUTO_INCREMENT,
+	rType		BOOLEAN			DEFAULT FALSE,
+	lat			DOUBLE			NOT NULL,
+	lng			DOUBLE			NOT	NULL,
+	address		VARCHAR(100)	NOT NULL,
+	rName		VARCHAR(50)		NOT NULL
+)
+SELECT * FROM Restaurant;
+
+CREATE TABLE CouponCategory (
+	id			BIGINT			PRIMARY KEY AUTO_INCREMENT,
+	couponName	VARCHAR(20)		NOT NULL,
+	couponType	CHAR(1)			NOT NULL
+)
+INSERT INTO CouponCategory(couponName,couponType) VALUES("2000원 쿠폰",'A');
+INSERT INTO CouponCategory(couponName,couponType) VALUES("3000원 쿠폰",'B');
+INSERT INTO CouponCategory(couponName,couponType) VALUES("5000원 쿠폰",'C');
+SELECT * FROM CouponCategory;
+
+CREATE TABLE Coupon(
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
+	memberId		BIGINT			NOT NULL,
+	couponId		BIGINT			NOT NULL,
+	restaurantId	BIGINT			NOT NULL,
+	couponNumber	BIGINT			NOT NULL,
+	used			BOOLEAN			NOT NULL,
+	regDate			TIMESTAMP		NOT NULL,
+	FOREIGN KEY (memberId) REFERENCES Member (id),
+	FOREIGN KEY (couponId) REFERENCES CouponCategory (id),
+	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
+)
+
+SELECT * FROM Coupon;
+INSERT 
+
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
@@ -73,7 +112,7 @@ INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VAL
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말이",2,1,1,3,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말삼",0,0,1,3,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말사",1,1,0,1,2,1);
-INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말오",2,1,1,0,2,1);
+INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말오",2,1,1,0,1,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말육",1,1,1,2,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말칠",0,0,1,3,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말팔",0,1,0,1,2,1);
@@ -100,8 +139,10 @@ INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VAL
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말이십구",4,1,1,2,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말이삼십",4,1,0,1,2,1);
 INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("김말이삼십일",1,1,0,0,2,1);
-
-
+INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("찜닭",1,"/pickmeal/resources/img/menu/찜닭.jpg",1,1,3,2,1);
+INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("찜닭",1,"/pickmeal/resources/img/menu/찜닭.jpg",1,1,2,2,1);
+INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("오마카세",1,"/pickmeal/resources/img/menu/오마카세.jpg",2,2,4,3,2);
+DELETE FROM Menu WHERE id =45;
 
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',10);
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',11);
