@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import pickmeal.dream.pj.menu.command.MenuClassifyCommand;
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
 import pickmeal.dream.pj.menu.service.MenuService;
-import pickmeal.dream.pj.web.command.MenuClassifyCommand;
 
 
 @Controller

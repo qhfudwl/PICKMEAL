@@ -36,7 +36,11 @@ public class MenuServiceImpl implements MenuService{
 	@Override
 	public Menu findMenuByClassify(Menuclassify menuclassify) {
 		List<Menu> menulist = new ArrayList<Menu>();
-		
+		if(menuclassify.getSoupy()==2 && menuclassify.getHot_ice() == 2 && menuclassify.getCarbohydrate() == 4 && menuclassify.getMainFood() == 3 && menuclassify.getSpicy() == 2) {
+			menulist = md.findMenuByMenuName("오마카세");
+			return menulist.get(0);
+		}else {
+			
 		if(menuclassify.getSoupy() == 2) {
 			Random random = new Random();
 			int randomMenuIndex = random.nextInt(2);
@@ -79,6 +83,7 @@ public class MenuServiceImpl implements MenuService{
 
 			Menu randomMenu = menulist.get(randomMenuIndex);
 			return randomMenu;
+		}
 		}
 	}
 
