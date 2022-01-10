@@ -32,10 +32,25 @@ public class Member {
 	private double mannerTemperature;
 	private int attendence;
 	
+
+	public Member(long id) {
+		super();
+		this.id = id;
+	}
+	
+	/**
+	 * 프로필 이미지 경로 잡기
+	 * @param c
+	 */
 	public void makeProfileImgPath(Constants c) {
 		this.profileImgPath = "/pickmeal/resource/img/profile/" + c.getImgPath() + ".png";
 	}
 	
+	/**
+	 * 식력 포인트 적립
+	 * 회원 가입 제외 모든 활동에서는 ++ 한다.
+	 * @param spc
+	 */
 	public void saveFoodPowerPoint(SavingPointConstants spc) {
 		switch(spc) {
 		case SIGN_UP:

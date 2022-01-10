@@ -31,23 +31,25 @@ $("#signUpBtn").click(function(e) {
 	} else {
 		
 	}
-	
-	
 })
 
 let infoChk = false;
 let infoChkArr = [0, 0, 0, 0, 0, 0];
 
-$("#email").focusout(function() {
-	let email = $(this).val();
-	let errMsg = $(this).next();
-	checkSignUpInfo(email, "email", errMsg);
+$("#email").focus(function() {
+	$("#email").keyup(function() {
+		let email = $(this).val();
+		let errMsg = $(this).next();
+		checkSignUpInfo(email, "email", errMsg);
+	})
 })
 
-$("#nickName").focusout(function() {
-	let nickName = $(this).val();
-	let errMsg = $(this).next();
-	checkSignUpInfo(nickName, "nickName", errMsg);
+$("#nickName").focus(function() {
+	$("#nickName").keyup(function() {
+		let nickName = $(this).val();
+		let errMsg = $(this).next();
+		checkSignUpInfo(nickName, "nickName", errMsg);
+	})
 })
 
 // 이메일, 닉네임 중복확인
@@ -103,38 +105,42 @@ $("#passwdChk").focusin(function() {
 })
 
 // 비밀번호와 비밀번호확인의 일치 확인
-$("#passwdChk").focusout(function() {
-	let passwd = $("#passwd").val();
-	let passwdChk = $(this).val();
-	let errMsg = $(this).next();
-	if (passwd == passwdChk){
-		infoChk = true;
-		errMsg.text("");
-		infoChkArr[2] = 1;
-	} else {
-		errMsg.text("비밀번호가 일치하지 않습니다.");
-		infoChk = false;
-		infoChkArr[2] = 0;
-	}
+$("#passwdChk").focus(function() {
+	$("#passwdChk").keyup(function() {
+		let passwd = $("#passwd").val();
+		let passwdChk = $(this).val();
+		let errMsg = $(this).next();
+		if (passwd == passwdChk){
+			infoChk = true;
+			errMsg.text("");
+			infoChkArr[2] = 1;
+		} else {
+			errMsg.text("비밀번호가 일치하지 않습니다.");
+			infoChk = false;
+			infoChkArr[2] = 0;
+		}
+	})
 })
 
 // 생년월일 확인
-$("#birth").focusout(function() {
-	let birth = $(this).val();
-	let errMsg = $(this).next();
-	if (isNaN(birth)){ // 숫자가 아니라면
-		infoChk = false;
-		errMsg.text("숫자만 입력해주세요.");
-		infoChkArr[4] = 0;
-	} else { // 숫자일 경우
-		if (birth.length == 8) { // 8자리로 잘 적었다면
-			infoChk = true;
-			errMsg.text("");
-			infoChkArr[4] = 1;
-		} else { // 8자리가 아니라면
+$("#birth").focus(function() {
+	$("#birth").keyup(function() {
+		let birth = $(this).val();
+		let errMsg = $(this).next();
+		if (isNaN(birth)){ // 숫자가 아니라면
 			infoChk = false;
-			errMsg.text("생년월일은 8자리로 적어주세요.");
+			errMsg.text("숫자만 입력해주세요.");
 			infoChkArr[4] = 0;
+		} else { // 숫자일 경우
+			if (birth.length == 8) { // 8자리로 잘 적었다면
+				infoChk = true;
+				errMsg.text("");
+				infoChkArr[4] = 1;
+			} else { // 8자리가 아니라면
+				infoChk = false;
+				errMsg.text("생년월일은 8자리로 적어주세요.");
+				infoChkArr[4] = 0;
+			}
 		}
-	}
+	})
 })
