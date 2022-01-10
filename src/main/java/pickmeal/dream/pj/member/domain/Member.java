@@ -1,7 +1,7 @@
 package pickmeal.dream.pj.member.domain;
 
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 import static pickmeal.dream.pj.web.constant.Constants.*;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 
 import java.util.Date;
 
@@ -31,6 +31,10 @@ public class Member {
 	private int foodPowerPoint;
 	private double mannerTemperature;
 	private int attendence;
+	
+	public void makeProfileImgPath() {
+		this.profileImgPath = "/pickmeal/resource/img/profile/" + this.profileImgPath + ".png";
+	}
 	
 	public void saveFoodPowerPoint(SavingPointConstants spc) {
 		switch(spc) {

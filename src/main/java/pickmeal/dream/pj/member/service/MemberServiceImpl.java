@@ -1,9 +1,10 @@
 package pickmeal.dream.pj.member.service;
 
-import static pickmeal.dream.pj.web.constant.Constants.SIGN_UP_MANNER;
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.SIGN_UP;
+import static pickmeal.dream.pj.web.constant.Constants.*;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,9 @@ public class MemberServiceImpl implements MemberService {
 		// 추가 전 사용자 타입 세팅
 		member.setMemberType('M');
 		// 추가 전 사용자 프로필 이미지 경로 세팅
-		member.setProfileImgPath("/pickmeal/resources/img/profile/nonUser.png");
+		member.setProfileImgPath(LEVEL0.getImgPath());
+		member.makeProfileImgPath();
+		
 		// 사용자 추가
 		md.addMember(member);
 		
