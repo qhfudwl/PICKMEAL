@@ -8,15 +8,15 @@ import lombok.Setter;
 public class CouponCategory {
 	private long id;
 	private String couponName;
-	private char counponType;
+	private char couponType;
 	
 	public CouponCategory() {
 		
 	}
 
-	public CouponCategory(long id, String couponName, char counponType) {
+	public CouponCategory(long id, String couponName, char couponType) {
 		this.id = id;
 		this.couponName = couponName;
-		this.counponType = counponType;
+		this.couponType = couponType;
 	}
 }
