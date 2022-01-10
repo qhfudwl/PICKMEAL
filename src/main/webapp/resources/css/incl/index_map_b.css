@@ -1,16 +1,27 @@
 @charset "UTF-8";
 /* 전체 구성 */
 #content {
-	width: 90%; height: calc(100% - 80px);
-	display: flex; justify-content: space-around; align-items: center;
+	width: 1440px; height: calc(100% - 80px); position: relative;
+	/* background-color: #f00; */
+	/* display: flex; justify-content: space-around; align-items: center; */
 	margin: 0 auto;
 }
 /* 지도 */
-#mapWrap {height: 90%;}
+#mapWrap {
+	height: 90%; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+	
+}
+#mapWindow {
+	position: relative; top: 50%; transform: translateY(-50%);
+}
 #map {
 	width: 500px; height: 500px;
 	box-shadow: 0 0 10px #ffecec; border-radius: 50%;
 	overflow: hidden;
+}
+/* 범위 선택 버튼 */
+#buttonWrap {
+	text-align: right;
 }
 /* 지도 내 말풍선 */
 #sInfoW, #eInfoW {
@@ -21,17 +32,32 @@
 #eInfoW {background-color: #d4ffe7; border: 1px solid #2ecc71;}
 
 /* 식당 표시 */
-#restaurantWrap {height: 90%;}
+#restaurantWrap {
+	width: 375px; height: 90%; position: absolute; left: 627.5px; top: 50%; transform: translateY(-50%);
+	transition-duration: 0.5s; z-index: 1000;
+}
 #restaurantInfo {
-	width: 800px; height: 65%;
-	border: 5px solid #ffecec; border-radius: 10px;
-	overflow: hidden;
+	width: 100%; height: 65%; overflow: hidden;
+	border: 5px solid #ffecec; border-radius: 10px; background-color: #fff;
 }
 #findUrl, #restaurantUrl {
-	width: 100%; height: 100%; outline: none; border: 0;
+	width: 100%; height: 100%; outline: none; border: 0; border-radius: 10px;
+	position: relative; transform: translateX(-36.5%);
+}
+#restaurantWindow {
+	width: 1440px; height: 100%;
+}
+/* 식당 정보 열고 / 닫기 */
+#open {
+	width: 70px; height: 30px; outline: none; border: 0;  font-weight: bold;
+	background-color: #ffecec; color: #000; border-radius: 10px; cursor: pointer;
+	position: absolute; right: 0; top: -40px; transition-duration: 0.3s;
+}
+#open:hover {
+	background-color: #f23f3f; color: #fff;
 }
 /* 아무말 채팅 */
 #chatWrap {
-	width: 300px; height: 90%;
+	width: 300px; height: 90%; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
 	background-color: #ffecec; border-radius: 10px;
 }

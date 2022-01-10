@@ -176,6 +176,21 @@ function displayRestaurantInfo(lat, lng) {
 	};
 	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
 }
+
+// 보기 버튼 클릭 시 식당 정보 표시 section 커지기
+$("#open").click(function() {
+	if ($(this).val() == "open"){
+		$("#restaurantWrap").css({"width":"calc(100% - 10px)", left: "0"});
+		$("#restaurantUrl").css({"transform":"translateX(0%)"});
+		$(this).val("close");
+		$(this).text("닫기");
+	} else {
+		$("#restaurantWrap").css({"width":"375px", left: "627.5px"});
+		$("#restaurantUrl").css({"transform":"translateX(-36.5%)"});
+		$(this).val("open");
+		$(this).text("펼치기");
+	}
+})
 /*
 $("#gameDone").click(function() {
 	displayFindWay("서울시청", "광화문");
