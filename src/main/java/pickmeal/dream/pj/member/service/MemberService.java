@@ -57,10 +57,4 @@ public interface MemberService {
 	 * @return
 	 */
 	public boolean deleteMember(long id);
-	
-	/**
-	 * 마지막으로 추가된 member 가져오기
-	 * @return
-	 */
-	public Member findLastAddMember();
 }

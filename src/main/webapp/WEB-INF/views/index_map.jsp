@@ -39,7 +39,6 @@
 		</div>
 	</section>
 	<section id="chatWrap">
-	
 	</section>
 </section>
 </body>

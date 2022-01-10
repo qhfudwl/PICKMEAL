@@ -32,13 +32,13 @@ public class MemberServiceImpl implements MemberService {
 		member.setMemberType('M');
 		// 추가 전 사용자 프로필 이미지 경로 세팅
 		member.setProfileImgPath(LEVEL0.getImgPath());
-		member.makeProfileImgPath();
+		member.makeProfileImgPath(LEVEL0);
 		
 		// 사용자 추가
 		md.addMember(member);
 		
 		// 마지막으로 추가한 사용자 들고오기
-		Member m = findLastAddMember();
+		Member m = md.findLastAddMember();
 		
 		// 사용자에게 신뢰온도 세팅
 		m.saveMannerTemperature(SIGN_UP_MANNER);
@@ -97,11 +97,6 @@ public class MemberServiceImpl implements MemberService {
 	public boolean deleteMember(long id) {
 		md.deleteMember(id);
 		return false;
-	}
-
-	@Override
-	public Member findLastAddMember() {
-		return md.findLastAddMember();
 	}
 
 	@Override

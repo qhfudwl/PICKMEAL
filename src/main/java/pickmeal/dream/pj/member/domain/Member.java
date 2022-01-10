@@ -32,8 +32,8 @@ public class Member {
 	private double mannerTemperature;
 	private int attendence;
 	
-	public void makeProfileImgPath() {
-		this.profileImgPath = "/pickmeal/resource/img/profile/" + this.profileImgPath + ".png";
+	public void makeProfileImgPath(Constants c) {
+		this.profileImgPath = "/pickmeal/resource/img/profile/" + c.getImgPath() + ".png";
 	}
 	
 	public void saveFoodPowerPoint(SavingPointConstants spc) {
@@ -41,32 +41,8 @@ public class Member {
 		case SIGN_UP:
 			this.foodPowerPoint = SIGN_UP.getPoint();
 			break;
-		case ATTENDANCE:
-			this.foodPowerPoint += ATTENDANCE.getPoint();
-			break;
-		case ATTENDANCE_7DAYS:
-			this.foodPowerPoint += ATTENDANCE_7DAYS.getPoint();
-			break;
-		case ATTENDANCE_15DAYS:
-			this.foodPowerPoint += ATTENDANCE_15DAYS.getPoint();
-			break;
-		case ATTENDANCE_30DAYS:
-			this.foodPowerPoint += ATTENDANCE_30DAYS.getPoint();
-			break;
-		case PLAY_GAME:
-			this.foodPowerPoint += PLAY_GAME.getPoint();
-			break;
-		case CHECK_VISIT:
-			this.foodPowerPoint += CHECK_VISIT.getPoint();
-			break;
-		case REVIEW:
-			this.foodPowerPoint += REVIEW.getPoint();
-			break;
-		case WRITE_POST:
-			this.foodPowerPoint += WRITE_POST.getPoint();
-			break;
-		case WRITE_COMMENT:
-			this.foodPowerPoint += WRITE_COMMENT.getPoint();
+		default:
+			this.foodPowerPoint += spc.getPoint();
 			break;
 		}
 	}
@@ -79,17 +55,11 @@ public class Member {
 	 */
 	public void saveMannerTemperature(Constants c) {
 		switch(c) {
-		case GOOD:
-			this.mannerTemperature += GOOD.getPoint();
-			break;
-		case BAD:
-			this.mannerTemperature += BAD.getPoint();
-			break;
-		case NORMAl:
-			this.mannerTemperature += NORMAl.getPoint();
-			break;
 		case SIGN_UP_MANNER:
 			this.mannerTemperature = SIGN_UP_MANNER.getPoint();
+			break;
+		default: 
+			this.mannerTemperature += c.getPoint();
 			break;
 		}
 	}
