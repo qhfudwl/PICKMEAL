@@ -77,4 +77,10 @@ public class RestaurantController {
 	}
 	
 	
+	
+	@GetMapping("usePointPopup")
+	public String testUserPoint() {
+		return "/index2";
+	}
+	
 }
