@@ -1,4 +1,4 @@
-package pickmeal.dream.pj.menu.dao;
+package pickmeal.dream.pj.menu.repository;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class MenuDaoImpl implements MenuDao{
 	public void addMenu(Menu menu) {
 		String sql = "INSERT INTO Menu(menuName, weather, imgPath, soupy, hot_ice, carbohydrate, mainFood, spicy)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-		jt.update(sql, menu.getMenuname(),menu.getWeather(), menu.getImgPath(),
+		jt.update(sql, menu.getMenuName(),menu.getWeather(), menu.getImgPath(),
 				menu.getMenuclassify().getSoupy(), menu.getMenuclassify().getHot_ice(), menu.getMenuclassify().getCarbohydrate(),
 				menu.getMenuclassify().getMainFood(), menu.getMenuclassify().getSpicy());
 		
@@ -49,6 +49,22 @@ public class MenuDaoImpl implements MenuDao{
 	public List<Menu> findMenuBywheater(int weather) {
 		
 		return null;
+	}
+
+	@Override
+	public Menu findMenuById(long id) {
+		String sql ="SELECT id, menuName, weather, imgPath, soupy, hot_ice, carbohydrate, mainFood, spicy"
+				+ " FROM Menu WHERE id = ?";
+		Menu menu = jt.queryForObject(sql, new MenuRowMapper(), id);
+		return menu;
+	}
+
+	@Override
+	public List<Menu> findMenuByMenuName(String menuName) {
+		String sql ="SELECT id, menuName, weather, imgPath, soupy, hot_ice, carbohydrate, mainFood, spicy"
+				+ " FROM Menu WHERE menuName = ?";
+		List<Menu> menulist = jt.query(sql, new MenuRowMapper(),menuName);
+		return menulist;
 	}
 
 }

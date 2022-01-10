@@ -1,4 +1,4 @@
-package pickmeal.dream.pj.menu.dao;
+package pickmeal.dream.pj.menu.repository;
 
 import java.util.List;
 
@@ -14,4 +14,8 @@ public interface MenuDao {
 	List<Menu> findMenuByClassify(Menuclassify menuclassify);
 	
 	List<Menu> findMenuBywheater(int weather);
+	
+	Menu findMenuById(long id);
+	
+	List<Menu> findMenuByMenuName(String menuName);
 }

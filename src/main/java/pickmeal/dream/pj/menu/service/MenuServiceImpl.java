@@ -7,17 +7,19 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pickmeal.dream.pj.menu.dao.MenuDao;
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
+import pickmeal.dream.pj.menu.repository.MenuDao;
 
 @Service("menuService")
-public class MenuServiceIpml implements MenuService{
-	@Autowired
-	static MenuDao md;
-	@Autowired
-	static MenuService ms = new MenuServiceIpml();
+public class MenuServiceImpl implements MenuService{
 	
+	@Autowired
+	private MenuDao md;
+	
+	public MenuServiceImpl() {
+		
+	}
 	@Override
 	public void addMenu(Menu Menu) {
 		
@@ -34,7 +36,11 @@ public class MenuServiceIpml implements MenuService{
 	@Override
 	public Menu findMenuByClassify(Menuclassify menuclassify) {
 		List<Menu> menulist = new ArrayList<Menu>();
-		
+		if(menuclassify.getSoupy()==2 && menuclassify.getHot_ice() == 2 && menuclassify.getCarbohydrate() == 4 && menuclassify.getMainFood() == 3 && menuclassify.getSpicy() == 2) {
+			menulist = md.findMenuByMenuName("오마카세");
+			return menulist.get(0);
+		}else {
+			
 		if(menuclassify.getSoupy() == 2) {
 			Random random = new Random();
 			int randomMenuIndex = random.nextInt(2);
@@ -60,32 +66,29 @@ public class MenuServiceIpml implements MenuService{
 			int randomMenuIndex = random.nextInt(2);
 			menuclassify.setSpicy(randomMenuIndex);
 		}
-		System.out.println(menuclassify);
+		//System.out.println(menuclassify);
+		
 		
 		menulist = md.findMenuByClassify(menuclassify);
-		
-		Random random = new Random();
-		int randomMenuIndex = random.nextInt(menulist.size());
+		if(menulist.size() == 0) {
+			System.out.println("0개니까 오마카세" + menulist.size());
+			menulist = md.findMenuByMenuName("김말십삼");
+			Menu menu = new Menu();
+			menu = md.findMenuById(1);
+			return menulist.get(0);
+		}else {
+			System.out.println(menulist.size());
+			Random random = new Random();
+			int randomMenuIndex = random.nextInt(menulist.size());
 
-		Menu randomMenu = menulist.get(randomMenuIndex);
-		return randomMenu;
+			Menu randomMenu = menulist.get(randomMenuIndex);
+			return randomMenu;
+		}
+		}
 	}
 
 	@Override
 	public Menu findMenuBywheather(int weather) {
 		return null;
 	}
-	public static void main(String[] args) {
-		
-		Menuclassify menuclassify = new Menuclassify();
-		menuclassify.setSoupy(2);
-		menuclassify.setHot_ice(2);
-		menuclassify.setCarbohydrate(4);
-		menuclassify.setMainFood(3);
-		menuclassify.setSpicy(2);
-		System.out.println(menuclassify);
-		
-		ms.findMenuByClassify(menuclassify);
-	}
-
 }

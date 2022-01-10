@@ -1,99 +1,81 @@
 @charset "UTF-8";
 input[type=radio]{display: none;}
 p{font-size: 20px;}
-section{width: 650px; height: 600px; border: 3px solid #000;}
+section{width: 550px; height: 450px; border: 3px solid #000;}
 h2{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
 h3{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
 
+.buttonbox{position: relative; width: 120px; height: 100px; margin-top: 10px; float: left;
+    background-color: #f5f5f5; text-align: center; line-height: 100px; border-radius: 25px;
+    box-shadow: 3px 3px 3px black; margin-left: 45px; transition-duration: 0.3s;}
+.btn{ border-radius: 25px; box-shadow: 3px 3px 3px black; transition-duration: 0.1s;}
 /*
 1번째 선택창
 */
-#select1{ width: 650px; height: 400px;}
-.soupybox{ position: relative; width: 150px; height: 100px; margin:100px auto 0; float: left;
-    background-color: #f5f5f5; text-align: center; line-height: 100px; border-radius: 25px;
-    box-shadow: 3px 3px 3px black;}
-#soupybox1{margin-left: 50px;}
-#soupybox2{margin-left: 50px;}
-#soupybox3{margin-left: 50px;}
+#select1{ width: 550px; height: 400px; }
+.soupyradio:checked{margin-top: 152px; margin-left: 207px;}
 .soupybox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
 .soupyradio:checked + label {
 	border : 3px solid #f23f3f; }
-#select2veiw{width: 100px; height: 50px; margin-top: 50px; margin-left: 275px;}
+.select2veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
+.select2veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
 
 /*
 2번째 선택창
 */
-#select2{display: none; width: 650px; height: 400px;}
-.hot_icebox{ position: relative; width: 150px; height: 100px; margin:100px auto 0; float: left;
-    background-color: #f5f5f5; text-align: center; line-height: 100px; border-radius: 25px;
-    box-shadow: 3px 3px 3px black;}
-#hot_icebox1{margin-left: 50px;}
-#hot_icebox2{margin-left: 50px;}
-#hot_icebox3{margin-left: 50px;}
+#select2{display: none; width: 550px; height: 400px;}
 .hot_icebox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
 .hot_iceradio:checked + label {
 	border : 3px solid #f23f3f;}
-#select3veiw{width: 100px; height: 50px; margin-top: 50px; margin-left: 275px;}
+.select3veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
+.select3veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
 
 /*
 3번째 선택창
 */
-#select3{display: none; width: 650px; height: 400px; }
-.carbohydrateboxline1{position: relative; width: 150px; height: 100px; float: left;
-    margin:60px auto 0; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
-.carbohydrateboxline2{position: relative; width: 150px; height: 100px; float: left;
-     margin:20px auto 0; text-align: center; line-height: 100px; border-radius: 25px;box-shadow: 3px 3px 3px black;}
-#carbohydratebox1{margin-left: 50px;}
-#carbohydratebox2{margin-left: 50px;}
-#carbohydratebox3{margin-left: 50px;}
-#carbohydratebox4{margin-left: 150px;}
-#carbohydratebox5{margin-left: 50px;}
+#select3{display: none; width: 550px; height: 400px; }
+.carbohydrateboxline1{position: relative; width: 120px; height: 100px; float: left; background-color: #f5f5f5;
+    margin-top:10px; margin-left: 45px; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
+.carbohydrateboxline2{position: relative; width: 120px; height: 100px; float: left; background-color: #f5f5f5;
+     margin-top:20px; text-align: center; line-height: 100px; border-radius: 25px;box-shadow: 3px 3px 3px black;}
+#carbohydratebox4{margin-left: 125px;}
+#carbohydratebox5{margin-left: 45px;}
 .carbohydratebox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%;border-radius: 25px; box-sizing: border-box;}
 .carbohydrateradio:checked + label {
 	border : 3px solid #f23f3f;}
-#select4veiw{width: 100px; height: 50px; margin-top: 20px; margin-left: 275px;}
+.select4veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
+.select4veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
 
 
 /*
 4번째 선택창
 */
-#select4{display: none; width: 650px; height: 400px;}
-.mainFoodboxline1{position: relative; background-color: #f5f5f5; width: 150px; height: 100px; float: left;
-    margin:60px auto 0; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
-.mainFoodboxline2{position: relative; background-color: #f5f5f5; width: 150px; height: 100px; float: left;
-     margin:20px auto 0; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
-#mainFoodbox1{margin-left: 150px;}
-#mainFoodbox2{margin-left: 50px;}
-#mainFoodbox3{margin-left: 150px;}
-#mainFoodbox4{margin-left: 50px;}
+#select4{display: none; width: 550px; height: 400px;}
+.mainFoodboxline1{position: relative; background-color: #f5f5f5; width: 120px; height: 100px; float: left;
+    margin-top: 10px; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
+.mainFoodboxline2{position: relative; background-color: #f5f5f5; width: 120px; height: 100px; float: left;
+     margin-top:20px; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
+#mainFoodbox1{margin-left: 130px;}
+#mainFoodbox2{margin-left: 45px;}
+#mainFoodbox3{margin-left: 130px;}
+#mainFoodbox4{margin-left: 45px;}
 .mainFoodbox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%;border-radius: 25px; box-sizing: border-box;}
 .mainFoodradio:checked + label {
 	border : 3px solid #f23f3f; }
-#select5veiw{width: 100px; height: 50px; margin-top: 20px; margin-left: 275px;}
+.select5veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
+.select5veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
 
 /*
 5번째 선택창
 */
-#select5{display: none; width: 650px; height: 400px; }
-.spicybox{ position: relative; background-color: #f5f5f5; width: 150px; height: 100px; margin:100px auto 0; float: left;
-    text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
-#spicybox1{margin-left: 50px;}
-#spicybox2{margin-left: 50px;}
-#spicybox3{margin-left: 50px;}
+#select5{display: none; width: 550px; height: 400px; }
+#spicybox1{margin-left: 45px;}
+#spicybox2{margin-left: 45px;}
+#spicybox3{margin-left: 45px;}
 .spicybox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
-
 .spicyradio:checked + label {
 	border : 3px solid #f23f3f; }
-#select6veiw{width: 100px; height: 50px; margin-top: 50px; margin-left: 275px;}
+.select6veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
+.select6veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
 .activeradio{left: 5px; top:5px; box-shadow: none; background-color: #ffecec;}
 .soupybox:hover, .hot_icebox:hover, .carbohydratebox:hover, .mainFoodbox:hover, .spicybox:hover{background-color: #e6cfcf;}
-.btn{
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px black;
-    transition-duration: 0.3s;
-}
-
-.btn:active{
-    margin-left: 5px;
-    margin-top: 5px; box-shadow: none;
-}
