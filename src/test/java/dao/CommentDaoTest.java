@@ -45,7 +45,19 @@ public class CommentDaoTest {
 	@Transactional
 //	@Commit
 	public void findLastAddComment() {
-		cd.findLastAddComment('R');
+		cd.findLastAddComment(1, 'R');
+	}
+
+	@Test
+	@Transactional
+	public void isCommentById() {
+		Comment c = new Comment();
+		Posting p = new Posting();
+		p.setId(1);
+		p.setCategory('R');
+		c.setId(1);
+		c.setPosting(p);
+		log.info(String.valueOf(cd.isCommentById(c)));
 	}
 	
 //	@Test
@@ -82,7 +94,7 @@ public class CommentDaoTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	@Transactional
 //	@Commit
 	public void findAllCommentByPostId() {

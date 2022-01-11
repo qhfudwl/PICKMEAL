@@ -47,6 +47,9 @@ SELECT * FROM FoodPowerPoint;
 SELECT * FROM MannerTemperature;
 SELECT * FROM Attendance;
 
+SELECT SUM(point) FROM FoodPowerPoint;
+
+
 
 
 CREATE TABLE Menu (

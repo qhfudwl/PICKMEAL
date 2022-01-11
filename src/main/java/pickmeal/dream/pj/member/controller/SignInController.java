@@ -44,7 +44,8 @@ public class SignInController {
 			chkInfo = false;
 		} else { // 해당 아이디가 있을 경우
 			member = ms.findMemberByMemberEmail(memberCommand.getEmail());
-			if (memberCommand.getPasswd() != member.getPasswd()) { // 비밀번호 불일치 시
+			log.info(member.getPasswd());
+			if (!memberCommand.getPasswd().equals(member.getPasswd())) { // 비밀번호 불일치 시
 				chkInfo = false;
 			}
 		}
@@ -56,6 +57,9 @@ public class SignInController {
 		}
 		// 유효성 검사를 마친 후 사용자 정보 업데이트 필요
 		member = ms.signInMember(member);
+		
+		log.info(member.toString());
+		
 		// 필요한 정보만 setting
 		Member enterMember = new Member();
 		enterMember.setId(member.getId());

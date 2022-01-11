@@ -13,6 +13,13 @@ public interface MemberAchievementDao {
 	public void addFoodPowerPointItem(FoodPowerPointItem fppi);
 	
 	/**
+	 * 해당 사용자의 현재까지의 식력 포인트 합산 가져오기
+	 * @param memberId
+	 * @return
+	 */
+	public int sumFoodPowerPoint(long memberId);
+	
+	/**
 	 * 해당 멤버의 모든 식력 포인트 내역 불러오기
 	 * @param memberId
 	 * @return
