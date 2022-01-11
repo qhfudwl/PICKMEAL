@@ -9,6 +9,7 @@ CREATE TABLE Member (
 	profileImgPath	VARCHAR(100)	NOT NULL,
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP
 )
+INSERT INTO Member(memberType,email,passwd,nickName,birth,gender,profileImgPath) VALUES('A',"google@naver.com","12341234","정두환","19960630",'M',"프로필주소");
 
 CREATE TABLE FoodPowerPoint (
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,
@@ -49,36 +50,36 @@ SELECT * FROM Attendance;
 
 
 CREATE TABLE Menu (
-	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	menuName		VARCHAR(20),
-	weather			INT,	
-	imgPath			VARCHAR(100),
-	soupy			INT,
-	hot_ice			INT,
-	carbohydrate	INT,
-	mainFood		INT, 
-	spicy			INT
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,					--SQL 아이디
+	menuName		VARCHAR(20),												--메뉴의 이름
+	weather			INT,														--메뉴의 날씨값
+	imgPath			VARCHAR(100),												--메뉴의 사진
+	soupy			INT,														--메뉴의 국있/없
+	hot_ice			INT,														--메뉴의 뜨거움/차가움
+	carbohydrate	INT,														--메뉴의 밥/빵/면/떡
+	mainFood		INT, 														--메뉴의 고기/해물/채소
+	spicy			INT															--메뉴의 맵기/안맵기
 )
 SELECT * FROM Menu; 
 
 CREATE TABLE Restaurant (
-	id			BIGINT 			PRIMARY KEY AUTO_INCREMENT,
-	apiId		BIGINT			NOT NULL, 
-	rType		BOOLEAN			DEFAULT FALSE,
-	lat			DOUBLE			NOT NULL,
-	lng			DOUBLE			NOT	NULL,
-	address		VARCHAR(100)	NOT NULL,
-	rName		VARCHAR(50)		NOT NULL
+	id			BIGINT 			PRIMARY KEY AUTO_INCREMENT,						--SQL 아이디
+	apiId		BIGINT			UNIQUE KEY, 									--식당 고유 아이디
+	rType		BOOLEAN			DEFAULT FALSE,									--제휴/비제휴 제휴:true
+	lat			DOUBLE			NOT NULL,										--위도 값
+	lng			DOUBLE			NOT	NULL,										--경도 값
+	address		VARCHAR(100)	NOT NULL,										--식당 주소 값 
+	rName		VARCHAR(50)		NOT NULL										--식당 이름 값
 )
 DROP TABLE Restaurant;
-INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(1,true,31.0000,24.0000,"주소값이에욤","식당이름이에욤");
-INSERT INTO Restaurant(apiId,lat,lng,address,rName) VALUES(1,31.0000,24.0000,"주소값2에욤","식당2름이에욤");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(1,true,31.0000,24.0000,"원식이네집","원식이네집");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(1,false,31.0000,24.0000,"주소값2에욤","식당2름이에욤");
 SELECT * FROM Restaurant;
 
 CREATE TABLE CouponCategory (
-	id			BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	couponName	VARCHAR(20)		NOT NULL,
-	couponType	CHAR(1)			NOT NULL
+	id			BIGINT			PRIMARY KEY AUTO_INCREMENT,						--SQL 아이디
+	couponName	VARCHAR(20)		NOT NULL,										--쿠폰 카테고리 명
+	couponType	CHAR(1)			NOT NULL										--쿠폰 카테고리 타입
 )
 INSERT INTO CouponCategory(couponName,couponType) VALUES("2000원 쿠폰",'A');
 INSERT INTO CouponCategory(couponName,couponType) VALUES("3000원 쿠폰",'B');
@@ -87,14 +88,14 @@ SELECT * FROM CouponCategory;
 
 
 CREATE TABLE Coupon(
-	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	memberId		BIGINT			NOT NULL,
-	couponId		BIGINT			NOT NULL,
-	restaurantId	BIGINT			NOT NULL,
-	couponNumber	VARCHAR(13)		NOT NULL,
-	used			BOOLEAN			DEFAULT FALSE,
-	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (memberId) REFERENCES Member (id),
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,					--SQL 아이디
+	memberId		BIGINT			NOT NULL,									--Member 테이블 SQL 아이디
+	couponId		BIGINT			NOT NULL,									--CouponCategory 테이블 SQL 아이디
+	restaurantId	BIGINT			NOT NULL,									--Restaurant 테이블 SQL 아이디
+	couponNumber	VARCHAR(13)		NOT NULL,									--쿠폰번호 13자리
+	used			BOOLEAN			DEFAULT FALSE,								--사용/미사용 사용:true
+	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,		--쿠폰 발급 일자
+	FOREIGN KEY (memberId) REFERENCES Member (id),								--아래 쭉 포링키
 	FOREIGN KEY (couponId) REFERENCES CouponCategory (id),
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
 )
@@ -148,7 +149,6 @@ INSERT INTO Menu(menuName,weather,soupy,hot_ice,carbohydrate,mainFood,spicy) VAL
 INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("찜닭",1,"/pickmeal/resources/img/menu/찜닭.jpg",1,1,3,2,1);
 INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("찜닭",1,"/pickmeal/resources/img/menu/찜닭.jpg",1,1,2,2,1);
 INSERT INTO Menu(menuName,weather,imgPath,soupy,hot_ice,carbohydrate,mainFood,spicy) VALUES ("오마카세",1,"/pickmeal/resources/img/menu/오마카세.jpg",2,2,4,3,2);
-DELETE FROM Menu WHERE id =45;
 
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',10);
 INSERT INTO RestaurantPreference(restaurantId,gender,age) VALUES (1,'F',11);

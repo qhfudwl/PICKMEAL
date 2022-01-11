@@ -28,4 +28,13 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return restaurant;
 	}
 
+	@Override
+	public Restaurant findRestaurantById(long id) {
+		
+		String sql = "SELECT id, apiId, rType, lat, lng, address, rName"
+				+ " FROM Restaurant WHERE Id = ?";
+		Restaurant restaurant = jt.queryForObject(sql, new RestaurantRowMapper(), id);
+		return restaurant;
+	}
+
 }

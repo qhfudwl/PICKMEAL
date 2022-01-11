@@ -39,7 +39,7 @@ public class MenuServiceImpl implements MenuService{
 		if(menuclassify.getSoupy()==2 && menuclassify.getHot_ice() == 2 && menuclassify.getCarbohydrate() == 4 && menuclassify.getMainFood() == 3 && menuclassify.getSpicy() == 2) {
 			menulist = md.findMenuByMenuName("오마카세");
 			return menulist.get(0);
-		}else {
+		}else{
 			
 		if(menuclassify.getSoupy() == 2) {
 			Random random = new Random();
@@ -72,10 +72,10 @@ public class MenuServiceImpl implements MenuService{
 		menulist = md.findMenuByClassify(menuclassify);
 		if(menulist.size() == 0) {
 			System.out.println("0개니까 오마카세" + menulist.size());
-			menulist = md.findMenuByMenuName("김말십삼");
+			menulist = md.findMenuByMenuName("오마카세");
 			Menu menu = new Menu();
-			menu = md.findMenuById(1);
-			return menulist.get(0);
+			menu = menulist.get(0);
+			return menu;
 		}else {
 			System.out.println(menulist.size());
 			Random random = new Random();

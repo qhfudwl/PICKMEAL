@@ -25,6 +25,8 @@ public interface CouponDao {
 	
 	void addCoupon(Coupon coupon);
 	
+	public boolean isCouponByCouponNumber(String CouponNumber);
+	
 	
 	
 	

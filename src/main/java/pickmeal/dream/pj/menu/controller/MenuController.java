@@ -41,4 +41,12 @@ public class MenuController {
 		mav.setViewName("menu/menu_game_success");
 		return mav;
 	}
+	
+	@GetMapping("/menuStart")
+	public ModelAndView menuStart() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("menu/menu_game_startbutton");
+		return mav;
+	}
 }
