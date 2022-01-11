@@ -16,6 +16,10 @@ header{
 /*
     로고
 */
+.logoWrap{
+	/*position: absolute;*/
+	 
+}
 .logo{
   position: absolute;
   left: 20px;
@@ -24,6 +28,7 @@ header{
   color:#f23f3f;
   font-family: 'DungGeunMo';
   cursor: pointer;
+  
 }
 .logo:hover, .logo:focus{
  	animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; 
