@@ -16,7 +16,7 @@ public interface CommentDao {
 	 * 마지막으로 insert 된 댓글 가져오기
 	 * @return
 	 */
-	public Comment findLastAddComment(char category);
+	public Comment findLastAddComment(long memberId, char category);
 	
 	/**
 	 * 댓글 수정
@@ -30,6 +30,20 @@ public interface CommentDao {
 	 * @param id
 	 */
 	public void deleteComment(Comment comment);
+	
+	/**
+	 * 업데이트 할 댓글 불러오기 (전의 내용과 다른 지 확인해야한다)
+	 * @param comment
+	 * @return
+	 */
+	public Comment findCommentById(Comment comment);
+	
+	/**
+	 * 해당 댓글이 있는지 확인
+	 * @param comment
+	 * @return
+	 */
+	public boolean isCommentById(Comment comment);
 	
 	/**
 	 * 해당 사용자의 모든 댓글 들고오기

@@ -25,10 +25,11 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public Comment findLastAddComment(char category) {
+	public Comment findLastAddComment(long memberId, char category) {
 		String tableName = decideTableName(category);
-		String sql = "SELECT * FROM " + tableName + " WHERE id=LAST_INSERT_ID()";
-		return jt.queryForObject(sql, new CommentRowMapper());
+		String sql = "SELECT id, memberId, postId, content, regDate"
+				+ " FROM " + tableName + " WHERE id=LAST_INSERT_ID() AND memberId=?";
+		return jt.queryForObject(sql, new CommentRowMapper(), memberId);
 	}
 
 	@Override
@@ -45,6 +46,22 @@ public class CommentDaoImpl implements CommentDao {
 		String sql = "DELETE FROM " + tableName + " WHERE id=?";
 
 		jt.update(sql, comment.getId());
+	}
+
+	@Override
+	public Comment findCommentById(Comment comment) {
+		String tableName = decideTableName(comment.getPosting().getCategory());
+		String sql = "SELECT id, memberId, postId, content, regDate"
+				+ " FROM " + tableName + " WHERE id=?";
+		
+		return jt.queryForObject(sql, new CommentRowMapper(), comment.getId());
+	}
+
+	@Override
+	public boolean isCommentById(Comment comment) {
+		String tableName = decideTableName(comment.getPosting().getCategory());
+		String sql = "SELECT EXISTS (SELECT id from " + tableName + " WHERE id=?)";
+		return jt.queryForObject(sql, Boolean.class, comment.getId());
 	}
 
 	@Override
