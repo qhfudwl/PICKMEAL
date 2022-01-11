@@ -25,9 +25,9 @@ public class CommentServiceImpl implements CommentService {
 		cd.addComment(comment);
 		// 아이디랑 등록 날짜까지 한 것을 가져와야한다.
 		comment = cd.findLastAddComment(comment.getMember().getId(), comment.getPosting().getCategory());
-		// 멤버 셋팅
-		comment.setMember(ms.findMemberById(comment.getMember().getId()));
-		// 포스팅 셋팅 ★★★★★★★★★★★★★★★★★★★★★★★★★★ 언닝 추가해야해욤 ★★★★★★★★★★★★★★★★★★★★★★★★
+		// 멤버 셋팅 (필요한 값만 셋팅한다)
+		comment.setMember(doSettingMemberForComment(ms.findMemberById(comment.getMember().getId())));
+		// 포스팅 셋팅을 할 필요는 없다. (아이디만 알면 된다)
 		
 		return comment;
 	}
@@ -41,7 +41,8 @@ public class CommentServiceImpl implements CommentService {
 		}
 		// 업데이트 후
 		cd.updateComment(comment);
-		// 수정하기는 이미 멤버 및 포스팅 정보를 들고 있기 때문에 Member 와 Posting을 다시 셋팅할 필요 없다.
+		// member를 셋팅해서 들고간다.
+		comment.setMember(doSettingMemberForComment(ms.findMemberById(comment.getMember().getId())));
 		return comment;
 	}
 
@@ -69,13 +70,7 @@ public class CommentServiceImpl implements CommentService {
 		// memberId, foodpowerpoint에 따른 프로필이미지이다, mannertemperature, nickname 필요		
 		// 각 댓글에 대ㅐ한 posting 셋팅
 		// postId 필요 - 얘는 이미 있다.
-		Member member = ms.findMemberById(memberId);
-		Member enterMember = new Member(memberId);
-		enterMember.setFoodPowerPoint(member.getFoodPowerPoint()); // 식력 포인트를 받아서
-		enterMember.makeProfileImgPath(); // 프로필 이미지를 셋팅해준다.
-		enterMember.setMannerTemperature(member.getMannerTemperature());
-		enterMember.setNickName(member.getNickName());
-		
+		Member enterMember = doSettingMemberForComment(ms.findMemberById(memberId));		
 		// 모든 댓글에 멤버를 셋팅
 		for (Comment c : comments) {
 			c.setMember(enterMember);
@@ -86,18 +81,28 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Comment> findAllCommentByPostId(long postId, char category) {
 		List<Comment> comments = cd.findAllCommentByMemberId(postId, category);
-		// 각 댓글에 대해서 멤버를 반드시 셋팅해야한다.
-		Member enterMember = new Member();
 		for (Comment c : comments) {
-			// 해당 멤버의 모든 정보를 가져와서
-			Member member = ms.findMemberById(c.getMember().getId());
-			// 필요한 정보만 셋팅한다.
-			enterMember.setFoodPowerPoint(member.getFoodPowerPoint()); // 식력 포인트를 받아서
-			enterMember.makeProfileImgPath(); // 프로필 이미지를 셋팅해준다.
-			enterMember.setMannerTemperature(member.getMannerTemperature());
-			enterMember.setNickName(member.getNickName());
+			c.setMember(doSettingMemberForComment(ms.findMemberById(c.getMember().getId())));
 		}
 		return comments;
+	}
+	
+	/**
+	 * 댓글에 필요한 멤버를 셋팅하기 위한 메소드
+	 * 댓글에서만 사용된다
+	 * 완전한 멤버 객체를 인자로 넣어줘야한다.
+	 * @param member
+	 * @return
+	 */
+	private Member doSettingMemberForComment(Member member) {
+		Member enterMember = new Member();
+		// 필요한 정보만 셋팅한다.
+		enterMember.setFoodPowerPoint(member.getFoodPowerPoint()); // 식력 포인트를 받아서
+		enterMember.makeProfileImgPath(); // 프로필 이미지를 셋팅해준다.
+		enterMember.setMannerTemperature(member.getMannerTemperature()); // 신뢰 온도 셋팅
+		enterMember.setNickName(member.getNickName()); // 닉네임 셋팅
+		
+		return enterMember;
 	}
 
 }
