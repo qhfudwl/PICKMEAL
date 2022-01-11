@@ -40,7 +40,7 @@ public interface MemberAchievementService {
 	 * @param memberId
 	 * @return
 	 */
-	public double findMannerTemperatureByMemberId(long memberId);
+	public Member findMannerTemperatureByMemberId(Member member);
 	
 	/**
 	 * 멤버의 첫 출석 (회원가입 시 자동 로그인이기 때문에 1일 출석을 바로 올린다.)

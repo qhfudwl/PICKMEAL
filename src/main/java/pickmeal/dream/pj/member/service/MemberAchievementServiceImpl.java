@@ -48,8 +48,10 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	}
 
 	@Override
-	public double findMannerTemperatureByMemberId(long memberId) {
-		return mad.findMannerTemperatureByMemberId(memberId);
+	public Member findMannerTemperatureByMemberId(Member member) {
+		double mt = mad.findMannerTemperatureByMemberId(member.getId());
+		member.setMannerTemperature(mt);
+		return member;
 	}
 
 	@Override
@@ -91,7 +93,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 		// 식력 포인트 셋팅
 		member = sumFoodPowerPoint(member);
 		// 신뢰 온도 셋팅
-		member.setMannerTemperature(findMannerTemperatureByMemberId(member.getId()));
+		member = findMannerTemperatureByMemberId(member);
 		// 출석률 셋팅
 		member = findAttendanceByMemberId(member);
 		return member;
