@@ -19,16 +19,15 @@
 		<h3 class="hidden">지도 표시</h3>
 		<div id="mapWindow">
 			<div id="buttonWrap">
-				<button name="radius" value="300">300m</button>
-				<button name="radius" value="600">600m</button>
-				<button name="radius" value="900">900m</button>
+				<button name="radius" class="radius" value="300">300m</button>
+				<button name="radius" class="radius" value="600">600m</button>
+				<button name="radius" class="radius" value="900">900m</button>
 				<button id="gameDone">게임끝</button>
 			</div>
 			<p id="memberPosition"></p>
 			<div id="map"></div>
 		</div>
 	</section>
-		<%--<div id="direction"><iframe id="findUrl"></iframe></div> --%>
 	<section id="restaurantWrap">
 		<h3 class="hidden">식당 정보 표시</h3>
 		<div id="restaurantInfo">

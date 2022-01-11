@@ -68,7 +68,7 @@ if (navigator.geolocation) {
     displayMarker(locPosition, message);
 }
 
-$("button[name=radius]").click(function() {
+$(".radius").click(function() {
 	let diffM = Number($(this).val());
 	let json = {"nowLat" : nowLat, "nowLng" : nowLng, "diffM" : diffM};
 	
