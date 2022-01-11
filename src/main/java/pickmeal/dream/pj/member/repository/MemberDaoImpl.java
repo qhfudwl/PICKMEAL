@@ -80,7 +80,8 @@ public class MemberDaoImpl implements MemberDao {
 	 */
 	@Override
 	public Member findLastAddMember() {
-		String sql = "SELECT * FROM Member WHERE id=LAST_INSERT_ID()";
+		String sql = "SELECT id, memberType, email, passwd, nickName, birth, gender, profileImgPath, regDate"
+				+ " FROM Member WHERE id=LAST_INSERT_ID()";
 		
 //		String sql = "SELECT m.id, m.memberType, m.email, m.passwd, m.nickName, m.birth, m.gender, m.profileImgPath, m.regDate"
 //				+ ", mt.temperature FROM MannerTemperature AS mt INNER JOIN Member AS m"
