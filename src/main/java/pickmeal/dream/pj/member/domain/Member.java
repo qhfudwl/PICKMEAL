@@ -28,14 +28,42 @@ public class Member {
 	private char gender;
 	private String profileImgPath;
 	private Date regDate;
-	private int foodPowerPoint;
-	private double mannerTemperature;
-	private int attendence;
+	private int foodPowerPoint; // 테이블로부터 셋팅 필요
+	private double mannerTemperature; // 테이블로부터 셋팅 필요
+	private int attendance; // 테이블로부터 셋팅 필요
 	
-	public void makeProfileImgPath(Constants c) {
-		this.profileImgPath = "/pickmeal/resource/img/profile/" + c.getImgPath() + ".png";
+
+	public Member(long id) {
+		super();
+		this.id = id;
 	}
 	
+	/**
+	 * 식력 포인트에 따른 프로필 이미지 경로 잡기
+	 * @param c
+	 */
+	public void makeProfileImgPath() {
+		if (this.foodPowerPoint >= 50000) {
+			this.profileImgPath = LEVEL5.getImgPath();	
+		} else if (this.foodPowerPoint >= 15000) {
+			this.profileImgPath = LEVEL4.getImgPath();	
+		} else if (this.foodPowerPoint >= 5000) {
+			this.profileImgPath = LEVEL3.getImgPath();	
+		} else if (this.foodPowerPoint >= 1000) {
+			this.profileImgPath = LEVEL2.getImgPath();	
+		} else if (this.foodPowerPoint >= 300) {
+			this.profileImgPath = LEVEL1.getImgPath();	
+		} else {
+			this.profileImgPath = LEVEL0.getImgPath();	
+		}
+		this.profileImgPath = "/pickmeal/resource/img/profile/" + getProfileImgPath() + ".png";
+	}
+	
+	/**
+	 * 식력 포인트 적립
+	 * 회원 가입 제외 모든 활동에서는 ++ 한다.
+	 * @param spc
+	 */
 	public void saveFoodPowerPoint(SavingPointConstants spc) {
 		switch(spc) {
 		case SIGN_UP:

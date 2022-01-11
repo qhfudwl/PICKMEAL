@@ -38,7 +38,7 @@ public class SignUpController {
 		String check = null;
 		
 		if (signInfo.equals("")) {
-			check = "필수 입력값입니다.";
+			check = "";
 		} else {
 			if (type.equals("email")) {
 				if(!ms.isMemberByEmail(signInfo)) {

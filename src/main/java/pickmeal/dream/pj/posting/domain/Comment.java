@@ -16,8 +16,8 @@ import pickmeal.dream.pj.member.domain.Member;
 @AllArgsConstructor
 public class Comment {
 	private long id;
-	private long postId;
-	private Member writer;
+	private Posting posting;
+	private Member member;
 	private String content;
 	private Date regDate;
 }
