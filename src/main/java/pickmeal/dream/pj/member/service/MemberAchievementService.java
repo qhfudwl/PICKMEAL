@@ -72,5 +72,5 @@ public interface MemberAchievementService {
 	 * @param member
 	 * @return
 	 */
-	public Member setMemberInfo(Member member);  
+	public Member doSettingMemberInfo(Member member);  
 }

@@ -87,7 +87,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	}
 
 	@Override
-	public Member setMemberInfo(Member member) {
+	public Member doSettingMemberInfo(Member member) {
 		// 식력 포인트 셋팅
 		member = sumFoodPowerPoint(member);
 		// 신뢰 온도 셋팅

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.java.Log;
-import pickmeal.dream.pj.member.domain.FoodPowerPointItem;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.repository.MemberDao;
 
@@ -50,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 		mas.addAttendance(member);
 		
 		// 사용자 정보를 셋팅해서 반환
-		return mas.setMemberInfo(member);
+		return mas.doSettingMemberInfo(member);
 	}
 
 	@Override
@@ -127,7 +126,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		// 완료 후 모든 값을 셋팅한 사용자 정보를 반환한다.		
-		return mas.setMemberInfo(member);
+		return mas.doSettingMemberInfo(member);
 	}
 
 	@Override
