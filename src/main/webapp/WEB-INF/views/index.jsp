@@ -57,14 +57,15 @@
 		</div>
 	</section>
 	<!-- 포춘쿠키 -->
-
+			<c:if test="${not empty fortuneMessage }">
 			<div class="fortune">
 				<div class="fortune-left"></div>
 				<div class="fortune-right"></div>
 				<div class="fortune-message">
-					<span>You will be successful and happy</span>
+					<span>${fortuneMessage }</span>
 				</div>
 			</div>
+			</c:if>
 
 </body>
 </html>
