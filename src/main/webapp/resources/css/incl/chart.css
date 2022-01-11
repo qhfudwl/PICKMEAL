@@ -5,31 +5,34 @@
 	성별별 / 연령별
 	
 */
-
-.ageAndGenderGraphArea{
-	width:385px;
+.ageAndGenderGraphArea {
+	width: 385px;
 	height: 200px;
 }
 
 /*공통*/
-.storeSubInfoCom{
-	float:left;
+.storeSubInfoCom {
+	float: left;
 }
 
 /*성별별*/
-.storeSubInfo_ageWrap{
+.storeSubInfo_ageWrap {
 	position: relative;
-	width:60%;height: 200px;
+	width: 60%;
+	height: 200px;
 }
 
 /*연령별*/
-.storeSubInfo_genderWrap{
+.storeSubInfo_genderWrap {
 	position: relative;
-	width:40%; height: 200px;
+	width: 40%;
+	height: 200px;
 }
 /*크기 지정*/
-.myChartCom{
-	margin: 0 auto; width: 100%; height:200px;
+.myChartCom {
+	margin: 0 auto;
+	width: 100%;
+	height: 200px;
 }
 
 /**
@@ -37,10 +40,161 @@
 	방문자리뷰
 	
 */
-
-.userReviewGraphArea{
-	clear:both;
+.userReviewGraphArea {
+	clear: both;
 }
 
+.userReviewGraph ul {
+	width: 365px;
+	height: 190px;
+	overflow-y: hidden;
+}
+
+.userReviewGraph ul li {
+	position: relative;
+	z-index: 1;
+	width: 365px;
+	height: 45px;
+	line-height: 45px;
+	background: #fff4f4;
+	margin-bottom: 3px;
+	border-radius: 7px;
+}
+
+.userReviewDeepArea {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	height: 45px;
+	background: #ffe4e4;
+	border-radius: 7px;
+}
+
+.userReviewGraph img {
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+}
+
+.userReviewLeftSide {
+	display: flex;
+	align-items: center;
+	float: left;
+	padding-left: 15px;
+	box-sizing: border-box;
+}
+
+.countNum {
+	float: right;
+	padding-right: 18px;
+	box-sizing: border-box;
+	color: #f23f3f;
+	font-weight: 700;
+}
+
+.reviewText {
+	font-weight: 500;
+}
+
+.closeBtn {
+	display: block;
+	width: 365px;
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	color: #696969;;
+}
+
+.openBtn {
+	display: block;
+	width: 365px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.openBtn>img {
+	width: 20px;
+	height: 20px;
+}
+
+.closeReviewGraphWrap {
+	display: none;
+}
+
+/*
+
+	포춘쿠키
+
+*/
 
 
+.fortune {
+	width: 500px;
+	height: 200px;
+	display: block;
+	position: absolute;
+	transform-origin: 40% 50%;
+	top: 120px;
+	left: 150px;
+	transform: rotate(-10deg);
+	z-index : 1001;
+
+	/*display:none;*/
+}
+.fortune:hover{
+	cursor: pointer;
+}
+
+.fortune-left {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	left: 0;
+	background-image:
+		url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/77607/cookie-left.png");
+	background-repeat: no-repeat;
+	background-position: right center;
+	z-index: 1;
+}
+
+.fortune-right {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	left: 190px;
+	background-image:
+		url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/77607/cookie-right.png");
+	background-position: 20px 20px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	z-index: 3;
+}
+
+.fortune-message {
+	display: inline-block;
+	position: absolute;
+	left: -150px;
+	right: 180px;
+	font-family: courier;
+	top: 50px;
+	bottom: 80px;
+	font-style: italic;
+	z-index: 2;
+	overflow: hidden;
+	-webkit-transform: rotateZ(8deg);
+	transform: rotateZ(8deg);
+}
+
+.fortune-message span {
+	display: block;
+	background-color: #fff;
+	padding: 8px 65px 7px 15px;
+	white-space: nowrap;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+	transform-origin: right bottom;
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+}
