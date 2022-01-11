@@ -1,9 +1,5 @@
 package dao;
 
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.SIGN_UP;
-
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
@@ -13,79 +9,85 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.config.DataSourceConfig;
 import pickmeal.dream.pj.member.domain.Member;
-import pickmeal.dream.pj.member.repository.MemberDao;
-import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.posting.domain.Comment;
+import pickmeal.dream.pj.posting.domain.Posting;
+import pickmeal.dream.pj.posting.repository.CommentDao;
+import pickmeal.dream.pj.posting.service.CommentService;
 
 
 @SpringJUnitConfig(classes= {DataSourceConfig.class})
 @Log
 public class CommentDaoTest {
 	@Autowired
-	private MemberDao md;
+	private CommentDao cd;
 	
 	@Autowired
-	private MemberService ms;
+	private CommentService cs;
 	
-	@Test
+//	@Test
 	@Transactional
-//	@Commit
+	@Commit
 	public void addComment() {
-		Member m = new Member();
-		m.setMemberType('M');
-		m.setEmail("kimkim@naver.com");
-		m.setPasswd("12341234");
-		m.setNickName("구리1누나");
-		m.setBirth("19941108");
-		m.setGender('F');
-		m.setProfileImgPath("imgPath");
+		Posting p = new Posting(1);
+		p.setCategory('R');
+		Posting p2 = new Posting(1);
+		p2.setCategory('E');
+		Comment c = new Comment();
+		c.setPosting(p);
+//		c.setPosting(p2);
+		c.setMember(new Member(1));
+		c.setContent("마자요!! 이 집 일요일에만 닫는다구 하더니 월요일에 가보니깐 안열었더라구요!!");
+		cd.addComment(c);
 		
-		ms.addMember(m);
-		
-		log.info("김구리 completed");
 	}
 	
 //	@Test
 	@Transactional
 //	@Commit
 	public void findLastAddComment() {
-		Member m = md.findLastAddMember();
-		log.info(m.toString());
+		cd.findLastAddComment('R');
 	}
 	
 //	@Test
 	@Transactional
 	@Commit
 	public void updateComment() {
-		log.info(SIGN_UP.getKor());
-		log.info(String.valueOf(SIGN_UP.getPoint()));
+		Posting p = new Posting(1);
+		p.setCategory('R');
+		Comment c = new Comment();
+		c.setId(1);
+		c.setPosting(p);
+		c.setMember(new Member(1));
+		c.setContent("마자요!! 이 집 일요일에만 닫는다구 하더니 월요일에 가보니깐 안열었더라구요!!!!!");
+		cd.updateComment(c);
 	}
 	
 //	@Test
 	@Transactional
 	public void deleteComment() {
-		List<Member> members = md.findAllMembers();
-		for (Member m : members) {
-			log.info(m.toString());
-		}
-	}
-	
-//	@Test
-	@Transactional
-	@Commit
-	public void findAllCommentByMemberId() {
-		Member m = md.findMemberById(1);
-		
-		m.setEmail("상혁@naver.com");
-		
-		md.updateMember(m);
-		
-		log.info(md.findMemberById(1).toString());
+		Posting p = new Posting(1);
+		p.setCategory('R');
+		Comment c = new Comment();
+		c.setId(1);
+		c.setPosting(p);
+		cd.deleteComment(c);
 	}
 	
 //	@Test
 	@Transactional
 //	@Commit
+	public void findAllCommentByMemberId() {
+		for (Comment c : cd.findAllCommentByMemberId(1, 'R')) {
+			log.info(c.toString());
+		}
+	}
+	
+	@Test
+	@Transactional
+//	@Commit
 	public void findAllCommentByPostId() {
-		md.deleteMember(4);
+		for (Comment c : cd.findAllCommentByPostId(1, 'R')) {
+			log.info(c.toString());
+		}
 	}
 }

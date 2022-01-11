@@ -35,4 +35,27 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 		return mad.findMannerTemperatureByMemberId(memberId);
 	}
 
+	@Override
+	public void addAttendance(Member member) {
+		mad.addAttendance(member);
+		
+	}
+
+	@Override
+	public void updateAttendance(Member member) {
+		mad.updateAttendance(member);
+	}
+
+	@Override
+	public int checkAttendance(long memberId) {
+		return mad.checkAttendance(memberId);
+	}
+
+	@Override
+	public Member findAttendanceByMemberId(Member member) {
+		int attendance = mad.findAttendanceByMemberId(member.getId());
+		member.setAttendence(attendance);
+		return member;
+	}
+
 }

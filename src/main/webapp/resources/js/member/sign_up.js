@@ -26,10 +26,9 @@ $("#signUpBtn").click(function(e) {
 		submitChk = false;
 	}
 	
+	// 모든 걸 통과하고 나서 다시 비교 후 폼 파라미터를 넘긴다
 	if (infoChk == false || submitChk == false) {
 		e.preventDefault();
-	} else {
-		
 	}
 })
 

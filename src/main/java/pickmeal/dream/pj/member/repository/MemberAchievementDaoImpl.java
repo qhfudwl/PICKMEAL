@@ -44,4 +44,30 @@ public class MemberAchievementDaoImpl implements MemberAchievementDao {
 		
 		return jt.queryForObject(sql, Double.class, memberId);
 	}
+
+	@Override
+	public void addAttendance(Member member) {
+		String sql = "INSERT INTO Attendance(memberId) VALUES (?)";
+		jt.update(sql, member.getId());
+	}
+
+	@Override
+	public void updateAttendance(Member member) {
+		String sql = "UPDATE Member SET attendance=? WHERE memberId=?";
+		jt.update(sql, member.getAttendence(), member.getId());
+	}
+
+	@Override
+	public int checkAttendance(long memberId) {
+		String sql = "SELECT TIMESTAMPDIFF(DAY, a.regDate, CURDATE()) AS DIFF_DAY"
+				+ " FROM Attendance AS a WHERE memberId=?;";
+		return jt.queryForObject(sql, Integer.class, memberId);
+	}
+
+	@Override
+	public int findAttendanceByMemberId(long memberId) {
+		String sql = "SELECT attendance FROM Attendance WHERE memberId=?";
+		
+		return jt.queryForObject(sql, Integer.class, memberId);
+	}
 }

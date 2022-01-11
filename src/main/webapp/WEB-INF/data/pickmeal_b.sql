@@ -29,12 +29,13 @@ CREATE TABLE MannerTemperature (												-- 신뢰 온도
 CREATE TABLE Attendance (														-- 출석
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							-- SQL 아이디
 	memberId	BIGINT		NOT NULL,											-- 사용자 아이디
-	attendance	INT			NOT NULL,											-- 연속 출석 수
+	attendance	INT			NOT NULL	DEFAULT 1,											-- 연속 출석 수
 	regDate		TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,				-- 마지막 출석 날짜
 	CONSTRAINT	Attendance_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
 )
 
-
+SELECT TIMESTAMPDIFF(DAY, a.regDate, CURDATE()) AS DIFF_DAY FROM Attendance AS a WHERE memberId=36;
+SELECT attendance FROM Attendance WHERE memberId=37
 
 DROP TABLE Member;
 DROP TABLE FoodPowerPoint;

@@ -57,4 +57,11 @@ public interface MemberService {
 	 * @return
 	 */
 	public boolean deleteMember(long id);
+	
+	/**
+	 * 사용자 로그인
+	 * @param member
+	 * @return
+	 */
+	public Member signInMember(Member member);
 }

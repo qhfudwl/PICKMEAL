@@ -30,4 +30,29 @@ public interface MemberAchievementService {
 	 * @return
 	 */
 	public double findMannerTemperatureByMemberId(long memberId);
+	
+	/**
+	 * 멤버의 첫 출석 (회원가입 시 자동 로그인이기 때문에 1일 출석을 바로 올린다.)
+	 * @param member
+	 */
+	public void addAttendance(Member member);
+	
+	/**
+	 * 멤버 연속 출석 수 업데이트 (로그인 시)
+	 * @param member
+	 */
+	public void updateAttendance(Member member);
+	
+	/**
+	 * 로그인 시 오늘 날짜와 전의 로그인 날짜를 비교해서 반환
+	 * @return
+	 */
+	public int checkAttendance(long memberId);
+	
+	/**
+	 * 멤버 출석 수 셋팅해서 반환
+	 * @param memberId
+	 * @return
+	 */
+	public Member findAttendanceByMemberId(Member member);
 }

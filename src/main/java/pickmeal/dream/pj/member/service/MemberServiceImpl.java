@@ -58,10 +58,10 @@ public class MemberServiceImpl implements MemberService {
 		// 식력포인트 테이블에 넣기
 		mas.addFoodPowerPointItem(fppi);
 		
-		// 해당 사용자의 현재 신뢰온도를 가져와서 사용자에게 적용
-		m.setMannerTemperature(mas.findMannerTemperatureByMemberId(m.getId()));
+		// 출석에 1일로 찍는다. - 회원가입 시 바로 로그인하기 때문에
+		mas.addAttendance(m);
 		
-		// 마지막 사용자를 가져온다.
+		// 마지막 사용자를 반환
 		return m;
 	}
 
@@ -102,6 +102,33 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findMemberById(long id) {
 		return md.findMemberById(id);
+	}
+
+	@Override
+	public Member signInMember(Member member) {
+		// 멤버에게 출석수 세팅
+		member = mas.findAttendanceByMemberId(member);
+		// 연속 출석 수 확인
+		// 오늘 날짜와 비교하기 - 쿼리로 할 수 있다.
+		int diffDay = mas.checkAttendance(member.getId());
+		// 날짜 차이가 1로 나온다면 연속 출석 수 +1 해서 업데이트
+		// 날짜 차이가 1이 아니라면 무조건 1로 다시 셋팅
+		if (diffDay == 1) {
+			member.setAttendence(member.getAttendence()+1);
+		} else {
+			member.setAttendence(0);
+		}
+		// 테이블에도 업데이트
+		mas.updateAttendance(member);
+		
+		// 식력 포인트 업데이트
+		// 연속 출석 수에 따른 식력 포인트 업데이트
+		// 테이블에도 식력포인트 업데이트
+		
+		
+		// 완료 후 다시 사용자 정보를 db에서 불러온다.
+		
+		return null;
 	}
 
 }
