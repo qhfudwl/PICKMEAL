@@ -106,6 +106,7 @@ public class CouponCountroller {
 		System.out.println(session.getAttribute("member"));
 		System.out.println(session.getAttribute("restaurant"));
 		System.out.println(session.getAttribute("couponCategory"));
+		/*세션안에 멤버, 레스토랑, 쿠폰카테고리가 있는지 확인 후*/
 		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
 			System.out.println("세션에 3개 다 있음");
 		Member member = (Member) session.getAttribute("member");
@@ -126,6 +127,7 @@ public class CouponCountroller {
 		mav.setViewName("coupon/index_couponCategory_generate");
 		
 		return mav;
+		/*세션안에 세개중 하나가 없을 경우에는 자동 로그인기능만 할 수 있도록*/
 		}else {
 			System.out.println("세션에 3개중 뭐가 없음!");
 		}
