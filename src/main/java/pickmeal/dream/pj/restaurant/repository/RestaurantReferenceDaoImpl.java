@@ -3,11 +3,11 @@ package pickmeal.dream.pj.restaurant.repository;
 import javax.annotation.Resource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 
-@Component("RestaurantReferenceDao")
+@Repository("RestaurantReferenceDao")
 public class RestaurantReferenceDaoImpl implements RestaurantReferenceDao{
 
 	@Resource(name = "jdbcTemplate")

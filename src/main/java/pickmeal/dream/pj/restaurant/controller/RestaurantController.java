@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import pickmeal.dream.pj.message.service.MessageService;
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 import pickmeal.dream.pj.restaurant.domain.Review;
 import pickmeal.dream.pj.restaurant.service.RestaurantReferenceService;
@@ -26,6 +27,9 @@ public class RestaurantController {
 	@Autowired
 	ReviewService rs;
 	
+	@Autowired
+	MessageService ms;
+	
 	/*
 	 *  메인화면 불러오기
 	 * 
@@ -34,16 +38,18 @@ public class RestaurantController {
 	public ModelAndView index() {
 		
 		
-		//레스토랑 아이디 던져주기
+		//레스토랑 아이디 셋팅
 		long restaurantId =1;
 		
+		//포춘쿠키 메세지 셋팅
+		
+		String fortuneMessage = ms.getMessageByType('F');
 		
 		ModelAndView mav = new ModelAndView();
-		
-		
-		
-		////레스토랑 아이디 추가
+		//레스토랑 아이디 추가
 		mav.addObject("restaurantId",restaurantId);
+		//포춘메세지 추가
+		mav.addObject("fortuneMessage",fortuneMessage);
 		//View 이름 설정
 		mav.setViewName("index");
 		return mav;

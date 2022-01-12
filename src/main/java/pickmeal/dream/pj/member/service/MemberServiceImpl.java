@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 		// 날짜 차이가 1이 아니라면 무조건 1로 다시 셋팅
 		if (diffDay == 1) {
 			member.setAttendance(member.getAttendance()+1);
-		} else {
+		} else if (diffDay > 1) {
 			member.setAttendance(1);
 		}
 		// 테이블에도 업데이트
@@ -115,14 +115,17 @@ public class MemberServiceImpl implements MemberService {
 		// 식력 포인트 내역 추가
 		// 연속 출석 수에 따른 식력 포인트 테이블 추가 및 멤버 셋팅 / 프로필 레벨 표시
 		int attd = member.getAttendance(); // 연속 출석 수
-		if (attd == 1) {
-			member = mas.addFoodPowerPointItem(member, ATTENDANCE);
-		} else if (attd == 7) {
-			member = mas.addFoodPowerPointItem(member, ATTENDANCE_7DAYS);
-		} else if (attd == 15) {
-			member = mas.addFoodPowerPointItem(member, ATTENDANCE_15DAYS);
-		} else if (attd == 30) {
-			member = mas.addFoodPowerPointItem(member, ATTENDANCE_30DAYS);
+		// 날짜 차이가 0 이라면 ++하면 안된다.
+		if (diffDay != 0) {
+			if (attd == 1) {
+				member = mas.addFoodPowerPointItem(member, ATTENDANCE);
+			} else if (attd == 7) {
+				member = mas.addFoodPowerPointItem(member, ATTENDANCE_7DAYS);
+			} else if (attd == 15) {
+				member = mas.addFoodPowerPointItem(member, ATTENDANCE_15DAYS);
+			} else if (attd == 30) {
+				member = mas.addFoodPowerPointItem(member, ATTENDANCE_30DAYS);
+			}
 		}
 		
 		// 완료 후 모든 값을 셋팅한 사용자 정보를 반환한다.		
