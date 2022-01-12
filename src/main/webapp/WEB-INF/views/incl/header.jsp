@@ -8,7 +8,11 @@
 		<ul>
 			<li><form action="" method="">공지사항</form></li>
 			<li><form action="" method="">식당추천</form></li>
-			<li><form action="" method="">밥친구</form></li>
+			<li>
+            <form name="indexView" action="${pageContext.request.contextPath}/posting/viewTogetherEatingComment" method="get">
+            	<input type="submit" value="밥친구"/>
+            	밥친구
+            </form></li>
 		</ul>
 	</nav>
 	<nav id="snb">

@@ -58,13 +58,18 @@ public class SignInController {
 		// 유효성 검사를 마친 후 사용자 정보 업데이트 필요
 		member = ms.signInMember(member);
 		
-		log.info(member.toString());
 		
 		// 필요한 정보만 setting
 		Member enterMember = new Member();
 		enterMember.setId(member.getId());
 		enterMember.setEmail(member.getEmail());
 		enterMember.setNickName(member.getNickName());
+		enterMember.setAttendance(member.getAttendance());
+		enterMember.setFoodPowerPoint(member.getFoodPowerPoint());
+		enterMember.setMannerTemperature(member.getMannerTemperature());
+		enterMember.setProfileImgPath(member.getProfileImgPath());
+		
+		log.info(enterMember.toString());
 
 		// 업데이트 후 session 에 담아서 메인 화면으로 보낸다.
 		session.setAttribute("member", enterMember);

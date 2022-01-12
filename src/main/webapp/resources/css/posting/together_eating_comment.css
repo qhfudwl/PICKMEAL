@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 }
 /* 프로필 이미지 */
-.commentWrap img {width: 50px;}
+.commentWrap img {width: 50px; border-radius: 50%;}
 /* 닉네임, 신뢰온도, 시간, 목록의 content */
 .memberContent {width: 85%;}
 /* 멤버 정보 (닉네임, 신뢰온도), 시간 */
@@ -43,14 +43,16 @@ time {color: #7F7F7F; font-size: 13px;}
 }
 /* 팝업창(수정하기, 삭제하기) */
 .updateWrap {
-	position: absolute; top: 0; right: -70px; padding: 5px 10px;
-	box-shadow: 0 0 5px #808080;
-	display: flex; flex-flow: column wrap; justify-content: space-between; align-items: center;
+	position: absolute; top: 0; right: -90px; padding: 5px 10px;
+	display: none;
+	box-shadow: 0 0 5px #808080; background-color: #fff;
 }
 .updateWrap .update {
 	outline: none; border: 0; background-color: #fff; font-weight: bold; line-height: 25px;
-	font-size: 12px; cursor: pointer;
+	font-size: 12px; cursor: pointer; display: block;
+	transition-duration: 0.2s;
 } 
+.updateWrap .update:hover {color: #f23f3f;}
 /* 채팅하기 버튼 */
 .chat {
 	outline: none; border: 0; background-color: #fff; text-decoration: underline;

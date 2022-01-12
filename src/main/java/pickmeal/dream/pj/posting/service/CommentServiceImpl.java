@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.service.MemberAchievementService;
 import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.posting.domain.Comment;
 import pickmeal.dream.pj.posting.repository.CommentDao;
@@ -18,6 +19,9 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private MemberAchievementService mas;
 
 	@Override
 	public Comment addComment(Comment comment) {
@@ -42,7 +46,8 @@ public class CommentServiceImpl implements CommentService {
 		// 업데이트 후
 		cd.updateComment(comment);
 		// member를 셋팅해서 들고간다.
-		comment.setMember(doSettingMemberForComment(ms.findMemberById(comment.getMember().getId())));
+		Member member = ms.findMemberById(comment.getMember().getId());
+		comment.setMember(doSettingMemberForComment(member));
 		return comment;
 	}
 
@@ -70,7 +75,8 @@ public class CommentServiceImpl implements CommentService {
 		// memberId, foodpowerpoint에 따른 프로필이미지이다, mannertemperature, nickname 필요		
 		// 각 댓글에 대ㅐ한 posting 셋팅
 		// postId 필요 - 얘는 이미 있다.
-		Member enterMember = doSettingMemberForComment(ms.findMemberById(memberId));		
+		Member member = ms.findMemberById(memberId);
+		Member enterMember = doSettingMemberForComment(member);		
 		// 모든 댓글에 멤버를 셋팅
 		for (Comment c : comments) {
 			c.setMember(enterMember);
@@ -95,8 +101,10 @@ public class CommentServiceImpl implements CommentService {
 	 * @return
 	 */
 	private Member doSettingMemberForComment(Member member) {
+		member = mas.doSettingMemberInfo(member);
 		Member enterMember = new Member();
 		// 필요한 정보만 셋팅한다.
+		enterMember.setId(member.getId()); // id 필수!
 		enterMember.setFoodPowerPoint(member.getFoodPowerPoint()); // 식력 포인트를 받아서
 		enterMember.makeProfileImgPath(); // 프로필 이미지를 셋팅해준다.
 		enterMember.setMannerTemperature(member.getMannerTemperature()); // 신뢰 온도 셋팅
