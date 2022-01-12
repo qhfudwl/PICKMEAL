@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import pickmeal.dream.pj.message.domain.Message;
 import pickmeal.dream.pj.message.repository.MessageDao;
 
-@Service("MessageService")
+@Service("messageService")
 public class MessageServiceImpl implements MessageService{
 	
 	@Autowired

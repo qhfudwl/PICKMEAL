@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import pickmeal.dream.pj.message.domain.Message;
 
-@Repository("MessageDao")
+@Repository("messageDao")
 public class MessageDaoImpl implements MessageDao{
 	
 	@Autowired

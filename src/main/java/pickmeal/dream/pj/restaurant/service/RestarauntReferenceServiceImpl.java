@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 import pickmeal.dream.pj.restaurant.repository.RestaurantReferenceDao;
 
-@Service("RestarauntReferenceService")
+@Service("restarauntReferenceService")
 public class RestarauntReferenceServiceImpl implements RestaurantReferenceService {
 	
 	@Autowired

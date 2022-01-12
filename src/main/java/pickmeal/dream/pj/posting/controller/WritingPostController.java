@@ -23,8 +23,9 @@ public class WritingPostController {
 	public ModelAndView completeWritingPost(@ModelAttribute WritingPostCommand wpc) {
 		System.out.println("here"+wpc.getTime());
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("content", wpc.getTime());
 		mav.setViewName("posting/readingPost");
 		return mav;
 	}
+	
 }
