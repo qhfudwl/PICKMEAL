@@ -66,11 +66,6 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 
 	@Override
 	public void updateAttendance(Member member) {
-		// 먼저 두 날짜의 차이를 반환해서 차이가 0일 경우 update 를 하면 안된다.
-		int diff = checkAttendance(member.getId());
-		if (diff == 0) {
-			return;
-		}
 		mad.updateAttendance(member);
 	}
 

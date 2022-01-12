@@ -49,7 +49,7 @@ SELECT * FROM Attendance;
 
 SELECT SUM(point) FROM FoodPowerPoint;
 
-
+UPDATE Attendance SET attendance=1, regDate=CURRENT_TIMESTAMP() WHERE memberId=39
 
 
 CREATE TABLE Menu (
