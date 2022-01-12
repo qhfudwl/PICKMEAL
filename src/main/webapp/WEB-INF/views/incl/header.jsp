@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header>
 	<form action="index" method="get" class="logoWrap"><h1 class="logo">밥찡코</h1></form>
 	<nav id="gnb">

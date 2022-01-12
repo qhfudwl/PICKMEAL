@@ -13,8 +13,6 @@ import pickmeal.dream.pj.restaurant.domain.Restaurant;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Posting {
 	private long id;
 	private Member member;
@@ -27,6 +25,12 @@ public class Posting {
 	private int views;
 	private Date regDate;
 	
+	//생성자는 롬복보다는 필요한것만 만들어서 이유있게 쓸 것!
+	public Posting() {}
+
+	public Posting(long id, Member member, Restaurant restaurant, char category, String title, String content, int commentsNumber, int likes, int views, Date regDate) {
+		
+	}
 	public Posting(long id) {
 		super();
 		this.id = id;
