@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
+import pickmeal.dream.pj.coupon.domain.Coupon;
+import pickmeal.dream.pj.coupon.domain.CouponCategory;
+import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.command.MemberCommand;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.restaurant.domain.Restaurant;
 
 @Controller
 @Log
@@ -21,6 +25,9 @@ public class SignInController {
 	
 	@Autowired
 	MemberService ms;
+	/*쿠폰 서비스 추가*/
+	@Autowired
+	CouponService cs;
 	
 	@GetMapping("/member/viewSignIn")
 	public ModelAndView viewSignIn() {
@@ -73,7 +80,27 @@ public class SignInController {
 
 		// 업데이트 후 session 에 담아서 메인 화면으로 보낸다.
 		session.setAttribute("member", enterMember);
+		
+		/*쿠폰 서비스 추가*/
+		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
+		Member member2 = (Member) session.getAttribute("member");
+		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
+		
+		
+		Coupon coupon = new Coupon();
+		coupon.setMember(member2);
+		coupon.setRestaurant(restaurant);
+		coupon.setCouponCategory(couponCategory);
+		cs.addCoupon(coupon);
+		
+		session.removeAttribute("couponCategory");
+		
 		mav.setViewName("redirect:/viewIndexMap");
 		return mav;
+		}else {
+			mav.setViewName("redirect:/viewIndexMap");
+			return mav;
+		}
 	}
 }

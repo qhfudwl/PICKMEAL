@@ -13,7 +13,7 @@
     <section id="popupScreen">
         <h2>메뉴를 골라뿌자</h2>
         <h3>!묵츠묵츠!</h3>
-    <form action="menuGameSuccess" method="get">
+    <form id="formMenu"action="menuGameSuccess" method="get">
         <div id="select1">
             <div class="soupybox buttonbox" id="soupybox1">
                 <input class="soupyradio" type="radio" id="soupy0" name="soupy" value="0">국(물)있
@@ -27,7 +27,7 @@
                 <input class="soupyradio" type="radio" id="soupy2" name="soupy" value="2">상관없
                 <label for="soupy2"></label>
             </div>
-            <button class="select2veiw btn" type="button">선택완료</button>
+            <button class="select1veiw btn" type="button" onClick="window.close()">나가기</button>
         </div>
         <div id="select2">
             <div class="hot_icebox buttonbox" id="hot_icebox1">
@@ -42,7 +42,7 @@
                 <input class="hot_iceradio" type="radio" id="hot_ice2" name="hot_ice" value="2">상관없음
                 <label for="hot_ice2"></label>
             </div>
-            <button class="select3veiw btn" type="button">선택완료</button>
+            <button class="select2veiw btn" type="button">돌아가기</button>
         </div>
         <div id="select3">
             <div class="carbohydrateboxline1 carbohydratebox" id="carbohydratebox1">
@@ -65,7 +65,7 @@
                 <input class="carbohydrateradio" type="radio" id="carbohydrate4" name="carbohydrate" value="4">상관없음
                 <label for="carbohydrate4"></label>
             </div>
-            <button class="select4veiw btn" type="button">선택완료</button>
+            <button class="select3veiw btn" type="button">돌아가기</button>
         </div>
         <div id="select4">
             <div class="mainFoodbox mainFoodboxline1" id="mainFoodbox1">
@@ -84,7 +84,7 @@
                 <input class="mainFoodradio" type="radio" id="mainFood3" name="mainFood" value="3">상관없음
                 <label for="mainFood3"></label>
             </div>
-            <button class="select5veiw btn" type="button">선택완료</button>
+            <button class="select4veiw btn" type="button">돌아가기</button>
         </div>
         <div id="select5">
             <div class="spicybox buttonbox" id="spicybox1">
@@ -99,18 +99,22 @@
                 <input class="spicyradio" type="radio" id="spicy2" name="spicy" value="2">상관없음
                 <label for="spicy2"></label>
             </div>
-            <input  type="submit" class="btn select6veiw" value="선택완료">
+            <button class="select5-5veiw btn" type="button">돌아가기</button>
+            <input  type="submit" class="btn select5veiw" value="선택완료">
 
         </div>
     </form>
     </section>
     <script>
          $('.soupybox').click(function(e){
-            if($(this).hasClass('activeradio')){  
+            if($(this).hasClass('activeradio')){
             } else {
                 $('.soupybox').removeClass('activeradio');
                 $(this).addClass('activeradio');
                 }
+            
+            $("#select1").hide();
+            $("#select2").show();
             });
 
             $('.hot_icebox').click(function(e){
@@ -119,6 +123,8 @@
                 $('.hot_icebox').removeClass('activeradio');
                 $(this).addClass('activeradio');
                 }
+            $("#select2").hide();
+            $("#select3").show();
             });
 
             $('.carbohydratebox').click(function(e){
@@ -127,6 +133,8 @@
                 $('.carbohydratebox').removeClass('activeradio');
                 $(this).addClass('activeradio');
                 }
+            $("#select3").hide();
+            $("#select4").show();
             });
 
             $('.mainFoodbox').click(function(e){
@@ -135,7 +143,10 @@
                 $('.mainFoodbox').removeClass('activeradio');
                 $(this).addClass('activeradio');
                 }
+            $("#select4").hide();
+            $("#select5").show();
             });
+            
             $('.spicybox').click(function(e){
             if($(this).hasClass('activeradio')){  
             } else {
@@ -149,8 +160,8 @@
                return false;
            }else{
             console.log($('input:radio[name=soupy]:checked').val());
-            $("#select1").hide();
-            $("#select2").show();
+            $("#select2").hide();
+            $("#select1").show();
         }
         
         })
@@ -159,8 +170,8 @@
                return false;
            }else{
                 console.log($('input:radio[name=hot_ice]:checked').val());
-                $("#select2").hide();
-                $("#select3").show();
+                $("#select3").hide();
+                $("#select2").show();
            }
             })
 
@@ -169,20 +180,20 @@
                return false;
            }else{
             console.log($('input:radio[name=carbohydrate]:checked').val());
-            $("#select3").hide();
-            $("#select4").show();
+            $("#select4").hide();
+            $("#select3").show();
            }
         })
 
-        $(".select5veiw").click(function(e){
+        $(".select5-5veiw").click(function(e){
             if(!$('input:radio[name=mainFood]:checked').val()){
                 e.preventDefault();
                return false;
            }else{
             console.log($('input:radio[name=mainFood]:checked').val());
             console.log($('input:radio[name=spicy]:checked').val());
-            $("#select4").hide();
-            $("#select5").show();
+            $("#select5").hide();
+            $("#select4").show();
            }
         })
     </script>

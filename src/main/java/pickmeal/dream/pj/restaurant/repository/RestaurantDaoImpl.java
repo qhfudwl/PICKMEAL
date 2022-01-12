@@ -24,7 +24,16 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	public Restaurant findRestaurantByrType(Restaurant restaurant) {
 		String sql = "SELECT id, rType, lat, lng, address, rName"
 				+ " FROM Restaurant WHERE address = ?";
-		restaurant = jt.queryForObject(sql, new RestaurantRowMapper(), restaurant.isRType());
+		restaurant = jt.queryForObject(sql, new RestaurantRowMapper(), restaurant.isrType());
+		return restaurant;
+	}
+
+	@Override
+	public Restaurant findRestaurantById(long id) {
+		
+		String sql = "SELECT id, apiId, rType, lat, lng, address, rName"
+				+ " FROM Restaurant WHERE Id = ?";
+		Restaurant restaurant = jt.queryForObject(sql, new RestaurantRowMapper(), id);
 		return restaurant;
 	}
 

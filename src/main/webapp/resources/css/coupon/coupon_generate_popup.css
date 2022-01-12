@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@font-face {
+     font-family: 'DungGeunMo';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+		/*전체 or 제목*/
+        #couponPopupWrap{width: 600px; height: 500px;}
+        #mainName{width: 600px; margin: 10px auto 20px; text-align: center;}
+        #mainNameSpan{color:green;}
+        /* 쿠폰 정보 */
+        #couponWrap{width: 500px; height: 370px; margin: 0 auto;}
+        #couponInfoWrap{width: 500px; height: 200px; border-radius:30px; background-color: #f23f3f;
+        	padding: 10px;}
+        /* 가격/ 식당 정보 출력 */
+        #couponPriceWrap{float: left; width: 380px; height: 200px; margin-bottom: 30px;}
+        #restaurantName{text-indent: 10px; width: 380px; font-size: 23px; color:#fff;}
+        #restaurantNameSpan{font-family: 'DungGeunMo';}
+        #couponPrice{width: 380px; font-size: 50px; text-indent: 50px; line-height: 0px; color:#fff;}
+        #couponPriceSpan{font-family: 'SBAggroB';}
+        #orderPrice{width: 380px; height:30px; text-align: center; color:#fff;}
+        #limitPrice{font-family: 'SBAggroB';}
+        /*우리 회사 로고*/
+        #logoPlay{float: left; width: 100px;height: 200px; margin-left: 0px; margin-top: 0px;
+        border-left: 5px dashed #fff;}
+        #logo1{text-align: center; font-size: 30px; height: 30px; margin-top: 20px;}
+        #logo2{text-align: center; font-size: 30px; height: 30px; margin-top: 20px;}
+        #logo3{text-align: center; font-size: 30px; height: 30px; margin-top: 20px;}
+        .mainNameSpan1{color: orange; font-family: 'DungGeunMo';}
+        .mainNameSpan2{color: red; font-family: 'DungGeunMo';}
+        .mainNameSpan3{color: blue; font-family: 'DungGeunMo';}
+        /* 쿠폰 제약사항 */
+        #limitationWrap{float: left; width: 500px;height: 100px; border: 3px solid black; bottom: 10px;}
+        .mentAll{margin : 5px; padding : 0;}
+        .mentAll>span{color: red;}
+        #ment1{width: 450px;  font-size: 20px;}
+        #ment2{width: 450px;  font-size: 18px;}
+        #ment3{width: 450px;  font-size: 18px;}
+        
+        /*로그인완료시*/
+        #successBtn{width: 90px; height: 50px; border-radius: 50px; margin-left:255px; transition-duration: 0.3s;
+                box-shadow: 3px 3px 3px black;}
+        #successBtn:active{margin-top: 3px; margin-left: 258px; box-shadow: none;}
+        /*로그인 비완료시*/
+        #loginbtnWrap{float: left; width: 100px; height: 100px;}
+        #cancleBtnWrap{float: left; margin-left: 130px; width: 100px; height: 100px;}
+        #loginBtn{float: left; width: 90px; height: 50px; border-radius: 30px; margin-left:160px; box-shadow: 3px 3px 3px black;}
+        #loginBtn:active{margin-top: 3px; margin-left: 163px; box-shadow: none;}
+        #cancleBtn{float: left; width: 90px; height: 50px; border-radius: 30px;  margin-left:100px; box-shadow: 3px 3px 3px black;}
+        #cancleBtn:active{margin-top: 3px; margin-left: 103px; box-shadow: none;}
