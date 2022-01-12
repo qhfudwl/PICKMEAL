@@ -6,7 +6,9 @@ import pickmeal.dream.pj.posting.domain.Comment;
 
 public interface CommentService {
 	/**
-	 * 댓글 추가
+	 * 댓글 추가 후
+	 * 프로필 사진 / 식력 포인트 / 신뢰 온도 / 닉네임이 셋팅된 멤버를
+	 * 댓글 객체에 셋팅한다.
 	 * @param comment
 	 * @return
 	 */
@@ -14,6 +16,8 @@ public interface CommentService {
 	
 	/**
 	 * 댓글 수정
+	 * 프로필 사진 / 식력 포인트 / 신뢰 온도 / 닉네임이 셋팅된 멤버를
+	 * 댓글 객체에 셋팅한다.
 	 * @param comment
 	 * @return
 	 */
@@ -34,6 +38,8 @@ public interface CommentService {
 	
 	/**
 	 * 해당 사용자의 모든 댓글 들고오기
+	 * 프로필 사진 / 식력 포인트 / 신뢰 온도 / 닉네임이 셋팅된 멤버를
+	 * 댓글 객체에 셋팅한다.
 	 * @param memberId
 	 * @return
 	 */
@@ -41,6 +47,8 @@ public interface CommentService {
 	
 	/**
 	 * 해당 게시글의 모든 댓글 들고오기
+	 * 프로필 사진 / 식력 포인트 / 신뢰 온도 / 닉네임이 셋팅된 멤버를
+	 * 댓글 객체에 셋팅한다.
 	 * @param postId
 	 * @return
 	 */

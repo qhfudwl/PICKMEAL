@@ -92,6 +92,8 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	public Member doSettingMemberInfo(Member member) {
 		// 식력 포인트 셋팅
 		member = sumFoodPowerPoint(member);
+		// 식력 포인트에 따른 프로필 이미지 셋팅
+		member.makeProfileImgPath();
 		// 신뢰 온도 셋팅
 		member = findMannerTemperatureByMemberId(member);
 		// 출석률 셋팅
