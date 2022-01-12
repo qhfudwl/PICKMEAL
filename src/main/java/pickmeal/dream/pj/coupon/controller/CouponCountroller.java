@@ -55,26 +55,27 @@ public class CouponCountroller {
 		/*이거 나중에 게임 완료 후로 다 옴겨야해용 다 옴겨야행용*/
 		/*레스토랑이 제휴 레스토랑인지 비교 하기*/
 		Restaurant restaurant = cs.findRestaurantById(3);
-		if(restaurant.isRType()== true) {
+		System.out.println(restaurant);
+		System.out.println(restaurant.isrType());
+		
+		if(restaurant.isrType()== true) {
 			/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
 			CouponCategory couponCategory = cs.findCouponCategoryTest();
-			//Restaurant restaurant = cs.findRestaurantById(4);
-			Member member = ms.findMemberById(2);
 			/*쿠폰이 발급이 안되서 리턴값이 없을 경우 그냥 통과*/
+			System.out.println("트루값 받고 여기 들어옴");
 			if(couponCategory == null) {
 				System.out.println("없는쪽임 = " + couponCategory);
 			}else {
 				/*쿠폰이 발급이 되어 리턴값이 있을 경우는 세션에 저장 시켜준다.*/
 				session.setAttribute("couponCategory", couponCategory);
-				session.setAttribute("restaurant", restaurant);
-				session.setAttribute("member", member);
-				System.out.println("카테고리 세션등록 완료");
+				session.setAttribute("restaurant", restaurant);	
+				System.out.println(session.getAttribute("member"));
+				System.out.println("카테고리,식당 세션등록 완료");
 			//mav.addObject("couponCategory",couponCategory);
 			}
 		}else
 		{
-			System.out.println("쿠폰발급 불가식당"
-					);
+			System.out.println("쿠폰발급 불가식당");
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("coupon/index_couponCategory_generate");
@@ -102,9 +103,16 @@ public class CouponCountroller {
 	 */
 	@GetMapping("genericCoupon")
 	public ModelAndView GenericCoupon(HttpSession session) {
+		System.out.println(session.getAttribute("member"));
+		System.out.println(session.getAttribute("restaurant"));
+		System.out.println(session.getAttribute("couponCategory"));
+		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
+			System.out.println("세션에 3개 다 있음");
 		Member member = (Member) session.getAttribute("member");
 		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
+		System.out.println("들어가나요??");
+		System.out.println("있나요?" + session.getAttribute("couponCategory"));
 		
 		
 		Coupon coupon = new Coupon();
@@ -113,6 +121,14 @@ public class CouponCountroller {
 		coupon.setCouponCategory(couponCategory);
 		cs.addCoupon(coupon);
 		
+		session.removeAttribute("couponCategory");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("coupon/index_couponCategory_generate");
+		
+		return mav;
+		}else {
+			System.out.println("세션에 3개중 뭐가 없음!");
+		}
 		return null;
 	}
 	

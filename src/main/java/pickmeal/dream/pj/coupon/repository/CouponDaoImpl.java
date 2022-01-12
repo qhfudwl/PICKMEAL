@@ -24,7 +24,7 @@ public class CouponDaoImpl implements CouponDao{
 	 */
 	@Override
 	public CouponCategory generateCouponTypeByRestaurant(char couponType) {
-		String sql = "SELECT id, couponName, couponType FROM CouponCategory WHERE couponType = ?";
+		String sql = "SELECT id, couponName, couponType, limitPrice FROM CouponCategory WHERE couponType = ?";
 		CouponCategory couponCategory = jt.queryForObject(sql, new CouponCategoryRowMapper(), String.valueOf(couponType));
 		return couponCategory;
 	}
