@@ -27,7 +27,7 @@ time {color: #7F7F7F; font-size: 13px;}
 	height: 25px; width: 100%;
 }
 /* 더보기 버튼 */
-.moreWrap {position: relative;}
+.moreWrap {position: relative; width: 80px;}
 /* ...버튼 */
 .popUpdate {
 	height: 100%;
@@ -56,7 +56,7 @@ time {color: #7F7F7F; font-size: 13px;}
 /* 채팅하기 버튼 */
 .chat {
 	outline: none; border: 0; background-color: #fff; text-decoration: underline;
-	color: #F67E7E; font-weight: bold; cursor: pointer;
+	color: #F67E7E; font-weight: bold; cursor: pointer; text-align: right; width: 100%;
 }
 /* 댓글 쓰기 */
 #writeCommentWrap {padding: 5px 15px; width: 100%; box-sizing: border-box;}

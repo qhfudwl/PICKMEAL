@@ -72,6 +72,11 @@
 					</div>
 					<div class="profileAreaWrap navAlarmTextCom">
 						<ul class="profileArea">
+							<li>
+            <form name="indexView" action="${pageContext.request.contextPath}/member/viewSignIn" method="get">
+            	<input type="submit" value="로그인"/>
+            	로그인
+            </form></li>
 							<li><form action="" method="">회원가입</form></li>
 						</ul>
 					</div>
