@@ -24,11 +24,13 @@
 	<div id="writeArea" contentEditable="true">
 		안녕하세용
 	</div>
-	<form action="completeWritingPost" method="post">
+	<form action="completeWritingPost" method="post" enctype="multipart/form-data">
 		<input type="text" id="sample5_address" placeholder="주소"> <input
 			type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 		<!-- <input type="time" name="time" />  -->
 		<input type="text" name="time" id="text123" value="hi"/>
+		 <input type="file" name="file"/>
+		  <input multiple="multiple"  type="file" name="picFile" required="required">
 		<button type="button" onclick="onClickBtn()">버튼</button>
 		<button type="submit">버튼</button>
 	</form>
