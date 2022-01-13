@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* section */
 #commentsWrap {
-	width: 80%; margin: 0 auto;
+	width: 80%; margin: 20px auto;
 }
 /* 댓글 목록 영역 */
 .commentWrap {
@@ -65,7 +65,9 @@ time {color: #7F7F7F; font-size: 13px;}
 	color: #F67E7E; font-weight: bold; cursor: pointer; text-align: right; width: 100%;
 }
 /* 댓글 쓰기 */
-#writeCommentWrap {padding: 5px 15px; width: 100%; box-sizing: border-box;}
+#writeCommentWrap {
+	padding: 5px 15px 35px 15px; width: 100%; box-sizing: border-box;
+}
 #writerNickName {
 	color: #f23f3f; font-weight: bold; margin-bottom: 5px;
 }

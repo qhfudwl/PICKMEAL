@@ -15,6 +15,20 @@
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 	<section id="commentsWrap">
 		<h2 class="hidden">댓글</h2>
+		<c:if test="${not empty member}">
+			<form:form name="writeCmtForm" modelAttribute="commentCommand">
+				<section id="writeCommentWrap">
+					<h3 class="hidden">댓글 작성란</h3>
+					<p id="writerNickName">${member.nickName}</p>
+					<input type="hidden" name="memberId" value="${member.id}"/>
+					<input type="hidden" name="postId" value="1${posting.id}"/>
+					<input type="hidden" name="post_memberId" value="1${posting.member.id}"/>
+					<input type="hidden" name="category" value="R${posting.category}"/>
+					<textarea id="writeCmt" name="content" rows="4" cols="50" placeholder="댓글을 등록해주세요."></textarea>
+					<input type="button" name="update" value="등록" id="writeOk" />
+				</section>
+			</form:form>
+		</c:if>
 		<form name="viewCmtForm" action="" method="get">
 			<c:forEach var="c" items="${comments}">
 				<div class="commentWrap" id="commentWrap${c.id}">
@@ -55,20 +69,6 @@
 				</div>
 			</c:forEach>
 		</form>
-		<c:if test="${not empty member}">
-			<form:form name="writeCmtForm" modelAttribute="commentCommand">
-				<section id="writeCommentWrap">
-					<h3 class="hidden">댓글 작성란</h3>
-					<p id="writerNickName">${member.nickName}</p>
-					<input type="hidden" name="memberId" value="${member.id}"/>
-					<input type="hidden" name="postId" value="1${posting.id}"/>
-					<input type="hidden" name="post_memberId" value="1${posting.member.id}"/>
-					<input type="hidden" name="category" value="R${posting.category}"/>
-					<textarea id="writeCmt" name="content" rows="4" cols="50" placeholder="댓글을 등록해주세요."></textarea>
-					<input type="button" name="update" value="등록" id="writeOk" />
-				</section>
-			</form:form>
-		</c:if>
 	</section>
 </body>
 </html>
