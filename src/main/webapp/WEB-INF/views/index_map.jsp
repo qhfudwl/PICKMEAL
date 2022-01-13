@@ -19,6 +19,9 @@
 		<h3 class="hidden">지도 표시</h3>
 		<div id="mapWindow">
 			<div id="buttonWrap">
+				<form action="menuGamePopup" method="GET">
+					<input class= "menusubmit" type="submit" value="메뉴골라주기" id="menuchoicebtn">
+				</form>
 				<button name="radius" class="radius" value="300">300m</button>
 				<button name="radius" class="radius" value="600">600m</button>
 				<button name="radius" class="radius" value="900">900m</button>
@@ -40,5 +43,32 @@
 	<section id="chatWrap">
 	</section>
 </section>
+<script>
+$("#menuchoicebtn").click(function(e){
+	e.preventDefault();
+	popupMenu("menuGamePopup");
+})
+function popupMenu(Url){
+    let windowWidth = window.screen.width;
+    let windowHeight = window.screen.height;
+    
+    let popupX = (windowWidth/2) - 550;
+    let popupY = (windowHeight/2) -225;
+    
+    let popUpdateUrl = "http://localhost:8080/pickmeal/" + Url;
+    let popUpdateOption = "width=570px, height=470px, top=" + popupY + "px, left=" + popupX + "px";
+    let popUpdateTitle = "메뉴 게임"
+    
+    if(Url == "menuGamePopup") {
+        window.open(popUpdateUrl, popUpdateTitle, popUpdateOption);
+    }
+    let menuGamePopup = document.menuGamePopup;
+    menuGamePopup.target = popUpdateTitle;
+    menuGamePopup.action = popUpdateUrl;
+    menuGamePopup.method ="get";
+    
+    menuGamePopup.submit();
+}
+</script>
 </body>
 </html>

@@ -17,9 +17,9 @@ public interface CouponDao {
 	
 	CouponCategory generateCouponTypeByRestaurant(char couponType);
 	
-	List<Coupon> findAllCoupons();
+	CouponCategory findCouponCategoryByid(long id);
 	
-	void removeNotUsedByRegDate(boolean used, Date regDate);
+	List<Coupon> findAllCoupons();
 	
 	List<Coupon> findAllCouponsByMeneberId(long memberId);
 	
@@ -27,6 +27,17 @@ public interface CouponDao {
 	
 	public boolean isCouponByCouponNumber(String CouponNumber);
 	
+	void findAllCouponByusedAndregDate();
+	
+	Coupon changeUsedCouponById(long Id);
+	
+	List<Coupon> findUsedCouponsBymemberId(long memberId);
+	
+	List<Coupon> findUnusedCouponsBymemberId(long memberId);
+	
+	Coupon findCouponById(long id);
+	
+	Coupon findCouponByCouponNumber(String couponNumber);
 	
 	
 	

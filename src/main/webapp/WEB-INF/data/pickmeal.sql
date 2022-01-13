@@ -86,7 +86,7 @@ INSERT INTO CouponCategory(couponName,couponType,limitPrice) VALUES("5,000원",'
 SELECT * FROM CouponCategory;
 DROP TABLE CouponCategory;
 DELETE FROM CouponCategory WHERE id =1;
-
+SELECT id, couponName,couponType,limitPrice FROM CouponCategory WHERE id = 1;
 
 CREATE TABLE Coupon(
 	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,					#SQL 아이디
@@ -102,9 +102,26 @@ CREATE TABLE Coupon(
 )
 DROP TABLE Coupon;
 SELECT * FROM Coupon;
-INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(1,1,1,"11111111111");
-DELETE FROM Coupon WHERE id =1;
+/*삭제 메소드*/
+delete from Coupon where used=false and TIMESTAMPDIFF(DAY,regDate,CURDATE()) != 0;
+/*사용 SQL*/
+UPDATE Coupon SET used = true WHERE id = 34;
 
+/*사용한 쿠폰내역*/
+SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE memberId = 1 AND used = true;
+
+/*사용안한 쿠폰내역*/
+SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE memberId = 1 AND used = false;
+/*쿠폰 하나 찾아오기*/
+SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE Id = 1;
+
+INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(4,1,1,"11111111111");
+INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(4,2,1,"11121111111");
+INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(4,3,1,"11211111111");
+
+DELETE FROM Coupon WHERE id =14;
+SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE used = false;
+SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE couponNumber = 'N3O6Q05KUMT8X';
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,

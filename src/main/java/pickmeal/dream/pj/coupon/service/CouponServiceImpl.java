@@ -1,5 +1,6 @@
 package pickmeal.dream.pj.coupon.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import pickmeal.dream.pj.coupon.domain.Coupon;
 import pickmeal.dream.pj.coupon.domain.CouponCategory;
 import pickmeal.dream.pj.coupon.repository.CouponDao;
+import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.repository.MemberDao;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
 import pickmeal.dream.pj.restaurant.repository.RestaurantDao;
 
@@ -18,6 +21,8 @@ public class CouponServiceImpl implements CouponService {
 	private RestaurantDao rd;
 	@Autowired
 	private CouponDao cd;
+	@Autowired
+	private MemberDao md;
 	
 	public CouponServiceImpl() {
 		
@@ -124,11 +129,80 @@ public class CouponServiceImpl implements CouponService {
 		return coupon;
 	}
 
-
+	/**
+	 * 레스토랑 아이디로 레스토랑 찾아오기
+	 */
 	@Override
 	public Restaurant findRestaurantById(long id) {
 		Restaurant restaurant = rd.findRestaurantById(id);
 		return restaurant;
 	}
+
+	/**
+	 * 쿠폰 미사용 -> 사용으로 변경 해주기
+	 */
+	@Override
+	public Coupon changeUsedCouponById(long id) {
+		Coupon coupon = cd.changeUsedCouponById(id);
+		return coupon;
+	}
+
+	/**
+	 * 내가 받은 쿠폰 모두 출력해주기 (삭제된거 제외) ㅇ
+	 */
+	@Override
+	public List<Coupon> findAllCouponsByMemberId(long memberId) {
+		return cd.findAllCouponsByMeneberId(memberId);
+	}
+	
+	/**
+	 * 내가 사용한 쿠폰들 모두 보여주기 ㅇ
+	 */
+	@Override
+	public List<Coupon> findUsedConponsByMemberId(long memberId) {
+		List<Coupon> coupons = cd.findUsedCouponsBymemberId(memberId);
+		//coupons.get(0)
+		/*Member member = md.findMemberById(coupons.get(0).getMember().getId());
+		coupons.get(0).setMember(member);
+		Restaurant restaurant = rd.findRestaurantById(coupons.get(0).getRestaurant().getId());
+		coupons.get(0).setRestaurant(restaurant);
+		CouponCategory couponCategory = cd.findCouponCategoryByid(coupons.get(0).getCouponCategory().getId());
+		coupons.get(0).setCouponCategory(couponCategory);*/
+		System.out.println("들어오냐?");
+		System.out.println(coupons.get(0));
+		return cd.findUsedCouponsBymemberId(memberId);
+	}
+
+	/**
+	 * 내가 사용 안한 쿠폰들 모두 보여주기 ㅇ
+	 */
+	@Override
+	public List<Coupon> findUnusedCouponsByMemberId(long memberId) {
+		return cd.findUnusedCouponsBymemberId(memberId);
+	}
+
+	/**
+	 * 쿠폰 고유번호로 쿠폰 하나 찾아오기 
+	 */
+	@Override
+	public Coupon findCouponById(long id) {
+		
+		return cd.findCouponById(id);
+	}
+
+
+	@Override
+	public CouponCategory findCouponCategoryByid(long id) {
+		
+		return cd.findCouponCategoryByid(id);
+	}
+
+
+	@Override
+	public Coupon findCouponByCouponNumber(String couponNumber) {
+		
+		return cd.findCouponByCouponNumber(couponNumber);
+	}
+	
 
 }
