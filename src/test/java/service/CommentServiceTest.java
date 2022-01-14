@@ -24,7 +24,7 @@ public class CommentServiceTest {
 	@Transactional
 	@Commit
 	public void findAllCommentByPostId() {
-		List<Comment> comments = cs.findAllCommentByPostId(1, 'E');
+		List<Comment> comments = cs.findCommentsByPostId(1, 'E', 1);
 		
 		for(Comment c : comments) {
 			log.info(c.toString());

@@ -19,6 +19,8 @@ import pickmeal.dream.pj.posting.domain.Posting;
 import pickmeal.dream.pj.posting.service.CommentService;
 import pickmeal.dream.pj.web.util.Validator;
 
+import static pickmeal.dream.pj.web.constant.Constants.*;
+
 @Controller
 @Log
 public class CommentController {
@@ -33,12 +35,18 @@ public class CommentController {
 	public ModelAndView viewTogetherEatingComment() {
 		ModelAndView mav = new ModelAndView();
 		log.info("category 테스트로 넣어놓은 것 반드시 삭제할 것");
-		List<Comment> comments = cs.findAllCommentByPostId(1, 'R');
+		// 항상 pageNum은 1이 default 이다.
+		List<Comment> comments = cs.findCommentsByPostId(1, 'R', 1); // 게시물 댓글 1페이지
+		int allCmtNum = cs.countCommentByPostId(1, 'R'); // 해당 게시글의 총 댓글 수
+		// double 형으로 캐스팅을 한 후에 나누기를 해줘야 소수점이 제대로 나온다
+		int allPageNum = (int)Math.ceil((double)allCmtNum / COMMENT_LIST.getNum()); // 페이지 개수 구하기
 //		log.info(comments.toString());
 //		for(Comment c : comments) {
 //			log.info(c.toString());
 //		}
 		mav.addObject("comments", comments);
+		mav.addObject("allPageNum", allPageNum);
+		mav.addObject("viewPageNum", COMMENT_LIST.getNum());
 		mav.setViewName("posting/together_eating_comment");
 		return mav;
 	}
@@ -98,9 +106,21 @@ public class CommentController {
 		comment.setId(cc.getId());
 		comment.setPosting(new Posting(cc.getPostId(), cc.getCategory()));
 		comment.setMember(new Member(cc.getMemberId()));
-		
+
 		// 삭제하면서 boolean 값 보내기
 		return ResponseEntity.ok(cs.deleteComment(comment));
+	}
+	
+	// ajax 로 불러오기
+	@GetMapping("/posting/changeCommentPage")
+	public ResponseEntity<?> changeCommentPage(@RequestParam("postId") long postId,
+			@RequestParam("category") char category, @RequestParam("pageNum") int pageNum) {
+		// 총 페이지 개수
+		int allPageNum = cs.countCommentByPostId(postId, category);
+		// 15개씩 변경
+		List<Comment> comments = cs.findCommentsByPostId(postId, category, pageNum);
+//		log.info("실행");
+		return ResponseEntity.ok(comments);
 	}
 	
 	// 삭제 확인 팝업 띄우기

@@ -147,6 +147,10 @@ CREATE TABLE RecommendRestaurantComment (									# 식당 추천 댓글
 DROP TABLE RecommendRestaurantComment;
 SELECT * FROM RecommendRestaurantComment;
 
+SELECT COUNT(*) FROM RecommendRestaurantComment GROUP BY postId=1;
+
+SELECT * FROM RecommendRestaurantComment WHERE postId=1 LIMIT 15 OFFSET 29;
+
 INSERT INTO RecommendRestaurantComment(memberId,postId,content)
 VALUES(1,1,"마자요!! 이 집 일요일에만 닫는다구 하더니 월요일에 가보니깐 안열었더라구요!!");
 

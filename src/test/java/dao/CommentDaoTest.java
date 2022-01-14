@@ -98,7 +98,7 @@ public class CommentDaoTest {
 	@Transactional
 //	@Commit
 	public void findAllCommentByPostId() {
-		for (Comment c : cd.findAllCommentByPostId(1, 'E')) {
+		for (Comment c : cd.findCommentsByPostId(1, 'E', 1, 1)) {
 			log.info(c.toString());
 		}
 	}

@@ -56,6 +56,9 @@ public class SignInController {
 				chkInfo = false;
 			}
 		}
+		if (member.getMemberType() == 'D') { // 탈퇴한 회원
+			chkInfo = false;
+		}
 		if (!chkInfo) { // 유효성 검사에서 걸릴 경우 다시 로그인 화면으로 보낸다
 			mav.addObject("memberCommand", memberCommand);
 			mav.addObject("invalidInfo", "true");
