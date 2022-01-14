@@ -2,6 +2,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<% 
+	String pageNum = request.getParameter("pageNum");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,16 +60,20 @@
 		</form>
 		<input type="hidden" value="${viewPageNum}" id="viewPageNum" />
 		<input type="hidden" value="${allPageNum}" id="allPageNum"/>
+		<input type="hidden" value="${allCmtNum}" id="allCmtNum"/>
+		<input type="hidden" value="<%=pageNum %>" id="pageNum"/>
 		<section id="cmtBtnWrap">
+			<button type="button" id="firstPage">&lt;&lt;</button>
 			<button type="button" id="leftPage">&lt;</button>
 			<div id="cmtPageNumWrap">
 				<div id="pageWrap">
 					<c:forEach begin="1" end="${allPageNum}" varStatus="status">
-						<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" onmouseenter="changePageNumBtnColor(this);" type="button" name="pageNum" class="pageNum pageNum${status.count}" value="${status.count}">${status.count}</button>
+						<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="pageNum" class="pageNum pageNum${status.count}" value="${status.count}">${status.count}</button>
 					</c:forEach>
 				</div>
 			</div>
 			<button type="button" id="rightPage">&gt;</button>
+			<button type="button" id="lastPage">&gt;&gt;</button>
 		</section>
 		<form:form name="writeCmtForm" modelAttribute="commentCommand">
 			<input type="hidden" name="memberId" value="${member.id}"/>

@@ -18,9 +18,9 @@ function displayUpdate(a) {
 	}
 }
 
-// 현재 마지막 페이지에 몇개가 추가되었는지 알 수 있도록 하는 변수
-let addCmtLastPage = 0;
 // 댓글 쓰기
+let allCmtNum = Number($("#allCmtNum").val()); // 총 댓글 수
+let allPageNum = Number($("#allPageNum").val()); // 모든 페이지 개수
 $("#writeOk").click(function(e) {
 	e.preventDefault();
 	let formData = $("form[name=writeCmtForm]").serialize(); // 폼 데이터
@@ -28,10 +28,10 @@ $("#writeOk").click(function(e) {
 	let postMemberId = $("input[name=post_memberId]").val(); // 글쓴이 아이디
 	let postId = $("input[name=postId]").val(); // 게시물 아이디
 	let postCategory = $("input[name=category]").val(); // 게시물 카테고리
-	let allPageNum = $("#allPageNum").val(); // 모든 페이지 개수
 	let pageNum = $("button[name=pageNum]").val(); // 현재 페이지 넘버
 	let commentWrapNum = $(".commentWrap").length; // 현재 표시된 댓글 수
 	let viewPageNum = $("#viewPageNum").val(); // 표시해야할 댓글 목록 수
+	let pageNumber = $(".pageNum").length; // 버튼의 개수
 	
 // 마지막 페이지가 아니라면 추가하면 안된다.
 // 만일 현재 페이지에 댓글이 댓글 목록 수만큼 있다면 추가하면 안된다.
@@ -42,7 +42,7 @@ $("#writeOk").click(function(e) {
 		type: "post",
 		data: formData,
 		success: function(data) {
-			if (pageNum < allPageNum && commentWrapNum < viewPageNum) {
+			if (pageNum <= allPageNum && commentWrapNum < viewPageNum) {
 				if (data != "empty") {
 					let moreHtml;
 					let chatHtml;
@@ -85,17 +85,22 @@ $("#writeOk").click(function(e) {
 					'</div>'
 					);
 				}
-			} else if (commentWrapNum == viewPageNum && addCmtLastPage == 0) {
-				addCmtLastPage++;
-				let addPageNum = Number(allPageNum) + 1;
+			} else if (commentWrapNum == viewPageNum && allCmtNum % 5 == 0) {
+				console.log("버튼 새로 만들기 모든 페이지 수 : " + allPageNum)
+				let addPageNum = ++allPageNum;
 				$("#pageWrap").append(
 					'<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="pageNum" class="pageNum pageNum' + addPageNum +  
 					'" value="' + addPageNum + '">' + addPageNum + '</button>'
 				)
-				if (addCmtLastPage == viewPageNum) {
-					addCmtLastPage = 0;
+				movePageNumber("plus");
+				if (pageNumber != 0 && pageNumber % 10 == 0) {
+					$("#rightPage").show();
 				}
 			}
+			allCmtNum++;
+			console.log("현재 댓글 수 : " + allCmtNum)
+			console.log("모든 페이지 수 : " + allPageNum)
+			
 			$("#writeCmt").val("");
 		},
 		error: function() {
@@ -154,6 +159,7 @@ function deleteComment(a) {
 	let category = $("input[name=category]").val();
 	let postId = $("input[name=postId]").val();
 	let memberId = $("#cmtMemberId" + id).val();	
+	let pageNumber = $(".pageNum").length; // 버튼의 개수
 	let json = {"id": id, "category": category, "postId": postId, "memberId": memberId};
 	$.ajax({
 		url: "deleteComment",
@@ -163,6 +169,8 @@ function deleteComment(a) {
 		success: function(data) {
 			if (data == true) {
 				$("#commentWrap" + id).remove();
+				allCmtNum--;
+				console.log("현재 댓글 수 : " + allCmtNum)
 				let viewCmt = $(".commentWrap").length; // 현재 화면에 보이는 댓글 수
 				if (viewCmt == 0) {
 					$(".pageNum:last-of-type").remove();
@@ -170,19 +178,35 @@ function deleteComment(a) {
 						$(".pageNum:first-of-type").trigger("click");
 					} else if (clickPageBtn == (Number($(".pageNum:last-of-type").val())+1)) { // 현재 페이지가 마지막 페이지이면
 						$(".pageNum:last-of-type").trigger("click");
+						allPageNum--;
 					} else {
 						$(".pageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
 					}
+					if (pageNumber != 1 && pageNumber % 10 == 1) {
+						$("#leftPage").trigger("click");
+					}
+				} else {
+					$(".pageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
 				}
+				
+				movePageNumber("minus");
 			}
 		}
 	})
 }
 
 // 페이지 로드 시 항상 댓글의 첫번 째 페이지가 들어온다.
-// 그렇기 때문에 버튼도 1번을 on
+// 하지만 사용자가 직접 번호를 적었을 때도 불러올 수 있어야가힉 때문에 
+// url의 pageNum 을 받아서 해당 버튼으로 갈 수 있도록 해야한다
 window.addEventListener("load", function() {
-	$(".pageNum1").css({"text-decoration": "underline", "color":"#f23f3f"});
+	let pageNum = $("#pageNum").val() // 현재 페이지 번호를 받아서 
+	let pageNumber = $(".pageNum").length; // 버튼의 개수
+	$(".pageNum" + pageNum).trigger("click");
+	if (pageNum > 10 && pageNumber > 10) {
+		for (let i=0; i<(Math.floor(pageNum / 10.0)); i++) {
+			$("#rightPage").trigger("click");
+		}
+	}
 })
 
 // 버튼 누를 시 해당 버튼이 on 되도록 한다.
@@ -190,6 +214,7 @@ function changePageNumBtnColor(a) {
 	$(".pageNum").css({"text-decoration": "none", "color":"#000"});
 	$(a).css({"text-decoration": "underline", "color":"#f23f3f"});
 }
+
 
 //let state = 0;
 // 버튼 누를 시 화면 전환이 되듯이 ajax로 다음 행부터 DB에서 가져오기
@@ -283,6 +308,14 @@ $("#leftPage").click(function() {
 $("#rightPage").click(function() {
 	movePageNumber("right");
 })
+// << 버튼
+$("#firstPage").click(function() {
+	movePageNumber("first");
+})
+// >> 버튼
+$("#lastPage").click(function() {
+	movePageNumber("last");
+})
 // 등록 버튼
 $("#writeOk").click(function() {
 	movePageNumber("write");
@@ -290,33 +323,88 @@ $("#writeOk").click(function() {
 
 function movePageNumber(dir) {
 	let pageNumber = $(".pageNum").length; // 버튼의 개수
-	console.log(pageNumber)
 	let allBtnW = btnW * pageNumber; // 현재 모든 버튼의 너비
 	// move 는 moveNumber 보다 커져서는 안된다.
+	console.log("버튼 개수 : " + pageNumber)
 	let moveNumber = Math.floor(pageNumber / 10.0); // 이동해야하는 횟수
 	if (pageNumber > 10 && pageNumber % 10.0 == 0) { // 만일 페이지 수가 딱 떨어진다면 -1 해준다
 		moveNumber--;
 	}
 	$("#pageWrap").css({"width":allBtnW + "px"})
+	if (dir == "plus" || dir == "minus") {
+		$("#pageWrap").css({"width":btnW*allPageNum + "px"})
+	}
+	
 	if (dir == "left") {
 		// move 상태가 0 이면 좌측으로 움직이면 안된다.
 		// 움직인다면 좌측으로 300px만큼 가야한다.
 		if (move > 0) {
-			$("#pageWrap").css({"left":"+=300"});
+				$("#pageWrap").css({"left":"+=300"});
 			move--;
 		}
 	} else if (dir == "right") {
 		if (move < moveNumber) {
-			$("#pageWrap").css({"left": "-=300"});
+				$("#pageWrap").css({"left": "-=300"});
 			move++;
 		}
-	} else if (dir == "normal") {
+	} else if (dir == "normal" || dir == "first") {
 		$("#pageWrap").css({"left": "0"});
 		move = 0;
+	} else if (dir == "last") {
+		$("#pageWrap").css({"left": "-" + (300 * moveNumber) + "px"});
+		move = moveNumber;
+	}
+	// 페이지 개수가 10 이하이면 모두 숨김
+	if(pageNumber <= 10) {
+		$("#rightPage").hide();
+		$("#lastPage").hide();
+		$("#leftPage").hide();
+		$("#firstPage").hide();
+	} else { // 페이지 개수 10 넘을 때
+		// 좌 / 우 / 처음 / 마지막 버튼
+		if (move > 0) { // 2 페이지 이상
+			$("#firstPage").show();
+			$("#leftPage").show();
+		}
+		if (move < moveNumber) { // 마지막 페이지보다 작을 때
+			$("#rightPage").show();
+			$("#lastPage").show();
+		}
+		if (move == 0) { // 첫 페이지
+			$("#firstPage").hide();
+			$("#leftPage").hide();
+			$("#rightPage").show();
+			$("#lastPage").show();
+		}
+		if (move == moveNumber) { // 마지막 페이지
+			$("#firstPage").show();
+			$("#leftPage").show();
+			$("#rightPage").hide();
+			$("#lastPage").hide();
+		}
+	}
+	let wrapW = pageNumber % 10;
+	console.log("moveNumber : " + moveNumber)
+	console.log("move : " + move)
+	if (wrapW != 0 && move == moveNumber) {
+		$("#cmtPageNumWrap").css({"width":btnW*wrapW + "px"})
+	} else {
+		$("#cmtPageNumWrap").css({"width":"300px"})
 	}
 }
 
 
+if($(".pageNum").length <= 10) {
+	$("#rightPage").hide();
+	$("#lastPage").hide();
+	$("#leftPage").hide();
+	$("#firstPage").hide();
+} else {
+	$("#rightPage").show();
+	$("#lastPage").show();
+	$("#leftPage").hide();
+	$("#firstPage").hide();
+}
 
 
 

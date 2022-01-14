@@ -98,9 +98,11 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> findCommentsByPostId(long postId, char category, int pageNum) {
 		int start = 0;
 		if (pageNum > 1) { // 2페이지 이상일 경우 곱한 후 -1 부터 조회
-			start = COMMENT_LIST.getNum() * (pageNum - 1) - 1;
+			start = COMMENT_LIST.getNum() * (pageNum - 1);
 		}
 		int end = COMMENT_LIST.getNum(); // 15개씩 조회
+		log.info("start : " + start);
+		log.info("end : " + end);
 		List<Comment> comments = cd.findCommentsByPostId(postId, category, start, end);
 		for (Comment c : comments) {
 //			log.info("find all comment by postid" + c.toString());
@@ -111,6 +113,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int countCommentByPostId(long postId, char category) {
+		if (!cd.isCommentByPostId(postId, category)) {
+			return 0;
+		}
 		return cd.countCommentByPostId(postId, category);
 	}
 	

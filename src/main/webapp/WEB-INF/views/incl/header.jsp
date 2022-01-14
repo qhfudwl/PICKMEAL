@@ -10,7 +10,7 @@
 			<li><form action="" method="">식당추천</form></li>
 			<li>
             <form name="indexView" action="${pageContext.request.contextPath}/posting/viewTogetherEatingComment" method="get">
-            	<input type="submit" value="밥친구"/>
+            	<button type="submit" name="pageNum" value="1">밥친구</button>
             	밥친구
             </form></li>
 		</ul>

@@ -65,6 +65,13 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
+	public boolean isCommentByPostId(long postId, char category) {
+		String tableName = decideTableName(category);
+		String sql = "SELECT EXISTS (SELECT id from " + tableName + " WHERE postId=?)";
+		return jt.queryForObject(sql, Boolean.class, postId);
+	}
+
+	@Override
 	public List<Comment> findAllCommentByMemberId(long memberId, char category) {
 		String tableName = decideTableName(category);
 		String sql = "SELECT id, memberId, postId, content, regDate"

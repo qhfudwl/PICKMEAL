@@ -46,6 +46,13 @@ public interface CommentDao {
 	public boolean isCommentById(Comment comment);
 	
 	/**
+	 * 게시물에 댓글이 있는지 확인
+	 * @param postId, category
+	 * @return
+	 */
+	public boolean isCommentByPostId(long postId, char category);
+	
+	/**
 	 * 해당 사용자의 모든 댓글 들고오기
 	 * @param memberId
 	 * @return

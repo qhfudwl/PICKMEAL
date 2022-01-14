@@ -147,6 +147,8 @@ CREATE TABLE RecommendRestaurantComment (									# 식당 추천 댓글
 DROP TABLE RecommendRestaurantComment;
 SELECT * FROM RecommendRestaurantComment;
 
+select exists (select id from RecommendRestaurantComment)
+
 SELECT COUNT(*) FROM RecommendRestaurantComment GROUP BY postId=1;
 
 SELECT * FROM RecommendRestaurantComment WHERE postId=1 LIMIT 15 OFFSET 29;
