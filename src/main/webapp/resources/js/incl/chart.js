@@ -381,3 +381,8 @@ function openFortune(){
    tl.to($('.fortune'),1,{display:'none'});
 
 }
+
+
+	
+	
+	
