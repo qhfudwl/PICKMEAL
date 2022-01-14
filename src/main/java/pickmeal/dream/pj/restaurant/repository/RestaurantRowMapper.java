@@ -11,7 +11,7 @@ public class RestaurantRowMapper implements RowMapper<Restaurant>{
 
 	@Override
 	public Restaurant mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Restaurant restaurant = new Restaurant(rs.getLong("id"), rs.getBoolean("rType"),
+		Restaurant restaurant = new Restaurant(rs.getLong("id"),rs.getLong("apiId"), rs.getBoolean("rType"),
 				rs.getDouble("lat"),rs.getDouble("lng"),rs.getString("address"),rs.getString("rName"));
 		return restaurant;
 	}

@@ -1,39 +1,41 @@
 @charset "UTF-8";
 input[type=radio]{display: none;}
 p{font-size: 20px;}
+body{width: 550px; height: 450px;}
 section{width: 550px; height: 450px; border: 3px solid #000;}
 h2{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
 h3{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
-
+form{width: 550px; height: 350px;}
 .buttonbox{position: relative; width: 120px; height: 100px; margin-top: 10px; float: left;
     background-color: #f5f5f5; text-align: center; line-height: 100px; border-radius: 25px;
     box-shadow: 3px 3px 3px black; margin-left: 45px; transition-duration: 0.3s;}
 .btn{ border-radius: 25px; box-shadow: 3px 3px 3px black; transition-duration: 0.1s;}
+
 /*
 1번째 선택창
 */
-#select1{ width: 550px; height: 400px; }
+#select1{ width: 550px; height: 350px; }
 .soupyradio:checked{margin-top: 152px; margin-left: 207px;}
 .soupybox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
 .soupyradio:checked + label {
 	border : 3px solid #f23f3f; }
-.select2veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
-.select2veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
+.select1veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 400px;}
+.select1veiw:active{ margin-left: 403px; margin-top: 153px; box-shadow: none;}
 
 /*
 2번째 선택창
 */
-#select2{display: none; width: 550px; height: 400px;}
+#select2{display: none; width: 550px; height: 350px;}
 .hot_icebox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
 .hot_iceradio:checked + label {
 	border : 3px solid #f23f3f;}
-.select3veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
-.select3veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
+.select2veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
+.select2veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
 
 /*
 3번째 선택창
 */
-#select3{display: none; width: 550px; height: 400px; }
+#select3{display: none; width: 550px; height: 350px; }
 .carbohydrateboxline1{position: relative; width: 120px; height: 100px; float: left; background-color: #f5f5f5;
     margin-top:10px; margin-left: 45px; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
 .carbohydrateboxline2{position: relative; width: 120px; height: 100px; float: left; background-color: #f5f5f5;
@@ -43,14 +45,14 @@ h3{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
 .carbohydratebox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%;border-radius: 25px; box-sizing: border-box;}
 .carbohydrateradio:checked + label {
 	border : 3px solid #f23f3f;}
-.select4veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
-.select4veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
+.select3veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
+.select3veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
 
 
 /*
 4번째 선택창
 */
-#select4{display: none; width: 550px; height: 400px;}
+#select4{display: none; width: 550px; height: 350px;}
 .mainFoodboxline1{position: relative; background-color: #f5f5f5; width: 120px; height: 100px; float: left;
     margin-top: 10px; text-align: center; line-height: 100px; border-radius: 25px; box-shadow: 3px 3px 3px black;}
 .mainFoodboxline2{position: relative; background-color: #f5f5f5; width: 120px; height: 100px; float: left;
@@ -62,20 +64,22 @@ h3{text-align: center; width: 200px; height: 50px; margin: 0 auto;}
 .mainFoodbox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%;border-radius: 25px; box-sizing: border-box;}
 .mainFoodradio:checked + label {
 	border : 3px solid #f23f3f; }
-.select5veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
-.select5veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
+.select4veiw{width: 100px; height: 50px; margin-top: 30px; margin-left: 225px;}
+.select4veiw:active{ margin-left: 227px; margin-top: 33px; box-shadow: none;}
 
 /*
 5번째 선택창
 */
-#select5{display: none; width: 550px; height: 400px; }
+#select5{display: none; width: 550px; height: 350px; }
 #spicybox1{margin-left: 45px;}
 #spicybox2{margin-left: 45px;}
 #spicybox3{margin-left: 45px;}
 .spicybox label{padding: 0; top: 0; left: 0; position:absolute; width: 100%; height: 100%; box-sizing: border-box;border-radius: 25px;}
 .spicyradio:checked + label {
 	border : 3px solid #f23f3f; }
-.select6veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 225px;}
-.select6veiw:active{ margin-left: 227px; margin-top: 153px; box-shadow: none;}
+.select5-5veiw{ width: 100px; height: 50px; margin-top: 150px; margin-left: 220px;}
+.select5-5veiw:active{ margin-left: 222px; margin-top: 152px; box-shadow: none;}
+.select5veiw{width: 100px; height: 50px; margin-top: 150px; margin-left: 66px;}
+.select5veiw:active{ margin-left: 68px; margin-top: 152px; box-shadow: none;}
 .activeradio{left: 5px; top:5px; box-shadow: none; background-color: #ffecec;}
 .soupybox:hover, .hot_icebox:hover, .carbohydratebox:hover, .mainFoodbox:hover, .spicybox:hover{background-color: #e6cfcf;}

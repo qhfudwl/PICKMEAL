@@ -12,4 +12,6 @@ public interface RestaurantDao {
 	Restaurant findRestaurantByAddress(Restaurant restaurant);
 	
 	Restaurant findRestaurantByrType(Restaurant restaurant);
+	
+	Restaurant findRestaurantById(long id);
 }

@@ -56,7 +56,7 @@ public class Member {
 		} else {
 			this.profileImgPath = LEVEL0.getImgPath();	
 		}
-		this.profileImgPath = "/pickmeal/resource/img/profile/" + getProfileImgPath() + ".png";
+		this.profileImgPath = "/resources/img/profile/" + getProfileImgPath() + ".png";
 	}
 	
 	/**

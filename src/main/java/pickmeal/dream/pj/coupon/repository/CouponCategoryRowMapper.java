@@ -12,7 +12,7 @@ public class CouponCategoryRowMapper implements RowMapper<CouponCategory>{
 	@Override
 	public CouponCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
 		CouponCategory couponCategory = new CouponCategory(rs.getLong("id"), rs.getString("couponName"),
-				rs.getString("couponType").charAt(0));
+				rs.getString("couponType").charAt(0), rs.getString("limitPrice"));
 		return couponCategory;
 	}
 }

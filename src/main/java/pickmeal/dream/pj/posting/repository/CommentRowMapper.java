@@ -2,6 +2,7 @@ package pickmeal.dream.pj.posting.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,8 +20,8 @@ public class CommentRowMapper implements RowMapper<Comment> {
 		comment.setMember(new Member(rs.getLong("memberId")));
 		comment.setPosting(new Posting(rs.getLong("postId")));
 		comment.setContent(rs.getString("content"));
-		comment.setRegDate(rs.getDate("regDate"));
-		
+		comment.setRegDate(new Date(rs.getTimestamp("regDate").getTime()));
+
 		return comment;
 	}
 

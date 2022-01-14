@@ -46,11 +46,20 @@ public interface CommentService {
 	public List<Comment> findAllCommentByMemberId(long memberId, char category);
 	
 	/**
-	 * 해당 게시글의 모든 댓글 들고오기
+	 * 해당 게시글의 특정 숫자의 댓글 들고오기
 	 * 프로필 사진 / 식력 포인트 / 신뢰 온도 / 닉네임이 셋팅된 멤버를
 	 * 댓글 객체에 셋팅한다.
-	 * @param postId
+	 * 
+	 * @param postId, category, start, end
 	 * @return
 	 */
-	public List<Comment> findAllCommentByPostId(long postId, char category);
+	public List<Comment> findCommentsByPostId(long postId, char category, int pageNum);
+	
+	/**
+	 * 해당 게시물에 총 몇개의 댓글이 있는지 반환
+	 * @param postId
+	 * @param category
+	 * @return
+	 */
+	public int countCommentByPostId(long postId, char category);
 }
