@@ -201,6 +201,8 @@ function deleteComment(a) {
 window.addEventListener("load", function() {
 	let pageNum = $("#pageNum").val() // 현재 페이지 번호를 받아서 
 	let pageNumber = $(".pageNum").length; // 버튼의 개수
+	console.log(pageNum)
+	
 	$(".pageNum" + pageNum).trigger("click");
 	if (pageNum > 10 && pageNumber > 10) {
 		for (let i=0; i<(Math.floor(pageNum / 10.0)); i++) {

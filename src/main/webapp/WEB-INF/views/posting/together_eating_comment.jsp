@@ -2,9 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<% 
-	String pageNum = request.getParameter("pageNum");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +58,7 @@
 		<input type="hidden" value="${viewPageNum}" id="viewPageNum" />
 		<input type="hidden" value="${allPageNum}" id="allPageNum"/>
 		<input type="hidden" value="${allCmtNum}" id="allCmtNum"/>
-		<input type="hidden" value="<%=pageNum %>" id="pageNum"/>
+		<input type="hidden" value="${pageNum}" id="pageNum"/>
 		<section id="cmtBtnWrap">
 			<button type="button" id="firstPage">&lt;&lt;</button>
 			<button type="button" id="leftPage">&lt;</button>
@@ -77,9 +74,9 @@
 		</section>
 		<form:form name="writeCmtForm" modelAttribute="commentCommand">
 			<input type="hidden" name="memberId" value="${member.id}"/>
-			<input type="hidden" name="postId" value="1${posting.id}"/>
-			<input type="hidden" name="post_memberId" value="1${posting.member.id}"/>
-			<input type="hidden" name="category" value="R${posting.category}"/>
+			<input type="hidden" name="postId" value="${posting.id}"/>
+			<input type="hidden" name="post_memberId" value="${posting.member.id}"/>
+			<input type="hidden" name="category" value="${posting.category}"/>
 			<c:if test="${not empty member }">
 				<section id="writeCommentWrap">
 					<h3 class="hidden">댓글 작성란</h3>
