@@ -136,8 +136,7 @@ CREATE TABLE FavoriteRestaurant (
 	memberId		BIGINT			NOT NULL,									#멤버 아이디
 	restaurantId	BIGINT			NOT NULL,									#레스토랑 아이디
 	FOREIGN KEY (memberId) REFERENCES Member (id),								#아래 쭉 포링키
-	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
-	
+	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)	
 )
 
 CREATE TABLE RestaurantPreference (
