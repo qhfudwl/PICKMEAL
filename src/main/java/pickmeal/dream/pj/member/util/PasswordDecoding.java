@@ -7,8 +7,13 @@ import pickmeal.dream.pj.member.domain.Member;
 
 @Component
 @Log
-public class PasswordDecoding extends Password {
-	
+public class PasswordDecoding extends PasswordCipher {
+	/**
+	 * 실제로 부르는 메소드
+	 * 암호화된 문자를 평문으로 변환
+	 * @param member
+	 * @return
+	 */
 	public String getResult(Member member) {
 		int email = member.getEmail().split("@")[0].length();
 		String passwd = member.getPasswd();
@@ -17,6 +22,12 @@ public class PasswordDecoding extends Password {
 		return transPasswd;
 	}
 	
+	/**
+	 * 아이디 자릿수에 따른 비밀번호 평문으로 치환
+	 * @param email
+	 * @param passwd
+	 * @return
+	 */
 	private String transform(int email, String passwd) {
 		int pwl = getWordNumber(passwd.charAt(0)); // 원래 비밀번호가 몇 자리인가?
 		// 2개 이하일 경우 그냥 하면 되고, 3개 이상일 경우 나머지 더미 문자를 다 지워줘야한다.
@@ -43,66 +54,40 @@ public class PasswordDecoding extends Password {
 				digitNum = i / jump;
 			}
 			int type = getPasswdType(beforeStr);
-			if (type == 1) {
-				decoding += numberTransform(beforeStr.charAt(0), email, digitNum);
-			} else if (type == 2) {
-				decoding += bigTransform(beforeStr.charAt(0), email, digitNum);
-			} else if (type == 3) {
-				decoding += smallTransform(beforeStr.charAt(0), email, digitNum);
-			} else if (type == 4) {
-				decoding += specifyTransform(beforeStr.charAt(0), email, digitNum);
-			}
+			decoding += convertToOrigin(type, beforeStr.charAt(0), email, digitNum);
 		}
 		
 		return decoding;
 	}
 	
-	private String numberTransform(char before, int delay, int i) {
+	/**
+	 * 타입 별로 평문을 치환한다.
+	 * @param type
+	 * @param before
+	 * @param delay
+	 * @param i
+	 * @return
+	 */
+	private String convertToOrigin(int type, char before, int delay, int i) {
 		int beforeNum = getWordNumber(before);
+		char after = 0;
 		beforeNum = beforeNum - delay - i;
 		while (beforeNum < 0) {
 			beforeNum += upperArr.length;
 		}
-		beforeNum += 48;
-		
-		char after = (char)beforeNum;
-		
-		return String.valueOf(after);
-	}
-	
-	private String bigTransform(char before, int delay, int i) {
-		int beforeNum = getWordNumber(before);
-		beforeNum = beforeNum - delay - i;
-		while (beforeNum < 0) {
-			beforeNum += upperArr.length;
+		// 문자를 원래 문자로 변환한다.
+		if (type == 4) { // 특수 문자인 경우 부모 클래스 배열 내에서 찾는다.
+			after = allowArr[beforeNum];
+		} else { // 나머지의 경우 ascii 코드 내에서 찾는다.
+			if (type == 1) {
+				beforeNum += 48;
+			} else if (type == 2) {
+				beforeNum += 65;
+			} else if (type == 3) {
+				beforeNum += 97;
+			}
+			after = (char)beforeNum;
 		}
-		beforeNum += 65;
-		
-		char after = (char)beforeNum;
-		
-		return String.valueOf(after);
-	}
-	
-	private String smallTransform(char before, int delay, int i) {
-		int beforeNum = getWordNumber(before);
-		beforeNum = beforeNum - delay - i;
-		while (beforeNum < 0) {
-			beforeNum += upperArr.length;
-		}
-		beforeNum += 97;
-		
-		char after = (char)beforeNum;
-		
-		return String.valueOf(after);
-	}
-	
-	private String specifyTransform(char before, int delay, int i) {
-		int beforeNum = getWordNumber(before);
-		beforeNum = beforeNum - delay - i;
-		while (beforeNum < 0) {
-			beforeNum += upperArr.length;
-		}
-		char after = allowArr[beforeNum];
 		
 		return String.valueOf(after);
 	}
