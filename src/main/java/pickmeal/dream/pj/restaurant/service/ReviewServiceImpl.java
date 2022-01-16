@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pickmeal.dream.pj.restaurant.domain.Review;
 import pickmeal.dream.pj.restaurant.repository.ReviewDao;
 
-@Service("ReviewService")
+@Service("reviewService")
 public class ReviewServiceImpl implements ReviewService{
 
 	@Autowired

@@ -5,6 +5,7 @@ import java.util.List;
 import static pickmeal.dream.pj.web.constant.Constants.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pickmeal.dream.pj.member.domain.FoodPowerPointItem;
 import pickmeal.dream.pj.member.domain.Member;
@@ -18,6 +19,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	private MemberAchievementDao mad;
 
 	@Override
+	@Transactional
 	public Member addFoodPowerPointItem(Member member, SavingPointConstants spc) {
 		// 먼저 멤버에 식력 포인트를 적립하고
 		member.saveFoodPowerPoint(spc);
@@ -40,6 +42,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	}
 
 	@Override
+	@Transactional
 	public void addMannerTemperature(Member member) {
 		// 멤버에게 신뢰온도를 같이 셋팅해서 반환하자 (처음 추가는 항상 sign_up_manner 로)
 		member.saveMannerTemperature(SIGN_UP_MANNER);
@@ -48,6 +51,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	}
 
 	@Override
+	@Transactional
 	public Member findMannerTemperatureByMemberId(Member member) {
 		double mt = mad.findMannerTemperatureByMemberId(member.getId());
 		member.setMannerTemperature(mt);
@@ -62,11 +66,6 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 
 	@Override
 	public void updateAttendance(Member member) {
-		// 먼저 두 날짜의 차이를 반환해서 차이가 0일 경우 update 를 하면 안된다.
-		int diff = checkAttendance(member.getId());
-		if (diff == 0) {
-			return;
-		}
 		mad.updateAttendance(member);
 	}
 
@@ -89,6 +88,7 @@ public class MemberAchievementServiceImpl implements MemberAchievementService {
 	}
 
 	@Override
+	@Transactional
 	public Member doSettingMemberInfo(Member member) {
 		// 식력 포인트 셋팅
 		member = sumFoodPowerPoint(member);

@@ -55,7 +55,8 @@ public class MemberAchievementDaoImpl implements MemberAchievementDao {
 
 	@Override
 	public void updateAttendance(Member member) {
-		String sql = "UPDATE Member SET attendance=? WHERE memberId=?";
+		String sql = "UPDATE Attendance SET attendance=?, regDate=CURRENT_TIMESTAMP()"
+				+ " WHERE memberId=?";
 		log.info(String.valueOf(member.getAttendance()));
 		jt.update(sql, member.getAttendance(), member.getId());
 	}

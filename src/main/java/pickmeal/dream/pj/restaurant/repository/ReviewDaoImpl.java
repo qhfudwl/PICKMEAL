@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import pickmeal.dream.pj.restaurant.domain.Review;
 
-@Repository("ReviewDao")
+@Repository("reviewDao")
 public class ReviewDaoImpl implements ReviewDao{
 	@Resource(name = "jdbcTemplate")
 	private JdbcTemplate jt;

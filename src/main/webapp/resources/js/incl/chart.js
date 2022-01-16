@@ -87,17 +87,34 @@ let reviews;
 let color = new Array(6);
 $(document).ready(function() {
 
+	
+
+	getStoreInfoWithChart(1);
+	
+	//포춘쿠키 화면에 랜덤 위치잡아주기
+	let fortune_left = Math.floor(Math.random() * (window.innerWidth-510)); 
+	let fortune_top = Math.floor(Math.random() * (window.innerHeight-210));
+	$('.fortune').css({top:fortune_top,left:fortune_left});
+	showFortune();
+	
+})
+
+function getStoreInfoWithChart(restaurantId){
 	/*
 		RestaurantReference & RestaurantReview
 		ModelAndView 값(서버측)이 JSP 단에 뿌려주고 JS(클라이언트측)에서 그 값을 끌어 사용해야한다
 		input type hidden으로 RestaurantReference 관련 값들을 다 넣어주기가 좀 그래서 ajax 사용해서 
 		그래프 그리기에 필요한 값들을 셋팅해본다
 	*/
-
-	let promise = $.ajax({
-		url: "restaurant_sub_info",
+	//let restaurantId=1;
+	
+	//연령별/성별 선호도불러오기
+	
+	let reference = $.ajax({
+		url: "restaurant_sub_info_reference",
 		type: "post",
-		data: $('#restaurantId').serialize(),
+		//data: $('#restaurantId').serialize(),
+		data: {restaurantId:restaurantId},
 		success: function(data) {
 
 			//성별 데이터 받기
@@ -108,6 +125,22 @@ $(document).ready(function() {
 			for (let i in data["restReference"].ageCount) {
 				ages[i] = data["restReference"].ageCount[i];
 			}
+
+
+		},
+		error : function(){
+			//정보 없으면 
+			$('.ageAndGenderGraphArea').hide();
+		}
+	});
+	//리뷰 불러오기
+	
+	let review = $.ajax({
+		url: "restaurant_sub_info_review",
+		type: "post",
+		//data: $('#restaurantId').serialize(),
+		data: {restaurantId:restaurantId},
+		success: function(data) {
 
 			//리뷰 데이터 받기
 			userCount = data["review"].userCount;
@@ -128,8 +161,14 @@ $(document).ready(function() {
 
 			}
 
+		},
+		error : function(){
+			//정보 없으면 
+			$('.userReviewGraphArea').hide();
 		}
 	});
+	
+	
 	/*
 		ajax - promise 패턴이 있다. 
 		비동기방식인만큼, 실행되는 순서를 보장해 주지 않는데 순서가 필요할 때 사용하는게 promise
@@ -141,7 +180,7 @@ $(document).ready(function() {
 		=> 순서를 보장해주기 때문에 쿼리 내의 전역변수 사용이 가능하다
 		
 	*/
-	$.when(promise).done(function(data) {
+	$.when(reference,review).done(function() {
 		//성별 차트그리기
 		drawGenderChartWrap()
 
@@ -164,15 +203,12 @@ $(document).ready(function() {
 		//리뷰 디자인
 		setReviewView()
 	});
+}
 
-	
-	//포춘쿠키 화면에 랜덤 위치잡아주기
-	let fortune_left = Math.floor(Math.random() * (window.innerWidth-510)); 
-	let fortune_top = Math.floor(Math.random() * (window.innerHeight-210));
-	$('.fortune').css({top:fortune_top,left:fortune_left});
-	showFortune();
-	
-})
+
+
+
+
 function setReviewVariable() {
 
 	last_liNum = 3;		//초기에 보여지는 li 갯수
@@ -381,3 +417,8 @@ function openFortune(){
    tl.to($('.fortune'),1,{display:'none'});
 
 }
+
+
+	
+	
+	

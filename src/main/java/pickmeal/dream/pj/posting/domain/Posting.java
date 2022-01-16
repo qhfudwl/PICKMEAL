@@ -35,4 +35,8 @@ public class Posting {
 		super();
 		this.id = id;
 	}
+	public Posting(long id, char category) {
+		this(id);
+		this.category = category;
+	}
 }
