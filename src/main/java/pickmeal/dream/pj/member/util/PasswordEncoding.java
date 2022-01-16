@@ -14,12 +14,13 @@ public class PasswordEncoding extends PasswordCipher {
 	 * @param member
 	 * @return
 	 */
-	public String getResult(Member member) {
+	public Member convertPassword(Member member) {
 		int email = member.getEmail().split("@")[0].length();
 		String passwd = member.getPasswd();
 		String transPasswd = transform(email, passwd);
+		member.setPasswd(transPasswd);
 		
-		return transPasswd;
+		return member;
 	}
 	
 	/**

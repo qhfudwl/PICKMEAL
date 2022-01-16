@@ -1,10 +1,12 @@
 package pickmeal.dream.pj.member.service;
 
-import static pickmeal.dream.pj.web.constant.Constants.*;
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.ATTENDANCE;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.ATTENDANCE_15DAYS;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.ATTENDANCE_30DAYS;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.ATTENDANCE_7DAYS;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.SIGN_UP;
 
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.repository.MemberDao;
+import pickmeal.dream.pj.member.util.PasswordDecoding;
+import pickmeal.dream.pj.member.util.PasswordEncoding;
 
 @Service("memberService")
 @Log
@@ -23,6 +27,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberAchievementService mas;
+	
+	@Autowired
+	private PasswordEncoding pe;
 
 	@Override
 	@Transactional
@@ -33,6 +40,10 @@ public class MemberServiceImpl implements MemberService {
 		member.saveFoodPowerPoint(SIGN_UP);
 		// 식력 포인트에 따른 프로필 이미지 경로 잡기
 		member.makeProfileImgPath();
+		
+		// 비밀번호 암호화
+		member = pe.convertPassword(member);
+		
 		// 사용자 추가
 		md.addMember(member);
 		

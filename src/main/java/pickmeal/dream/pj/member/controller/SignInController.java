@@ -17,6 +17,7 @@ import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.command.MemberCommand;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.member.util.PasswordDecoding;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
 
 @Controller
@@ -28,6 +29,9 @@ public class SignInController {
 	/*쿠폰 서비스 추가*/
 	@Autowired
 	CouponService cs;
+	
+	@Autowired
+	private PasswordDecoding pd;
 	
 	@GetMapping("/member/viewSignIn")
 	public ModelAndView viewSignIn() {
@@ -51,6 +55,7 @@ public class SignInController {
 			chkInfo = false;
 		} else { // 해당 아이디가 있을 경우
 			member = ms.findMemberByMemberEmail(memberCommand.getEmail());
+			member = pd.convertPassword(member);
 			log.info(member.getPasswd());
 			if (!memberCommand.getPasswd().equals(member.getPasswd())) { // 비밀번호 불일치 시
 				chkInfo = false;
@@ -99,10 +104,10 @@ public class SignInController {
 		
 		session.removeAttribute("couponCategory");
 		
-		mav.setViewName("redirect:/viewIndexMap");
+		mav.setViewName("redirect:/index");
 		return mav;
-		}else {
-			mav.setViewName("redirect:/viewIndexMap");
+		} else {
+			mav.setViewName("redirect:/index");
 			return mav;
 		}
 	}
