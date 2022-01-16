@@ -33,6 +33,7 @@ public class CouponTest {
 				new AnnotationConfigApplicationContext(DataSourceConfig.class);
 		CouponTest test = context.getBean("couponTest",CouponTest.class);
 		List<Coupon> coupons = cs.findAllCouponsByMemberId(1);
+		/*
 		for(int i=0; i< coupons.size();i++) {
 		//System.out.println(cs.findAllCouponsByMemberId(1).get(i).getRestaurant());
 		}
@@ -53,7 +54,9 @@ public class CouponTest {
 		//coupon.setRestaurant(restaurant);
 		//System.out.println(coupon.getRestaurant().getRName()); 
 		//System.out.println(cs.findRestaurantById(cs.findAllCouponsByMemberId(1).get(1).getRestaurant().getId()));
-		
+		*/
+		System.out.println(cs.findCouponByMemberIdinToday(1));
+			
 		
 		
 	}

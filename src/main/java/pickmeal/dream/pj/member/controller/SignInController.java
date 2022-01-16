@@ -86,13 +86,21 @@ public class SignInController {
 		Member member2 = (Member) session.getAttribute("member");
 		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-		
-		
-		Coupon coupon = new Coupon();
-		coupon.setMember(member2);
-		coupon.setRestaurant(restaurant);
-		coupon.setCouponCategory(couponCategory);
-		cs.addCoupon(coupon);
+		if(cs.findCouponByMemberIdinToday(member.getId())==1) {
+			if(cs.findCouponBymemberIdinTodayMax(member.getId())<=2) {
+				Coupon coupon = new Coupon();
+				coupon.setMember(member2);
+				coupon.setRestaurant(restaurant);
+				coupon.setCouponCategory(couponCategory);
+				cs.addCoupon(coupon);
+				}
+			}else {
+				Coupon coupon = new Coupon();
+				coupon.setMember(member2);
+				coupon.setRestaurant(restaurant);
+				coupon.setCouponCategory(couponCategory);
+				cs.addCoupon(coupon);
+			}
 		
 		session.removeAttribute("couponCategory");
 		

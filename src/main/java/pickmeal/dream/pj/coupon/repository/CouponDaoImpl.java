@@ -103,10 +103,9 @@ public class CouponDaoImpl implements CouponDao{
 	 * 쿠폰 사용시 쿠폰 유즈 변경!
 	 */
 	@Override
-	public Coupon changeUsedCouponById(long id) {
+	public void changeUsedCouponById(long id) {
 		String sql = "UPDATE Coupon SET used = true WHERE id = ?";
-		Coupon coupon = jt.queryForObject(sql, new CouponRowMapper(), id);
-		return coupon;
+		jt.update(sql, id);
 	}
 	
 	/**
@@ -134,6 +133,27 @@ public class CouponDaoImpl implements CouponDao{
 		String sql = "SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon"
 				+ " WHERE couponNumber = '?'";
 		return jt.queryForObject(sql, new CouponRowMapper(), couponNumber);
+	}
+	
+	/**
+	 * 오늘  총 발급 개수가 최대치인지?
+	 */
+	@Override
+	public Integer findCouponBymemberIdinTodayMax(long memberId) {
+		String sql = "SELECT COUNT(TIMESTAMPDIFF(DAY, regDate, CURDATE()))  FROM  Coupon"
+				+ " WHERE TIMESTAMPDIFF(DAY, regDate, CURDATE())=0 GROUP BY memberId HAVING memberId = ?";
+		
+		return jt.queryForObject(sql,Integer.class, memberId);
+	}
+
+	/**
+	 * 오늘 발급 받은 적 있는지?
+	 */
+	@Override
+	public int findCouponByMemberIdinToday(long memberId) {
+		String sql = "SELECT exists(select COUNT(regDate) FROM Coupon WHERE "
+				+ "TIMESTAMPDIFF(DAY, regDate, CURDATE())=0 GROUP BY memberId HAVING memberId = ?);";
+		return jt.queryForObject(sql, Integer.class,memberId);
 	}
 
 

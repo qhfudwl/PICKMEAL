@@ -15,7 +15,7 @@ public interface CouponService {
 	
 	Restaurant findRestaurantById(long id);
 	
-	Coupon changeUsedCouponById(long id);
+	void changeUsedCouponById(long id);
 	
 	Coupon findCouponById(long id);
 	
@@ -29,5 +29,8 @@ public interface CouponService {
 	
 	Coupon findCouponByCouponNumber(String couponNumber);
 	
+	Integer findCouponBymemberIdinTodayMax(long memberId);
+	
+	int findCouponByMemberIdinToday(long memberId);
 	
 }

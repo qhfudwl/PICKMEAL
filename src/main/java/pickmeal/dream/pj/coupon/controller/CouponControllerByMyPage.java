@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,10 +112,11 @@ public class CouponControllerByMyPage {
 	 * @return
 	 */
 	@GetMapping("/usedCouponPopup")
-	public ModelAndView usedCouponPopup(@RequestParam("cId") long cId){
-		System.out.println("팝업창 전달완료 : "+cId);
-		Coupon coupon = cs.findCouponById(cId);
-		System.out.println("쿠폰은 : "+coupon);
+	public ModelAndView usedCouponPopup(@RequestParam("couponId") long couponId){
+		
+		
+		Coupon coupon = cs.findCouponById(couponId);
+		//System.out.println("쿠폰은 : "+coupon);
 		Restaurant restaurant = cs.findRestaurantById(coupon.getRestaurant().getId());
 		coupon.setRestaurant(restaurant);
 		CouponCategory couponCategory = cs.findCouponCategoryByid(coupon.getCouponCategory().getId());
@@ -137,37 +137,9 @@ public class CouponControllerByMyPage {
 		System.out.println("팝업창에서 잘 보냄 : " + couponid);
 		cs.changeUsedCouponById(couponid);
 		
-		Member member = (Member) session.getAttribute("member");
-		List<Coupon> unusedcoupons = new ArrayList<Coupon>();
-		List<Coupon> usedcoupons = new ArrayList<Coupon>();
-		unusedcoupons = cs.findUnusedCouponsByMemberId(member.getId());
-		for(Coupon c : unusedcoupons) {
-			Restaurant restaurant = cs.findRestaurantById(c.getRestaurant().getId());
-			CouponCategory couponCategory = cs.findCouponCategoryByid(c.getCouponCategory().getId());
-			c.setRestaurant(restaurant);
-			c.setCouponCategory(couponCategory);
-			System.out.println("미사용 : " +c.getId() +c.getCouponNumber() +c.getRestaurant().getRName() + c.getCouponCategory().getCouponName());
-		}
-		//사용한 쿠폰
-		usedcoupons = cs.findUsedConponsByMemberId(member.getId());
-		for(Coupon c : usedcoupons) {
-			Restaurant restaurant = cs.findRestaurantById(c.getRestaurant().getId());
-			CouponCategory couponCategory = cs.findCouponCategoryByid(c.getCouponCategory().getId());
-			c.setCouponCategory(couponCategory);
-			c.setRestaurant(restaurant);
-			System.out.println("사용 : " +c.getCouponNumber() +c.getRestaurant().getRName() + c.getCouponCategory().getCouponName());
-		}
-		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("usedcoupons",usedcoupons);
-		mav.addObject("unusedcoupons",unusedcoupons);
-		mav.setViewName("coupon/coupon_list");
+		mav.addObject("close" ,"close");
+		mav.setViewName("coupon/coupon_popup");
 		return mav;
-		
-		
-		
-		
-		
-		//return ResponseEntity.ok(usedCoupons, unUsedCoupons);
 	}
 }

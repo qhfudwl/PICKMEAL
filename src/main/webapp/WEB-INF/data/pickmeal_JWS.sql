@@ -101,7 +101,15 @@ CREATE TABLE Coupon(
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
 )
 DROP TABLE Coupon;
+
+SELECT IF(exists(select COUNT(regDate)  FROM  Coupon WHERE TIMESTAMPDIFF(DAY, regDate, CURDATE())=0 GROUP BY memberId HAVING memberId = 3),1,2) FROM Coupon
+
+/*모든 쿠폰 확인*/
 SELECT * FROM Coupon;
+/*쿠폰 오늘 발급한적 있냐 없냐 확인*/
+SELECT exists(select COUNT(regDate)  FROM  Coupon WHERE TIMESTAMPDIFF(DAY, regDate, CURDATE())=0 GROUP BY memberId HAVING memberId = 3);
+/*오늘 하루 발급 개수=?*/
+SELECT COUNT(regDate)  FROM  Coupon WHERE TIMESTAMPDIFF(DAY, regDate, CURDATE())=0 GROUP BY memberId HAVING memberId = 3;
 /*삭제 메소드*/
 delete from Coupon where used=false and TIMESTAMPDIFF(DAY,regDate,CURDATE()) != 0;
 /*사용 SQL*/
@@ -122,6 +130,15 @@ INSERT INTO Coupon(memberId,couponId,restaurantId,couponNumber) VALUES(4,3,1,"11
 DELETE FROM Coupon WHERE id =14;
 SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE used = false;
 SELECT id, memberId, couponId, restaurantId, couponNumber, used, regDate FROM Coupon WHERE couponNumber = 'N3O6Q05KUMT8X';
+
+CREATE TABLE FavoriteRestaurant (
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,					#식당고유 아이디
+	memberId		BIGINT			NOT NULL,									#멤버 아이디
+	restaurantId	BIGINT			NOT NULL,									#레스토랑 아이디
+	FOREIGN KEY (memberId) REFERENCES Member (id),								#아래 쭉 포링키
+	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
+	
+)
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,

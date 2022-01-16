@@ -142,9 +142,8 @@ public class CouponServiceImpl implements CouponService {
 	 * 쿠폰 미사용 -> 사용으로 변경 해주기
 	 */
 	@Override
-	public Coupon changeUsedCouponById(long id) {
-		Coupon coupon = cd.changeUsedCouponById(id);
-		return coupon;
+	public void changeUsedCouponById(long id) {
+		cd.changeUsedCouponById(id);
 	}
 
 	/**
@@ -169,7 +168,7 @@ public class CouponServiceImpl implements CouponService {
 		CouponCategory couponCategory = cd.findCouponCategoryByid(coupons.get(0).getCouponCategory().getId());
 		coupons.get(0).setCouponCategory(couponCategory);*/
 		System.out.println("들어오냐?");
-		System.out.println(coupons.get(0));
+		
 		return cd.findUsedCouponsBymemberId(memberId);
 	}
 
@@ -202,6 +201,19 @@ public class CouponServiceImpl implements CouponService {
 	public Coupon findCouponByCouponNumber(String couponNumber) {
 		
 		return cd.findCouponByCouponNumber(couponNumber);
+	}
+
+
+	@Override
+	public Integer findCouponBymemberIdinTodayMax(long memberId) {
+		
+		return cd.findCouponBymemberIdinTodayMax(memberId); 
+	}
+
+
+	@Override
+	public int findCouponByMemberIdinToday(long memberId) {
+		return cd.findCouponByMemberIdinToday(memberId);
 	}
 	
 

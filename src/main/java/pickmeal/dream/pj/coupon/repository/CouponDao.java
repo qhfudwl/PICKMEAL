@@ -29,7 +29,7 @@ public interface CouponDao {
 	
 	void findAllCouponByusedAndregDate();
 	
-	Coupon changeUsedCouponById(long Id);
+	void changeUsedCouponById(long Id);
 	
 	List<Coupon> findUsedCouponsBymemberId(long memberId);
 	
@@ -38,6 +38,10 @@ public interface CouponDao {
 	Coupon findCouponById(long id);
 	
 	Coupon findCouponByCouponNumber(String couponNumber);
+	
+	Integer findCouponBymemberIdinTodayMax(long memberId);
+	
+	int findCouponByMemberIdinToday(long memberId);
 	
 	
 	
