@@ -19,18 +19,6 @@ public class PasswordEncoding extends Password {
 		return transPasswd;
 	}
 	
-	public static void main(String[] args) {
-		Member m = new Member();
-		m.setEmail("qhfudwl@naver.com");
-		m.setPasswd("999ABZabz!@#-");
-		PasswordEncoding pe = new PasswordEncoding();
-		String result = pe.getResult(m);
-
-		log.info("비밀번호 자리수 : " + m.getPasswd().length());
-		log.info("문자 하나당 치환 문자 수 : " + 50 / m.getPasswd().length());
-		log.info(result);
-	}
-	
 	private String transform(int email, String passwd) {
 		int pwl = passwd.length(); // 비밀전호 자릿수
 		int times = 50 / pwl; // 각 문자당 몇개를 적어야하는지
@@ -65,7 +53,7 @@ public class PasswordEncoding extends Password {
 	 */
 	private String mekedFinished(String beforeStr) {
 		int beforeL = beforeStr.length();
-		String afterStr = null;
+		String afterStr = "";
 		if (beforeL < 50) {
 			afterStr = randomStr(50 - beforeL);
 		}
@@ -99,27 +87,23 @@ public class PasswordEncoding extends Password {
 	 * @return
 	 */
 	private String numberTransform(int i, char word, int delay, int times) {
-		int numWord = word; // 치환할 문자
+		int numWord = word; // 치환할 문자 ascii 코드값
 		String dummy = "";
-		numWord -= 47; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
+		numWord -= 48; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
+		int inputWordNum = numWord + delay + i; // 배열에서 골라야 할 문자 번호 // 각 자리수에 해당하는 index 만큼 더해준다(같은 문자라도 다른 결과값을 위해서이다)
 		char[] resultArr = new char[2];
 		
-		inputWordNum += i; // 각 자리수에 해당하는 index 만큼 더해준다(같은 문자라도 다른 결과값을 위해서이다)
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
+		while (inputWordNum > upperArr.length-1) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
 			inputWordNum -= upperArr.length;
 		}
 		int typeWordNum = inputWordNum + 1; // 해당 문자가 어떤 타입인지
-		log.info("데이터 타입 숫자 전 : " + typeWordNum);
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
+		if (typeWordNum > upperArr.length-1) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
 			typeWordNum -= upperArr.length;
 		}
-		log.info("데이터 타입 숫자 후 : " + typeWordNum);
 		
 		// 여기서 -1 을 해주는 이유는 배열의 index 가 0부터 시작하기 때문이다.
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 바로 다음 문자가 붙어있다.
+		resultArr[0] = upperArr[inputWordNum]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
+		resultArr[1] = upperArr[typeWordNum]; // 숫자일 경우 바로 다음 문자가 붙어있다.
 		
 		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
 			dummy += randomStr(times - 2);
@@ -140,27 +124,21 @@ public class PasswordEncoding extends Password {
 	private String bigTransform(int i, char word, int delay, int times) {
 		int numWord = word; // 치환할 문자
 		String dummy = "";
-		numWord -= 64; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
+		numWord -= 65; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
+		int inputWordNum = numWord + delay + i; // 배열에서 골라야 할 문자 번호
 		char[] resultArr = new char[2];
 		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
+		
+		while (inputWordNum > upperArr.length-1) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
 			inputWordNum -= upperArr.length;
 		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
 		int typeWordNum = inputWordNum + 2; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
+		if (typeWordNum > upperArr.length-1) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
 			typeWordNum -= upperArr.length;
 		}
 		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 2번째 뒤 문자가 붙어있다.
+		resultArr[0] = upperArr[inputWordNum]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
+		resultArr[1] = upperArr[typeWordNum]; // 숫자일 경우 2번째 뒤 문자가 붙어있다.
 		
 		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
 			dummy += randomStr(times - 2);
@@ -181,27 +159,20 @@ public class PasswordEncoding extends Password {
 	private String smallTransform(int i, char word, int delay, int times) {
 		int numWord = word; // 치환할 문자
 		String dummy = "";
-		numWord -= 96; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
+		numWord -= 97; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
+		int inputWordNum = numWord + delay + i; // 배열에서 골라야 할 문자 번호
 		char[] resultArr = new char[2];
 		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
+		while (inputWordNum > upperArr.length-1) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
 			inputWordNum -= upperArr.length;
 		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
 		int typeWordNum = inputWordNum + 3; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
+		if (typeWordNum > upperArr.length-1) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
 			typeWordNum -= upperArr.length;
 		}
 		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1];
+		resultArr[0] = upperArr[inputWordNum]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
+		resultArr[1] = upperArr[typeWordNum];
 		
 		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
 			dummy += randomStr(times - 2);
@@ -229,26 +200,19 @@ public class PasswordEncoding extends Password {
 				break;
 			}
 		}
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
+		int inputWordNum = numWord + delay + i; // 배열에서 골라야 할 문자 번호
 		char[] resultArr = new char[2];
 		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
+		while (inputWordNum > upperArr.length-1) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
 			inputWordNum -= upperArr.length;
 		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
 		int typeWordNum = inputWordNum + 4; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
+		if (typeWordNum > upperArr.length-1) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
 			typeWordNum -= upperArr.length;
 		}
 		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 바로 다음 문자가 붙어있다.
+		resultArr[0] = upperArr[inputWordNum]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
+		resultArr[1] = upperArr[typeWordNum]; // 숫자일 경우 바로 다음 문자가 붙어있다.
 		
 		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
 			dummy += randomStr(times - 2);

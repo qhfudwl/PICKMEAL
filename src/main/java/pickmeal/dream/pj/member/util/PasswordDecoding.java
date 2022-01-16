@@ -19,256 +19,147 @@ public class PasswordDecoding extends Password {
 	
 	public static void main(String[] args) {
 		Member m = new Member();
-		m.setEmail("qhfudwl@naver.com");
-		m.setPasswd("999ABZabz!@#-");
-		PasswordDecoding pe = new PasswordDecoding();
+		m.setEmail("012345678901234568901234@naver.com");
+		m.setPasswd("11112222!!!!");
+		PasswordEncoding pe = new PasswordEncoding();
 		String result = pe.getResult(m);
-
-		log.info("비밀번호 자리수 : " + m.getPasswd().length());
-		log.info("문자 하나당 치환 문자 수 : " + 50 / m.getPasswd().length());
 		log.info(result);
+		
+		Member m2 = new Member();
+		m2.setEmail("012345678901234568901234@naver.com");
+		m2.setPasswd("MQZADZABKHBCHICDZNEFEKFGVHGHNZHILWGKTDHLFFIMVXJNIM[LIPI]");
+		
+		PasswordDecoding pd = new PasswordDecoding();
+		String decode = pd.getResult(m2);
+		
+		log.info("디코딩 문자 : " + decode);
 	}
 	
 	private String transform(int email, String passwd) {
-		int pwl = passwd.length(); // 비밀전호 자릿수
-		int times = 50 / pwl; // 각 문자당 몇개를 적어야하는지
-		String firstStr = String.valueOf(upperArr[pwl]); // 첫번째 글자는 비밀번호 자릿수이다.
-		String secondStr = String.valueOf(upperArr[pwl + times]); // 각 문자는 몇개로 치환할 건지 첫번째 문자로부터 몇개 띄어져있는지 체크
-		char[] pwArr = getPasswdArr(passwd); // 비밀번호를 char 로 변환
-		String result = firstStr + secondStr; // 반환되는 비밀번호는 50문자이다.
+		int pwl = getWordNumber(passwd.charAt(0)); // 원래 비밀번호가 몇 자리인가?
+		// 2개 이하일 경우 그냥 하면 되고, 3개 이상일 경우 나머지 더미 문자를 다 지워줘야한다.
+		int digit = getWordNumber(passwd.charAt(1)) - pwl; // 각 문자 1개당 몇개의 문자로 이루어져있는가?
+		String result = passwd.substring(2); // 구분 문자를 지워준다.
+		String decoding = "";
+
+		int jump = 0; // 원래 문자로 돌릴 때 각 자릿수를 어떻게 띄울 지
 		
-		for (int i=0; i<pwl; i++) {
-			int pwWord = (int)pwArr[i];
-			if (pwWord >= 48 && pwWord <= 57) { // 숫자일 때
-				result += numberTransform(i, pwArr[i], email, times);
-			} else if (pwWord >= 65 && pwWord <= 90) { // 대문자일 때
-				result += bigTransform(i, pwArr[i], email, times);
-			} else if (pwWord >= 97 && pwWord <= 122) { // 소문자일 때
-				result += smallTransform(i, pwArr[i], email, times);
-			} else { // 특수문자일 때
-				result += specifyTransform(i, pwArr[i], email, times);
+		// 비밀번호에 관련된 문자만 남도록 잘라준다.
+		if (digit > 2) {
+			result = result.substring(0, digit * pwl); // 각 문자당 자리수가 3개 이상일 경우 비밀번호 자릿수 * 각 문자 자릿수 한 것만큼 끊어준다.
+			jump = digit;
+		} else {
+			result = result.substring(0, 2 * pwl); // 2개 이하일 경우 무조건 2자리로 들어간다.
+			jump = 2;
+		}
+		
+		// 각 자리수마다 원래 문자로 돌려줘야한다.
+		for (int i=0; i<result.length(); i += jump) {
+			String beforeStr = result.substring(i, i+2); // 원복 전 문자 1개 (몇 자리든 처음 두 문자가 가장 중요하다)
+			int digitNum = 0;
+			if (i != 0) {
+				digitNum = i / jump;
+			}
+			int type = getPasswdType(beforeStr);
+			if (type == 1) {
+				decoding += numberTransform(beforeStr.charAt(0), email, digitNum);
+			} else if (type == 2) {
+				decoding += bigTransform(beforeStr.charAt(0), email, digitNum);
+			} else if (type == 3) {
+				decoding += smallTransform(beforeStr.charAt(0), email, digitNum);
+			} else if (type == 4) {
+				decoding += specifyTransform(beforeStr.charAt(0), email, digitNum);
 			}
 		}
 		
-		result = mekedFinished(result) + lipi;
+		return decoding;
+	}
+	
+	private String numberTransform(char before, int delay, int i) {
+		int beforeNum = getWordNumber(before);
+		beforeNum = beforeNum - delay - i;
+		while (beforeNum < 0) {
+			beforeNum += upperArr.length;
+		}
+		beforeNum += 48;
 		
-		return result;
+		char after = (char)beforeNum;
+		
+		return String.valueOf(after);
+	}
+	
+	private String bigTransform(char before, int delay, int i) {
+		int beforeNum = getWordNumber(before);
+		beforeNum = beforeNum - delay - i;
+		while (beforeNum < 0) {
+			beforeNum += upperArr.length;
+		}
+		beforeNum += 65;
+		
+		char after = (char)beforeNum;
+		
+		return String.valueOf(after);
+	}
+	
+	private String smallTransform(char before, int delay, int i) {
+		int beforeNum = getWordNumber(before);
+		beforeNum = beforeNum - delay - i;
+		while (beforeNum < 0) {
+			beforeNum += upperArr.length;
+		}
+		beforeNum += 97;
+		
+		char after = (char)beforeNum;
+		
+		return String.valueOf(after);
+	}
+	
+	private String specifyTransform(char before, int delay, int i) {
+		int beforeNum = getWordNumber(before);
+		beforeNum = beforeNum - delay - i;
+		while (beforeNum < 0) {
+			beforeNum += upperArr.length;
+		}
+		char after = allowArr[beforeNum];
+		
+		return String.valueOf(after);
 	}
 	
 	/**
-	 * 완성 코드로 생성 (나머지 빈 자리를 채우자)
-	 * 총 50문자가 나와야한다
+	 * 해당 문자의 타입 반환
+	 * 1 : 숫자 / 2 : 대문자 / 3 : 소문자 / 4 : 특수문자
 	 * @param beforeStr
 	 * @return
 	 */
-	private String mekedFinished(String beforeStr) {
-		int beforeL = beforeStr.length();
-		String afterStr = null;
-		if (beforeL < 50) {
-			afterStr = randomStr(50 - beforeL);
-		}
-		String resultStr = beforeStr + afterStr;
+	private int getPasswdType(String beforeStr) {
+		char first = beforeStr.charAt(0);
+		char second = beforeStr.charAt(1);
+		int firstNum = getWordNumber(first); // 첫번째 글자가 몇번째로 있는지
+		int secondNum = getWordNumber(second); // 두번째 글자가 몇번째로 있는지
+		int type = secondNum - firstNum;
 		
-		return resultStr;
+		if (type < 0) { // 만일 타입이 숫자가 더 작다면 배열보닥 컸기 때문에 더 작은 것이므로 배열 길이만큼 더한다.
+			type += upperArr.length;
+		}
+		
+		return type;
 	}
 	
 	/**
-	 * 나머지 빈 칸을 랜덤 글자로 채운다.
-	 * @param required
-	 * @return
-	 */
-	private String randomStr(int required) {
-		String requiredStr = "";
-		
-		for (int n=0; n<required; n++) {
-			int randomNum = (int)Math.floor(Math.random() * upperArr.length); // 배열의 길이만큼의 숫자 반환 (index 용이다)
-			requiredStr += upperArr[randomNum];
-		}
-		
-		return requiredStr;
-	}
-	
-	/**
-	 * 숫자 변환
-	 * @param i
-	 * @param type
+	 * 해당 단어가 배열에서 몇번째 자리인지 반환해준다.
 	 * @param word
-	 * @param delay
 	 * @return
 	 */
-	private String numberTransform(int i, char word, int delay, int times) {
-		int numWord = word; // 치환할 문자
-		String dummy = "";
-		numWord -= 47; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
-		char[] resultArr = new char[2];
+	private int getWordNumber(char word) {
+		int wordNum = 0;
 		
-		inputWordNum += i; // 각 자리수에 해당하는 index 만큼 더해준다(같은 문자라도 다른 결과값을 위해서이다)
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-		int typeWordNum = inputWordNum + 1; // 해당 문자가 어떤 타입인지
-		log.info("데이터 타입 숫자 전 : " + typeWordNum);
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
-			typeWordNum -= upperArr.length;
-		}
-		log.info("데이터 타입 숫자 후 : " + typeWordNum);
-		
-		// 여기서 -1 을 해주는 이유는 배열의 index 가 0부터 시작하기 때문이다.
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 바로 다음 문자가 붙어있다.
-		
-		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
-			dummy += randomStr(times - 2);
-		}
-		
-		String result = String.valueOf(resultArr) + dummy;
-		
-		return result; // 2개의 문자로 만든 것을 반환
-	}
-	/**
-	 * 대문자 변환
-	 * @param i
-	 * @param type
-	 * @param word
-	 * @param delay
-	 * @return
-	 */
-	private String bigTransform(int i, char word, int delay, int times) {
-		int numWord = word; // 치환할 문자
-		String dummy = "";
-		numWord -= 64; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
-		char[] resultArr = new char[2];
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
-		int typeWordNum = inputWordNum + 2; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
-			typeWordNum -= upperArr.length;
-		}
-		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 2번째 뒤 문자가 붙어있다.
-		
-		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
-			dummy += randomStr(times - 2);
-		}
-		
-		String result = String.valueOf(resultArr) + dummy;
-		
-		return result; // 2개의 문자로 만든 것을 반환
-	}
-	/**
-	 * 소문자 변환
-	 * @param i
-	 * @param type
-	 * @param word
-	 * @param delay
-	 * @return
-	 */
-	private String smallTransform(int i, char word, int delay, int times) {
-		int numWord = word; // 치환할 문자
-		String dummy = "";
-		numWord -= 96; // 치환할 문자가 ascii 코드에서 해당 범위의 몇번 째인지
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
-		char[] resultArr = new char[2];
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
-		int typeWordNum = inputWordNum + 3; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
-			typeWordNum -= upperArr.length;
-		}
-		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1];
-		
-		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
-			dummy += randomStr(times - 2);
-		}
-		
-		String result = String.valueOf(resultArr) + dummy;
-		
-		return result; // 2개의 문자로 만든 것을 반환
-	}
-	/**
-	 * 특수문자 변환
-	 * @param i
-	 * @param type
-	 * @param word
-	 * @param delay
-	 * @return
-	 */
-	private String specifyTransform(int i, char word, int delay, int times) {
-		int numWord = 0; // 치환할 문자
-		String dummy = "";
-		// 특수 문자 배열에서 이 문자가 어떤 문자인지 확인해야한다.
-		for (int j=0; j<allowArr.length; j++) {
-			if (allowArr[j] == word) {
-				numWord = j;
+		for (int i=0; i<upperArr.length; i++) {
+			if (word == upperArr[i]) {
+				wordNum = i;
 				break;
 			}
 		}
-		int inputWordNum = numWord + delay; // 배열에서 골라야 할 문자 번호
-		char[] resultArr = new char[2];
 		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-		
-		inputWordNum += i;
-		
-		if (inputWordNum > upperArr.length) { // 만일 골라야할 문자 번호가 배열의 크기보다 클 경우 30 이라면 배열 길이를 빼서 4번째 문자를 고르자
-			inputWordNum -= upperArr.length;
-		}
-
-		int typeWordNum = inputWordNum + 4; // 해당 문자가 어떤 타입인지
-		if (typeWordNum > upperArr.length) { // 만일 타입 숫자가 배열 크기보다 클 경우 배열 길이를 뺀다.
-			typeWordNum -= upperArr.length;
-		}
-		
-		resultArr[0] = upperArr[inputWordNum-1]; // 첫번째 문자는 현재 변환시켜야 할 문자를 변환하고
-		resultArr[1] = upperArr[typeWordNum-1]; // 숫자일 경우 바로 다음 문자가 붙어있다.
-		
-		if (times > 2) { // 만약 각 문자가 3자리수 이상으로 만들어져야할 경우 더미 문자를 만들어 뒤에 붙힌다.
-			dummy += randomStr(times - 2);
-		}
-		
-		String result = String.valueOf(resultArr) + dummy;
-		
-		return result; // 2개의 문자로 만든 것을 반환
-	}
-	
-	/**
-	 * 각 비밀번호 한자리씩을 char[] 로 변형
-	 * @param passwd
-	 * @return
-	 */
-	private char[] getPasswdArr(String passwd) {
-		String[] pwArr = passwd.split("");
-		int pwl = passwd.length();
-		char[] transArr = new char[pwl];
-		for (int i=0; i<pwl; i++) {
-			transArr[i] = pwArr[i].charAt(0);
-		}
-		return transArr;
+		return wordNum;
 	}
 }
