@@ -67,7 +67,12 @@
             <div id="usedCouponsWrap">
                 <h3>사용 쿠폰</h3>
                 <table id="userSaleslisttable">
-                    <tr class="ColumnWrap"><th class="Column CouponName">쿠폰명</th><th class="Column RestaurantName">식당명</th><th class="Column CouponNumber">쿠폰번호</th><th class="Column CouponregDate">사용가능일자</th></tr>
+                    <tr class="ColumnWrap">
+	                    <th class="Column CouponName">쿠폰명</th>
+	                    <th class="Column RestaurantName">식당명</th>
+	                    <th class="Column CouponNumber">쿠폰번호</th>
+	                    <th class="Column CouponregDate">사용가능일자</th>
+                    </tr>
                     <c:forEach var="usedcoupons" items="${usedcoupons}">
                         <tr class="ColumnInWrap">
                             <td class="CouponNameIn ColumnIn">${usedcoupons.getCouponCategory().getCouponName()}</td>
