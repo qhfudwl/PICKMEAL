@@ -17,24 +17,6 @@ public class PasswordDecoding extends Password {
 		return transPasswd;
 	}
 	
-	public static void main(String[] args) {
-		Member m = new Member();
-		m.setEmail("012345678901234568901234@naver.com");
-		m.setPasswd("11112222!!!!");
-		PasswordEncoding pe = new PasswordEncoding();
-		String result = pe.getResult(m);
-		log.info(result);
-		
-		Member m2 = new Member();
-		m2.setEmail("012345678901234568901234@naver.com");
-		m2.setPasswd("MQZADZABKHBCHICDZNEFEKFGVHGHNZHILWGKTDHLFFIMVXJNIM[LIPI]");
-		
-		PasswordDecoding pd = new PasswordDecoding();
-		String decode = pd.getResult(m2);
-		
-		log.info("디코딩 문자 : " + decode);
-	}
-	
 	private String transform(int email, String passwd) {
 		int pwl = getWordNumber(passwd.charAt(0)); // 원래 비밀번호가 몇 자리인가?
 		// 2개 이하일 경우 그냥 하면 되고, 3개 이상일 경우 나머지 더미 문자를 다 지워줘야한다.
