@@ -40,7 +40,7 @@
       <websocket:sockjs></websocket:sockjs>
    </websocket:handlers>
    
-   <beans:bean id="chattingHandler" class="pickmeal.dream.pj.handler.ChattingHandler"></beans:bean>
+   <beans:bean id="chattingHandler" class="pickmeal.dream.pj.web.handler.ChattingHandler"></beans:bean>
    
 	<context:component-scan
 		base-package="pickmeal.dream.pj" />

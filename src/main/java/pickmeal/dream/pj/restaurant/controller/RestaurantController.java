@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.java.Log;
 import pickmeal.dream.pj.message.service.MessageService;
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 import pickmeal.dream.pj.restaurant.domain.Review;
@@ -21,6 +22,7 @@ import pickmeal.dream.pj.weather.domain.MyLocation;
 import pickmeal.dream.pj.weather.domain.Weather;
 import pickmeal.dream.pj.weather.service.WeatherService;
 
+@Log
 @Controller
 public class RestaurantController {
 	@Autowired
@@ -42,13 +44,18 @@ public class RestaurantController {
 	static final double RADIUS = (Math.PI / 180);
 	
 	
+	/**
+	 * 
+	 * @author 김재익
+	 */
+	public int anonymousNumber = 0;
+	
 	/*
 	 *  메인화면 불러오기
 	 * 
 	 */
 	@GetMapping("/index")
 	public ModelAndView index() {
-		
 		
 		//레스토랑 아이디 셋팅(임시)- 윤효심
 		long restaurantId =1;
@@ -68,7 +75,14 @@ public class RestaurantController {
 //		weatherService.getMenuDependingOnTheWeather(wc);
 		mav.addObject("weather", wc);
 		
-				
+		//익명채팅방 - 김재익
+		anonymousNumber++;
+		
+		log.info("==================================");
+		log.info("@RestaurantController, GET Chat / AN : " + anonymousNumber);
+		
+		mav.addObject("AnonymousNumber", anonymousNumber);
+		
 		//View 이름 설정
 		mav.setViewName("index");
 		return mav;

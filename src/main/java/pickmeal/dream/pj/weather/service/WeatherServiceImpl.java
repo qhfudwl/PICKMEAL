@@ -262,12 +262,12 @@ public class WeatherServiceImpl implements WeatherService {
 		apiResponse = apiResponse.replaceAll("\"", "");
 		if(apiResponse.indexOf("resultCode:00") == -1) {
 			log.info(url);
+			log.info(apiResponse);
 //			System.out.println(apiResponse.substring(apiResponse.indexOf("resultCode"), apiResponse.indexOf(",")));
 		} else {
 			apiResponse = apiResponse.replace("{", "");
 			apiResponse = apiResponse.substring(apiResponse.indexOf("[")+1, apiResponse.lastIndexOf("}]"));
 		}
-		log.info(apiResponse);
 		String[] result = apiResponse.split("},");
 		
 		return result;

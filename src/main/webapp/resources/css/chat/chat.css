@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+/* 아무말 채팅 */
+#chatWrap {
+	width: 400px; height: 90%; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+	border: #ffecec 3px solid; border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#msgArea {
+    flex: 20;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+#msgArea::-webkit-scrollbar {
+    width: 5px; /*스크롤바의 너비*/
+}
+
+#msgArea::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+#msgArea::-webkit-scrollbar-thumb {
+    background-color: #fdd0d0; /*스크롤바의 색상*/
+    border-radius: 10px; /*스크롤바 라운드*/
+}
+
+#msgArea::-webkit-scrollbar-track {
+    background-color: #fff; /*스크롤바 트랙 색상*/
+}
+
+#writeArea {
+    display: flex;
+    flex-direction: row;
+    flex: 2;
+    background-color: #fff;
+    overflow: hidden;
+    border-top: #ffecec 3px solid;
+}
+
+#write_msg {
+    flex: 8;
+    border: 0;
+    resize: none;
+    padding: 5px 5px 0 5px;
+}
+
+#write_msg:focus {
+	outline: 0;
+}
+
+#input-group-append {
+    flex: 2;
+}
+#button_send {
+    background-color: #ffecec;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#msgWrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+}
+
+.textBoxArea {
+	display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px;
+    align-items: flex-start;
+}
+
+.textBoxArea.me {
+    align-items: flex-end;
+}
+
+
+.textBoxArea .textField {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}		
+
+.textBoxArea .textField .textBox {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-right: 5px;
+    max-width: 200px;
+    border-radius: 7px;
+}
+
+.textBoxArea .textField .time {
+    font-size: 0.7rem;
+    
+}
+
+.textBoxArea .textBox.me {
+    background-color: #ffecec;
+    margin-left: 5px;
+}
+
+.textBoxArea .textBox .msgBox {
+	word-wrap: break-word;
+}
