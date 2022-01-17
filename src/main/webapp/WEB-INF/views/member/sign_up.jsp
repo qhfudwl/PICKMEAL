@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +24,12 @@
 			</div>
 			<div class="signUpInputWrap">
 				<label class="labelValue" for="passwd">비밀번호</label><span class="required"> *</span><br>
-				<form:input path="passwd" class="inputValue" placeholder="" />
-				<p class="errMsg"></p>
+				<form:password path="passwd" class="inputValue" placeholder="4자 이상 20자 이하 (허용 특수문자 : !@#$%^~*+=&-)" maxlength="20" />
+				<p class="errMsg"><c:if test="${not empty errMsg}">${errMsg}</c:if></p>
 			</div>
 			<div class="signUpInputWrap">
 				<label class="labelValue" for="passwdChk">비밀번호확인</label><span class="required"> *</span><br>
-				<input name="passwdChk" id="passwdChk" class="inputValue" placeholder="" />
+				<input type="password" name="passwdChk" id="passwdChk" class="inputValue" placeholder="" />
 				<p class="errMsg"></p>
 			</div>
 			<div class="signUpInputWrap">
