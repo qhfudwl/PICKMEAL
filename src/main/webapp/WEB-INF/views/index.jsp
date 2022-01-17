@@ -203,6 +203,7 @@
 			</c:if>
 
 </body>
+
 <!-- 익명채팅방 - 김재익 -->
 <script type="text/javascript">
 $('#write_msg').on("keyup", function(key) {

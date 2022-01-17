@@ -28,7 +28,8 @@
 					<div class="profileAreaWrap navAlarmTextCom">
 						<ul class="profileArea">
 							<li><form action="" method="">로그아웃</form></li>
-							<li><a href="member/myPage">마이페이지</a> <form action="" method="">마이페이지</form></li>
+							<li><form action="" method="">마이페이지</form></li>
+							<li><a href="member/myPage">마이페이지</a></li>
 						</ul>
 					</div>
 				</li>

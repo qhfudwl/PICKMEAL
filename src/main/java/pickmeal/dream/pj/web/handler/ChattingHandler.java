@@ -26,6 +26,7 @@ public class ChattingHandler extends TextWebSocketHandler {
 		log.info("#ChattingHandler, afterConnectionEstablished");
 		sessionList.add(session);
 		
+//		session.getRemoteAddress() + 
 		log.info(session.getId() + "님이 입장하셨습니다.");
 	}
 	

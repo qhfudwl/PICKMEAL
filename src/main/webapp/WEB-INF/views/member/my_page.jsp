@@ -8,19 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<header id="header">
+	<jsp:include page="/WEB-INF/views/incl/header.jsp"/>
+	<div id="my_page_header">
         <h2>마이페이지</h2>
-    </header>
-    <nav id="nav">
-        <ul>
-            <li><a href="#">내 정보</a></li>
-            <li><a href="#">내 게시글</a></li>
-            <li><a href="#">내 댓글</a></li>
-            <li><a href="#">찜 식당</a></li>
-            <li><a href="#">내가 간 식당</a></li>
-            <li><a href="#">쿠폰</a></li>
-            <li><a href="#">업적</a></li>
-        </ul>
-    </nav>
+    </div>
+	<nav id="nav">
+	    <ul>
+	        <li><a href="#">내 정보</a></li>
+	        <li><a href="#">내 게시글</a></li>
+	        <li><a href="#">내 댓글</a></li>
+	        <li><a href="#">찜 식당</a></li>
+	        <li><a href="#">내가 간 식당</a></li>
+	        <li><a href="#">쿠폰</a></li>
+	        <li><a href="#">업적</a></li>
+	    </ul>
+	</nav>
 </body>
 </html>
