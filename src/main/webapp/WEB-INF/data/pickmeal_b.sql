@@ -8,7 +8,7 @@ CREATE TABLE Member (															# 사용자
 	gender			CHAR(1)			NOT NULL,									# 성별
 	profileImgPath	VARCHAR(100)	NOT NULL,									# 프로필 이미지 경로
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP		# 회원가입 날짜
-)
+);
 
 CREATE TABLE FoodPowerPoint (													# 식력 포인트
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							# SQL 아이디
@@ -17,14 +17,14 @@ CREATE TABLE FoodPowerPoint (													# 식력 포인트
 	detail		INT			NOT NULL,											# 내용
 	regDate		TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,				# 등록 날짜
 	CONSTRAINT	FoodPowerPoint_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
-)
+);
 
 CREATE TABLE MannerTemperature (												# 신뢰 온도
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							# SQL 아이디
 	memberId	BIGINT		NOT NULL,											# 사용자 아이디
 	temperature	DOUBLE		NOT NULL,											# 온도
 	CONSTRAINT	MannerTemperature_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
-)
+);
 
 CREATE TABLE Attendance (														# 출석
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							# SQL 아이디
@@ -32,7 +32,7 @@ CREATE TABLE Attendance (														# 출석
 	attendance	INT			NOT NULL	DEFAULT 1,								# 연속 출석 수
 	regDate		TIMESTAMP	NOT NULL	DEFAULT CURRENT_TIMESTAMP,				# 마지막 출석 날짜
 	CONSTRAINT	Attendance_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id)
-)
+);
 
 SELECT TIMESTAMPDIFF(DAY, a.regDate, CURDATE()) AS DIFF_DAY FROM Attendance AS a WHERE memberId=36;
 SELECT attendance FROM Attendance WHERE memberId=37

@@ -34,7 +34,7 @@ public class SignInController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberCommand", new MemberCommand());
 		mav.setViewName("member/sign_in");
-		return mav; 
+		return mav;
 	}
 	
 	@PostMapping("/member/signInMember")
@@ -99,10 +99,10 @@ public class SignInController {
 		
 		session.removeAttribute("couponCategory");
 		
-		mav.setViewName("redirect:/viewIndexMap");
+		mav.setViewName("redirect:/index");
 		return mav;
 		}else {
-			mav.setViewName("redirect:/viewIndexMap");
+			mav.setViewName("redirect:/index");
 			return mav;
 		}
 	}

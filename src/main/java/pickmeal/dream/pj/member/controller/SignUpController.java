@@ -117,9 +117,9 @@ public class SignUpController {
 			session.removeAttribute("couponCategory");
 		
 		// 요청 정보를 버리고 리다이렉션으로 메인화면으로 보낸다.
-		return "redirect:/viewIndexMap";
+		return "redirect:/index";
 		}else {
-			return "redirect:/viewIndexMap";
+			return "redirect:/index";
 		}
 		
 	}
