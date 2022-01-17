@@ -33,8 +33,14 @@
 		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
 
-
-
+	<!-- 웹소켓 기능 -->
+	<websocket:handlers>
+      <websocket:mapping handler="chattingHandler" path="/chatting"/>
+      <websocket:sockjs></websocket:sockjs>
+   </websocket:handlers>
+   
+   <beans:bean id="chattingHandler" class="pickmeal.dream.pj.handler.ChattingHandler"></beans:bean>
+   
 	<context:component-scan
 		base-package="pickmeal.dream.pj" />
 
