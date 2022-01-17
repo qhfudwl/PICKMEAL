@@ -8,8 +8,7 @@ CREATE TABLE Member (															# 사용자
 	gender			CHAR(1)			NOT NULL,									# 성별
 	profileImgPath	VARCHAR(100)	NOT NULL,									# 프로필 이미지 경로
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP		# 회원가입 날짜
-)
-
+);
 
 CREATE TABLE FoodPowerPoint (													# 식력 포인트
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							# SQL 아이디
@@ -43,7 +42,7 @@ DROP TABLE FoodPowerPoint;
 DROP TABLE MannerTemperature;
 DROP TABLE Attendance;
 
-DELETE FROM Member WHERE id=41;
+DELETE FROM Member WHERE id=3;
 DELETE FROM Attendance WHERE memberId=41;
 DELETE FROM FoodPowerPoint WHERE memberId=41;
 DELETE FROM MannerTemperature WHERE memberId=41;
@@ -68,7 +67,7 @@ CREATE TABLE Menu (
 	carbohydrate	INT,
 	mainFood		INT, 
 	spicy			INT
-)
+);
 SELECT * FROM Menu; 
 
 CREATE TABLE Restaurant (
@@ -79,7 +78,7 @@ CREATE TABLE Restaurant (
 	lng			DOUBLE			NOT	NULL,
 	address		VARCHAR(100)	NOT NULL,
 	rName		VARCHAR(50)		NOT NULL
-)
+);
 DROP TABLE Restaurant;
 SELECT * FROM Restaurant;
 
@@ -89,7 +88,7 @@ CREATE TABLE CouponCategory (
 	id			BIGINT			PRIMARY KEY AUTO_INCREMENT,
 	couponName	VARCHAR(20)		NOT NULL,
 	couponType	CHAR(1)			NOT NULL
-)
+);
 SELECT * FROM CouponCategory;
 
 
@@ -104,7 +103,7 @@ CREATE TABLE Coupon(
 	FOREIGN KEY (memberId) REFERENCES Member (id) ON DELETE CASCADE,
 	FOREIGN KEY (couponId) REFERENCES CouponCategory (id) ON DELETE CASCADE,
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id) ON DELETE CASCADE
-)
+);
 DROP TABLE Coupon;
 SELECT * FROM Coupon;
 DELETE FROM Coupon WHERE id =1;
@@ -115,7 +114,7 @@ CREATE TABLE RestaurantPreference (
 	restaurantId	BIGINT,
 	gender CHAR(1),
 	age CHAR(3)
-)
+);
 
 SELECT * FROM RestaurantPreference;
 SELECT * FROM Menu;
@@ -132,7 +131,7 @@ CREATE TABLE RecommendRestaurantPosting (									# 식당 추천 게시판
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,	# 글 등록 날짜
 	CONSTRAINT		RecommendRestaurantPosting_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id) ON DELETE CASCADE,
 	CONSTRAINT		RecommendRestaurantPosting_restaurantId_FK	FOREIGN KEY(restaurantId)	REFERENCES Restaurant(id) ON DELETE CASCADE
-)
+);
 
 DROP TABLE RecommendRestaurantPosting;
 SELECT * FROM RecommendRestaurantPosting;
@@ -148,7 +147,7 @@ CREATE TABLE RecommendRestaurantComment (									# 식당 추천 댓글
 	regDate		TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,		# 등록 날짜
 	CONSTRAINT	RecommendRestaurantComment_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id) ON DELETE CASCADE,
 	CONSTRAINT	RecommendRestaurantComment_postId_FK	FOREIGN KEY(postId)	REFERENCES RecommendRestaurantPosting(id) ON DELETE CASCADE
-)
+);
 
 DROP TABLE RecommendRestaurantComment;
 SELECT * FROM RecommendRestaurantComment;
