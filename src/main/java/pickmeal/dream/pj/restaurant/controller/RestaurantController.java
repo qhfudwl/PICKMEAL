@@ -1,14 +1,12 @@
 package pickmeal.dream.pj.restaurant.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +16,10 @@ import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 import pickmeal.dream.pj.restaurant.domain.Review;
 import pickmeal.dream.pj.restaurant.service.RestaurantReferenceService;
 import pickmeal.dream.pj.restaurant.service.ReviewService;
+import pickmeal.dream.pj.weather.command.WeatherCommand;
+import pickmeal.dream.pj.weather.domain.MyLocation;
+import pickmeal.dream.pj.weather.domain.Weather;
+import pickmeal.dream.pj.weather.service.WeatherService;
 
 @Controller
 public class RestaurantController {
@@ -29,6 +31,9 @@ public class RestaurantController {
 	
 	@Autowired
 	MessageService ms;
+	
+	@Autowired
+	WeatherService weatherService;
 	
 	/**
 	 * @author 김보령
@@ -56,6 +61,14 @@ public class RestaurantController {
 		mav.addObject("restaurantId",restaurantId);
 		//포춘메세지 추가 - 윤효심 
 //		mav.addObject("fortuneMessage",fortuneMessage);
+		
+		//날씨 - 김재익
+		Weather weather = weatherService.getWeather(new MyLocation("89", "90"));
+		WeatherCommand wc = weatherService.getPickMealTypeWeather(weather);
+//		weatherService.getMenuDependingOnTheWeather(wc);
+		mav.addObject("weather", wc);
+		
+				
 		//View 이름 설정
 		mav.setViewName("index");
 		return mav;

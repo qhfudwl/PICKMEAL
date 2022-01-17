@@ -32,7 +32,6 @@
 						</ul>
 					</div>
 				</li>
-
 				<li>
 					<div class="alarmIconWrap comIconWrap">
 						<img src="/pickmeal/resources/img/header/bell_alarm.png"

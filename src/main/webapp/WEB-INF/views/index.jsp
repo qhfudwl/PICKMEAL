@@ -13,6 +13,9 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/incl/chart.css"
 	rel="stylesheet" type="text/css">
+	<link
+	href="${pageContext.request.contextPath}/resources/css/weather/weather.css"
+	rel="stylesheet" type="text/css">
 <script
 	src="${pageContext.request.contextPath}/resources/js/incl/chart.js"
 	defer></script>
@@ -50,6 +53,79 @@
 	<section id="restaurantWrap">
 		<h3 class="hidden">식당 정보 표시</h3>
 		<div id="restaurantInfo">
+			<div id="weatherWrap"> <!-- 날씨영역 - 김재익 -->
+		        <div id="weather">
+		            <c:choose>
+		        		<c:when test="${weather.sky eq 1 }">
+		            		<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 2 }">
+		        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_cloud_64.png"/>
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 3 }">
+		        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_rain.gif"/>
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 4 }">
+		        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_snow_64.png"/>
+		        		</c:when>
+		        	</c:choose>
+		            <div class="temperatureWrap"><span class="temperature">${weather.temperature }</span><span class="symbol">&#8451;</span></div>
+		        </div>
+		        <div id="forecast">
+		            <div class="forecastItem">
+		                <span>오전 8시</span>
+		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		                <div class="temperatureWrap"><span class="temperature">2</span><span class="symbol">&#8451;</span></div>
+		            </div>
+		            <div class="forecastItem">
+		                <span>오후 12시</span>
+		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		                <div class="temperatureWrap"><span class="temperature">13</span><span class="symbol">&#8451;</span></div>
+		            </div>
+		            <div class="forecastItem">
+		                <span>오후 18시</span>
+		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_cloud_64.png"/>
+		                <div class="temperatureWrap"><span class="temperature">11</span><span class="symbol">&#8451;</span></div>
+		            </div>
+		            <div class="forecastItem">
+		                <span>오후 22시</span>
+		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_rain.gif"/>
+		                <div class="temperatureWrap"><span class="temperature">3</span><span class="symbol">&#8451;</span></div>
+		            </div>
+		        </div>
+		        <div id="howAboutThis">
+		        	<c:choose>
+		        		<c:when test="${weather.sky eq 1 }">
+		        			맑고
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 2 }">
+		        			흐리고
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 3 }">
+		        			비오고
+		        		</c:when>
+		        		<c:when test="${weather.sky eq 4 }">
+		        			눈오고
+		        		</c:when>
+		        	</c:choose>
+		        	<c:choose>
+		        		<c:when test="${weather.temperature lt 10 }">
+		        			춥네
+		        		</c:when>
+		        		<c:when test="${weather.temperature gt 25 }">
+		        			덥네
+		        		</c:when>
+		        		<c:otherwise>
+		        			적당하네
+		        		</c:otherwise>
+		        	</c:choose>
+		        	이거 어때?
+		        </div>
+		        <div id="wetherMenu">
+		            <img src="https://img.icons8.com/dusk/64/000000/sun--v2.png"/>
+		            <span class="weatherMenuName">음식이름</span>
+		        </div>
+		    </div>
 			<div id="restaurantWindow">
 				<iframe id="restaurantUrl"></iframe>
 				<button id="open" value="open">펼치기</button>
