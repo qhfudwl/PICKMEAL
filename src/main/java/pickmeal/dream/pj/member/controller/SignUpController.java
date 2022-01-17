@@ -18,11 +18,16 @@ import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.command.MemberCommand;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.member.util.PasswordEncoding;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
+import pickmeal.dream.pj.web.util.Validator;
 
 @Controller
 @Log
 public class SignUpController {
+	
+	@Autowired
+	PasswordEncoding pe;
 	
 	@Autowired
 	MemberService ms;
@@ -30,6 +35,9 @@ public class SignUpController {
 	/*쿠폰 서비스 추가*/
 	@Autowired
 	CouponService cs;
+	
+	@Autowired
+	Validator v;
 	
 	@GetMapping("/member/viewSignUp")
 	public ModelAndView viewSignUp() {
@@ -74,8 +82,10 @@ public class SignUpController {
 	 * @return
 	 */
 	@PostMapping("/member/generateMember")
-	public String generateMember(@ModelAttribute MemberCommand mc, 
+	public ModelAndView generateMember(@ModelAttribute MemberCommand mc, 
 			HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String errMsg = null;
 		
 		// command 를 domain 객체로 만든다.
 		Member member = new Member();
@@ -84,6 +94,37 @@ public class SignUpController {
 		member.setNickName(mc.getNickName());
 		member.setBirth(mc.getBirth());
 		member.setGender(mc.getGender());
+		
+		// 비밀번호 자릿수
+		if (member.getPasswd().length() < 4 || member.getPasswd().length() > 20) {
+			errMsg = "비밀번호 형식에 맞지 않습니다.";
+		}
+		
+		String[] inputPasswd = member.getPasswd().split("");
+		String allow = String.valueOf(pe.allowArr);
+		String number = String.valueOf(pe.numberArr);
+		String upper = String.valueOf(pe.upperArr);
+		String small = String.valueOf(pe.smallArr);
+		
+		// 비밀번호에 허용하지 않는 특수문자가 있는지 확인
+		for (int i=0; i<inputPasswd.length; i++) {
+			if (allow.contains(inputPasswd[i]) || number.contains(inputPasswd[i])
+					|| upper.contains(inputPasswd[i]) || small.contains(inputPasswd[i])) {
+				inputPasswd[i] = "O";
+			} else {
+				inputPasswd[i] = "X";
+			}
+		}
+		
+		if (String.join("", inputPasswd).contains("X")) {
+			errMsg = "비밀번호 형식에 맞지 않습니다.";
+		}
+		
+		if (!v.isEmpty(errMsg)) {
+			mav.addObject("errMsg", errMsg);
+			mav.setViewName("member/sign_up");
+			return mav;
+		}
 		
 		// 셋팅한 객체를 서비스로 보낸다.
 		member = ms.addMember(member);
@@ -117,10 +158,8 @@ public class SignUpController {
 			session.removeAttribute("couponCategory");
 		
 		// 요청 정보를 버리고 리다이렉션으로 메인화면으로 보낸다.
-		return "redirect:/viewIndexMap";
-		}else {
-			return "redirect:/viewIndexMap";
 		}
-		
+		mav.setViewName("redirect:/index");
+		return mav;
 	}
 }

@@ -21,7 +21,7 @@
 }
 /* errMsg */
 #signUpFormWrap .errMsg {
-	color: #ff0000; font-size: 13px;
+	color: #ff0000; font-size: 13px; width: 600px;
 	position: absolute; left: 0; bottom: 10px;
 }
 /* 가입하기 버튼 */
