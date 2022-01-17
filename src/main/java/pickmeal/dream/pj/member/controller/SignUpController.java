@@ -156,8 +156,6 @@ public class SignUpController {
 			cs.addCoupon(coupon);
 		
 			session.removeAttribute("couponCategory");
-		}else {
-			return "redirect:/index";
 		}
 		mav.setViewName("redirect:/index");
 		return mav;
