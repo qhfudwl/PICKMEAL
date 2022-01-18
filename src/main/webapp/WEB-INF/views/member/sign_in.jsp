@@ -16,7 +16,7 @@
 	<h2 class="hidden">로그인</h2>
 	<section id="signInFormWrap">
 		<h3 class="hidden">로그인 입력</h3>
-		<form:form name="signInForm" action="signInMember" method="post" modelAttribute="memberCommand">
+		<form:form name="signInForm" action="${pageContext.request.contextPath}/member/signInMember" method="post" modelAttribute="memberCommand">
 			<c:if test="${not empty invalidInfo}"><p id="invalidInfo">잘못된 정보입니다.</p></c:if>
 			<div class="signInInputWrap">
 				<label class="labelValue" for="email">이메일</label><br>

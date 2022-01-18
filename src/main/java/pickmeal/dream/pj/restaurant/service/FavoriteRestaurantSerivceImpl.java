@@ -38,7 +38,11 @@ public class FavoriteRestaurantSerivceImpl implements FavoriteRestaurantSerivce{
 
 	@Override
 	public void addFavoriteRestaurant(FavoriteRestaurant favoriteRestaurnat) {
-		frd.addFavoriteRestaurant(favoriteRestaurnat);
+		if(frd.isFavoriteRestaurant(favoriteRestaurnat.getMember().getId(), favoriteRestaurnat.getRestaurant().getId())) {
+			
+		}else {
+			frd.addFavoriteRestaurant(favoriteRestaurnat);
+		}
 		
 	}
 
@@ -48,4 +52,11 @@ public class FavoriteRestaurantSerivceImpl implements FavoriteRestaurantSerivce{
 		return rd.findRestaurantById(id);
 	}
 
+	@Override
+	public boolean isFavoriteRestaurant(long memberId, long restaurantId) {
+		
+		return frd.isFavoriteRestaurant(memberId, restaurantId);
+	}
+	
+	
 }

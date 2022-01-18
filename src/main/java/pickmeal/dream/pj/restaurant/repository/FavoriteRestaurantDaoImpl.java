@@ -41,10 +41,16 @@ public class FavoriteRestaurantDaoImpl implements FavoriteRestaurantDao{
 
 	@Override
 	public void addFavoriteRestaurant(FavoriteRestaurant favoriteRestaurant) {
-		String sql ="INSERT INTO FavoriteRestaurant(memberId,RestaurantId) + VALUES (?,?)";
+		String sql ="INSERT INTO FavoriteRestaurant(memberId, restaurantId) VALUES (?, ?)";
 		
 		jt.update(sql,favoriteRestaurant.getMember().getId(),favoriteRestaurant.getRestaurant().getId());
 		
+	}
+
+	@Override
+	public boolean isFavoriteRestaurant(long memberId, long restaurantId) {
+		String sql ="SELECT EXISTS (SELECT id FROM FavoriteRestaurant WHERE memberId = ? and restaurantId = ?)";
+		return jt.queryForObject(sql, boolean.class,memberId,restaurantId);
 	}
 
 }

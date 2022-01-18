@@ -17,4 +17,5 @@ public interface FavoriteRestaurantSerivce {
 	
 	Restaurant findRestaurantById(long id);
 	
+	boolean isFavoriteRestaurant(long memberId, long restaurantId);
 }

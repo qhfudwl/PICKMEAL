@@ -13,6 +13,6 @@ public interface FavoriteRestaurantDao {
 	
 	void addFavoriteRestaurant(FavoriteRestaurant favoriteRestaurant);
 	
-	
+	boolean isFavoriteRestaurant(long memberId, long restaurantId);
 	
 }

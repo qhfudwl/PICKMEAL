@@ -64,7 +64,7 @@ public class CouponCountroller {
 		/*이거 나중에 게임 완료 후로 다 옴겨야해용 다 옴겨야행용*/
 		/*레스토랑이 제휴 레스토랑인지 비교 하기*/
 		System.out.println("이화면 입장 완료여");
-		Restaurant restaurant = cs.findRestaurantById(3);
+		Restaurant restaurant = cs.findRestaurantById(9);
 		System.out.println(restaurant);
 		System.out.println(restaurant.isRType());
 		Member member = (Member) session.getAttribute("member");

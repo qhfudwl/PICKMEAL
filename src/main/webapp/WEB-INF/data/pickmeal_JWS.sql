@@ -70,8 +70,15 @@ CREATE TABLE Restaurant (
 	rName		VARCHAR(50)		NOT NULL										#식당 이름 값
 )
 DROP TABLE Restaurant;
-INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(1,true,31.0000,24.0000,"원식이네집","원식이네집");
-INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(2,false,31.0000,24.0000,"주소값2에욤","식당2름이에욤");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(8,true,31.0000,24.0000,"대구광역시 중구 동성로 19-3 화무비도","화무비도");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(7,false,31.0000,24.0000,"대구광역시 중구 중앙대로 389","맘스터치");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(3,true,33.450701,126.570667,"서울특별시 카카오","카카오");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(3,true,33.450701,126.570667,"대구 달서구 장산로20","원식이집");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(5,true,33.450701,126.570667,"대구광역시 남구 중앙대로51길 112 1층","해봄치킨");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(5,true,33.450701,126.570667,"대구광역시 중구 중앙대로 366 9층 10층","코리아IT대구점");
+INSERT INTO Restaurant(apiId,rType,lat,lng,address,rName) VALUES(6,true,33.450701,126.570667,"대구광역시 수성구 용학로 115 2동","팜테이블");
+
+
 SELECT * FROM Restaurant;
 
 CREATE TABLE CouponCategory (
@@ -138,6 +145,24 @@ CREATE TABLE FavoriteRestaurant (
 	FOREIGN KEY (memberId) REFERENCES Member (id),								#아래 쭉 포링키
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)	
 )
+INSERT INTO FavoriteRestaurant(memberId, restaurantId) VALUES(4,9);
+SELECT EXISTS (SELECT id FROM FavoriteRestaurant WHERE memberId = 4 and restaurantId = 1); #없으면 0 #있으면 1
+SELECT * FROM FavoriteRestaurant;
+
+CREATE TABLE VisitedRestaurant(
+	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
+	memberId		BIGINT			NOT NULL,
+	restaurantId	BIGINT			NOT NULL,
+	Review			boolean			DEFAULT FALSE,
+	regDate			TIMESTAMP		NOT NULL		DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (memberId) REFERENCES Member (id),								#아래 쭉 포링키
+	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
+)
+INSERT INTO VisitedRestaurant(memberId, restaurantId) VALUES(4,10);
+INSERT INTO VisitedRestaurant(memberId, restaurantId, Review) VALUES(4,10,true);
+UPDATE VisitedRestaurant SET Review = true WHERE id = 1;
+SELECT * FROM VisitedRestaurant;
+DROP TABLE VisitedRestaurant;
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
