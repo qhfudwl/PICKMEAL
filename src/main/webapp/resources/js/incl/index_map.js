@@ -170,12 +170,14 @@ function displayRestaurantInfo(lat, lng) {
 				dataType: "json",
 				success: function(data){
 					$("#restaurantUrl").attr("src", data["documents"][0].place_url);
+					$("#weatherWrap").hide();
 				}
 			})
 	    }
 	};
 	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
 }
+
 
 // 보기 버튼 클릭 시 식당 정보 표시 section 커지기
 $("#open").click(function() {

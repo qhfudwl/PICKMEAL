@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
+import pickmeal.dream.pj.weather.domain.Weather;
 
 @Repository("menuDao")
 public class MenuDaoImpl implements MenuDao{
@@ -46,12 +47,6 @@ public class MenuDaoImpl implements MenuDao{
 	}
 
 	@Override
-	public List<Menu> findMenuBywheater(int weather) {
-		
-		return null;
-	}
-
-	@Override
 	public Menu findMenuById(long id) {
 		String sql ="SELECT id, menuName, weather, imgPath, soupy, hot_ice, carbohydrate, mainFood, spicy"
 				+ " FROM Menu WHERE id = ?";
@@ -65,6 +60,12 @@ public class MenuDaoImpl implements MenuDao{
 				+ " FROM Menu WHERE menuName = ?";
 		List<Menu> menulist = jt.query(sql, new MenuRowMapper(),menuName);
 		return menulist;
+	}
+
+	@Override
+	public List<Menu> findMenuByWeather(int temperature, int sky) {
+		
+		return null;
 	}
 
 }

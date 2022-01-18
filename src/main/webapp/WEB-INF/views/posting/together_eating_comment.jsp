@@ -15,21 +15,7 @@
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 	<section id="commentsWrap">
 		<h2 class="hidden">댓글</h2>
-		<c:if test="${not empty member}">
-			<form:form name="writeCmtForm" modelAttribute="commentCommand">
-				<section id="writeCommentWrap">
-					<h3 class="hidden">댓글 작성란</h3>
-					<p id="writerNickName">${member.nickName}</p>
-					<input type="hidden" name="memberId" value="${member.id}"/>
-					<input type="hidden" name="postId" value="1${posting.id}"/>
-					<input type="hidden" name="post_memberId" value="1${posting.member.id}"/>
-					<input type="hidden" name="category" value="R${posting.category}"/>
-					<textarea id="writeCmt" name="content" rows="4" cols="50" placeholder="댓글을 등록해주세요."></textarea>
-					<input type="button" name="update" value="등록" id="writeOk" />
-				</section>
-			</form:form>
-		</c:if>
-		<form name="viewCmtForm" action="" method="get">
+		<form name="viewCmtForm">
 			<c:forEach var="c" items="${comments}">
 				<div class="commentWrap" id="commentWrap${c.id}">
 					<img alt="${c.member.nickName}님의 프로필 이미지" src="${pageContext.request.contextPath}${c.member.profileImgPath}">
@@ -69,6 +55,37 @@
 				</div>
 			</c:forEach>
 		</form>
+		<input type="hidden" value="${viewPageNum}" id="viewPageNum" />
+		<input type="hidden" value="${allPageNum}" id="allPageNum"/>
+		<input type="hidden" value="${allCmtNum}" id="allCmtNum"/>
+		<input type="hidden" value="${pageNum}" id="pageNum"/>
+		<section id="cmtBtnWrap">
+			<button type="button" id="firstPage">&lt;&lt;</button>
+			<button type="button" id="leftPage">&lt;</button>
+			<div id="cmtPageNumWrap">
+				<div id="pageWrap">
+					<c:forEach begin="1" end="${allPageNum}" varStatus="status">
+						<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="pageNum" class="pageNum pageNum${status.count}" value="${status.count}">${status.count}</button>
+					</c:forEach>
+				</div>
+			</div>
+			<button type="button" id="rightPage">&gt;</button>
+			<button type="button" id="lastPage">&gt;&gt;</button>
+		</section>
+		<form:form name="writeCmtForm" modelAttribute="commentCommand">
+			<input type="hidden" name="memberId" value="${member.id}"/>
+			<input type="hidden" name="postId" value="${posting.id}"/>
+			<input type="hidden" name="post_memberId" value="${posting.member.id}"/>
+			<input type="hidden" name="category" value="${posting.category}"/>
+			<c:if test="${not empty member }">
+				<section id="writeCommentWrap">
+					<h3 class="hidden">댓글 작성란</h3>
+					<p id="writerNickName">${member.nickName}</p>
+					<textarea id="writeCmt" name="content" rows="4" cols="50" placeholder="댓글을 등록해주세요."></textarea>
+					<input type="button" name="update" value="등록" id="writeOk" />
+				</section>
+			</c:if>
+		</form:form>
 	</section>
 </body>
 </html>

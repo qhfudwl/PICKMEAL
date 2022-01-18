@@ -25,7 +25,7 @@
 			</div>
 			<div class="signInInputWrap">
 				<label class="labelValue" for="passwd">비밀번호</label><br>
-				<form:input path="passwd" class="inputValue" placeholder="" />
+				<form:password path="passwd" class="inputValue" placeholder="" />
 				<p class="errMsg"></p>
 			</div>
 			<div class="signInBtnWrap">

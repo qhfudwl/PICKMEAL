@@ -17,6 +17,7 @@ import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.command.MemberCommand;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.member.util.PasswordDecoding;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
 
 @Controller
@@ -29,12 +30,15 @@ public class SignInController {
 	@Autowired
 	CouponService cs;
 	
+	@Autowired
+	private PasswordDecoding pd;
+	
 	@GetMapping("/member/viewSignIn")
 	public ModelAndView viewSignIn() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberCommand", new MemberCommand());
 		mav.setViewName("member/sign_in");
-		return mav; 
+		return mav;
 	}
 	
 	@PostMapping("/member/signInMember")
@@ -51,10 +55,14 @@ public class SignInController {
 			chkInfo = false;
 		} else { // 해당 아이디가 있을 경우
 			member = ms.findMemberByMemberEmail(memberCommand.getEmail());
+			member = pd.convertPassword(member);
 			log.info(member.getPasswd());
 			if (!memberCommand.getPasswd().equals(member.getPasswd())) { // 비밀번호 불일치 시
 				chkInfo = false;
 			}
+		}
+		if (member.getMemberType() == 'D') { // 탈퇴한 회원
+			chkInfo = false;
 		}
 		if (!chkInfo) { // 유효성 검사에서 걸릴 경우 다시 로그인 화면으로 보낸다
 			mav.addObject("memberCommand", memberCommand);
@@ -96,10 +104,10 @@ public class SignInController {
 		
 		session.removeAttribute("couponCategory");
 		
-		mav.setViewName("redirect:/viewIndexMap");
+		mav.setViewName("redirect:/index");
 		return mav;
 		}else {
-			mav.setViewName("redirect:/viewIndexMap");
+			mav.setViewName("redirect:/index");
 			return mav;
 		}
 	}

@@ -10,7 +10,7 @@
 			<li><form action="" method="">식당추천</form></li>
 			<li>
             <form name="indexView" action="${pageContext.request.contextPath}/posting/viewTogetherEatingComment" method="get">
-            	<input type="submit" value="밥친구"/>
+            	<button type="submit" name="pageNum" value="1">밥친구</button>
             	밥친구
             </form></li>
 		</ul>
@@ -29,10 +29,10 @@
 						<ul class="profileArea">
 							<li><form action="" method="">로그아웃</form></li>
 							<li><form action="" method="">마이페이지</form></li>
+							<li><a href="member/myPage">마이페이지</a></li>
 						</ul>
 					</div>
 				</li>
-
 				<li>
 					<div class="alarmIconWrap comIconWrap">
 						<img src="/pickmeal/resources/img/header/bell_alarm.png"

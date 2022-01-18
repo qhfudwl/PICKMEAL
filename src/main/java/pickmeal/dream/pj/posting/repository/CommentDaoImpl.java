@@ -65,6 +65,13 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
+	public boolean isCommentByPostId(long postId, char category) {
+		String tableName = decideTableName(category);
+		String sql = "SELECT EXISTS (SELECT id from " + tableName + " WHERE postId=?)";
+		return jt.queryForObject(sql, Boolean.class, postId);
+	}
+
+	@Override
 	public List<Comment> findAllCommentByMemberId(long memberId, char category) {
 		String tableName = decideTableName(category);
 		String sql = "SELECT id, memberId, postId, content, regDate"
@@ -74,12 +81,21 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> findAllCommentByPostId(long postId, char category) {
+	public List<Comment> findCommentsByPostId(long postId, char category, int start, int end) {
 		String tableName = decideTableName(category);
+		// LIMIT 은 INDEX가 0 에서부터 시작
+		// 5, 10 이면 우리로 치면 6번째 행부터 10개 이렇게다
 		String sql = "SELECT id, memberId, postId, content, regDate"
-				+ " FROM " + tableName + " WHERE postId=?";
+				+ " FROM " + tableName + " WHERE postId=? LIMIT ?, ?";
 		
-		return jt.query(sql, new CommentRowMapper(), postId);
+		return jt.query(sql, new CommentRowMapper(), postId, start, end);
+	}
+
+	@Override
+	public int countCommentByPostId(long postId, char category) {
+		String tableName = decideTableName(category);
+		String sql = "SELECT COUNT(*) FROM " + tableName + " GROUP BY postId=?";
+		return jt.queryForObject(sql, Integer.class, postId);
 	}
 	
 	/**

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 
-@Repository("RestaurantReferenceDao")
+@Repository("restaurantReferenceDao")
 public class RestaurantReferenceDaoImpl implements RestaurantReferenceDao{
 
 	@Resource(name = "jdbcTemplate")

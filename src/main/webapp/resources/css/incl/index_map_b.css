@@ -56,8 +56,3 @@
 #open:hover {
 	background-color: #f23f3f; color: #fff;
 }
-/* 아무말 채팅 */
-#chatWrap {
-	width: 300px; height: 90%; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-	background-color: #ffecec; border-radius: 10px;
-}
