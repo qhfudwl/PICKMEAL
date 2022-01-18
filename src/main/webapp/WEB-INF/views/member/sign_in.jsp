@@ -29,8 +29,8 @@
 				<p class="errMsg"></p>
 			</div>
 			<div class="signInBtnWrap">
-				<input type="submit" id="signUpBtn" name="chkBtn" value="회원가입" />
 				<input type="submit" id="signInBtn" name="chkBtn" value="로그인" />
+				<input type="submit" id="signUpBtn" name="chkBtn" value="회원가입" />
 			</div>
 		</form:form>
 	</section>

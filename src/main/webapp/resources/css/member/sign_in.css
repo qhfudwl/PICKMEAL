@@ -42,7 +42,7 @@
 }
 /* 로그인 버튼 */
 #signInFormWrap .signInBtnWrap {
-	display: flex; justify-content: space-between; align-items: center;
+	display: flex; justify-content: space-between; align-items: center; flex-direction: row-reverse;
 }
 #signInBtn {
 	line-height: 40px; width: 150px; text-align: center; font-weight: bold;
