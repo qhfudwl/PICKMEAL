@@ -31,6 +31,7 @@ console.log('post_write in')
 
 
 let fileBuffer= [];
+let fileBufferIndex =0;
 //파일 첨부하면
 $('#multiFileInput').change(function() {
 	
@@ -51,8 +52,8 @@ $('#multiFileInput').change(function() {
 		//제약사항 - 이미지파일은 jpg, png, gif만
 		const fileName = file.name;
 		const fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
-		if(fileEx != "jpg" && fileEx != "png" &&  fileEx != "gif"){
-	        alert("파일은 (jpg, png, gif) 형식만 등록 가능합니다.");
+		if(fileEx != "jpg" && fileEx != "png" &&  fileEx != "gif" && fileEx != "jpeg"){
+	        alert("파일은 (jpg, png, gif, jpeg) 형식만 등록 가능합니다.");
 	        resetFileToPwrite();
 	        return false;
 	     }
@@ -78,25 +79,51 @@ function resetFileToPwrite(){
 //정적 이미지 파일들 경로 지정
 let wPostAttachedImgIconSrc="posting/attached_picture.png";
 let wPostattachedImgDelIconSrc="posting/close.png";
+let wPostattachedImgDelOnclickIconSrc="posting/close_onclick.png";
+//본문에 들어가는 클래스 이름 지정
+let wPostImgName = "imgList"
 
-//파일리스트 화면에 보여주기
+
+/*
+
+	파일리스트 화면에 보여주기
+		- 파일리스트 - 리스트형태
+		- 글쓰기폼div - 이미지형태
+		- 위 둘에, 고유의 className과 data 값을 부여한다 (삭제위해)
+
+*/
 function addAttachedImgList(fileBuffer){
 	//기존 DOM에있는 파일리스트를 전부 지워준다
 	$('.wPostAttachedImgList li').remove();
 	
 	
 	$.each(fileBuffer, function(index, file){
-		let post_html = '';
+		let imgList_html='';
+		let content_html='';
 		const fileName = file.name;
-		post_html += '<li>';
-		post_html += '<img src="'+wPostAttachedImgIconSrc+'" class="wPostAttachImgIcon" alt="이미지파일 아이콘">';
-		post_html += '<p class="wPostAttachImgTitle">';
-		post_html += fileName;
-		post_html += '<span>("'+file.size+'")</span></p>';
-		post_html += '<img src="'+wPostattachedImgDelIconSrc+'" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">';
-		post_html += '</li>'; 
+		
+		//파일 첨부 리스트에 보여주기
+		imgList_html += '<li>';
+		imgList_html += '<img src="'+wPostAttachedImgIconSrc+'" class="wPostAttachImgIcon" alt="이미지파일 아이콘">';
+		imgList_html += '<p class="wPostAttachImgTitle">';
+		imgList_html += fileName;
+		imgList_html += '<span>("'+file.size+'")</span></p>';
+		imgList_html += '<img src="'+wPostattachedImgDelIconSrc+'" data="removeImgIndex" value="'+fileBufferIndex+'"';
+		imgList_html += 'class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">';
+		imgList_html += '</li>'; 
 		console.log('fileBuffer Counter'+index);
-		$('.wPostAttachedImgList').append(post_html);
+		$('.wPostAttachedImgList').append(imgList_html);
+		
+		//글 본문에 사진 넣어주기
+		//class Name에 index 값을 부여한
+		content_html += '<br>';
+		content_html += '<img src="'+URL.createObjectURL(file)+'" alt="'+fileName+'"class="'+wPostImgName+fileBufferIndex+'">';
+		content_html += '<br>';
+		$('.wPostContentInput').append(content_html);
+		
+		//고유한 class name을 주기위한 값 추가
+		fileBufferIndex++;
+		
 	 });
 }
 
@@ -116,19 +143,37 @@ function addAttachedImgList(fileBuffer){
 				관리하니 코드가 간단해졌다.
 
 */
-$(document).on("mouseenter", ".wPostAttachedImgList li", function() {
+$(document).on("mouseover", ".wPostAttachedImgList li", function() {
 //$('.wPostAttachedImgList li').click(function(){
 	//다른 리스트 선택된 효과 지우기
 	$('.wPostAttachedImgList li').removeClass('wPostHoverImg');
 	//지금 선택된 리스트 선택 효과 주기
 	$(this).addClass('wPostHoverImg');
+	//삭제버튼 효과주기
+	$(this).find($('.wPostAttachImgDelIcon')).attr('src',wPostattachedImgDelOnclickIconSrc);
+})
+$(document).on("mouseleave", ".wPostAttachedImgList li", function() {
+	//효과 지우기
+	$('.wPostAttachedImgList li').removeClass('wPostHoverImg');
+	//삭제버튼 효과없애
+	$(this).find($('.wPostAttachImgDelIcon')).attr('src',wPostattachedImgDelIconSrc);
 })
 
 $(document).on("click", ".wPostAttachedImgList li", function() {
-	//다른 리스트 선택된 효과 지우기
-	$('.wPostAttachedImgList li').removeClass('wPostSelectedImg');
-	//지금 선택된 리스트 선택 효과 주기
-	$(this).addClass('wPostSelectedImg');
+	// 사실상 이미지 리스트들 onclick 해서 해줄게 없어서 없애기!
+	/*
+	if($(this).hasClass('wPostSelectedImg')){
+		//효과 지우기
+		$('.wPostAttachedImgList li').removeClass('wPostSelectedImg');
+	}
+	else{
+		//다른 리스트 선택된 효과 지우기
+		$('.wPostAttachedImgList li').removeClass('wPostSelectedImg');
+		//지금 선택된 리스트 선택 효과 주기
+		$(this).addClass('wPostSelectedImg');
+	}
+	*/
+	
 })
 
 /**
@@ -137,9 +182,24 @@ $(document).on("click", ".wPostAttachedImgList li", function() {
 			1) 리스트에서 이미지를 삭제하면, 리스트에서도 지워주고 fileBuffer에서도 지워준다
 			2) 글작성 div에서 이미지를 삭제해준다 
 
+		문제점 발생
+			1) 글작성폼에서 특정 이미지를 삭제하기 위해서 div안에 img태그안에 classname을
+			imgList+파일추가할 때 index 번호로 주었는데, 이러면 새로운 파일을 추가할 때 index번호가 
+			추가되서 img classname이 중복이 된다.
+			
+		문제점 해결  - data, value
+			1) className이 중복되지 않게 만들어주고, 이 className을
+			파일리스트에서도 추가해줘서 해당 리스트가 클릭될 때 리스트가 가진 data값을 불러주면
+			data의 value 값으로 글작성폼div 안에 이미지 클래스를찾을 수 있다
 
  */
+$(document).on('click','.wPostAttachImgDelIcon',function(){
+	let removeImgIndex  = $(this).parent().index();
+	
+	//파일첨부리스트에서 삭제
+	
 
+})
 
 
 

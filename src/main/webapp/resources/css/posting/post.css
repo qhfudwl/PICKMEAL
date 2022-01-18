@@ -140,6 +140,7 @@
 	box-sizing: border-box;
 	padding-top: 15px;
 	height: 245px;
+	overflow-y:scroll;
 }
 
 /*
@@ -1017,8 +1018,14 @@ input:checked+.slider:before {
 .attachedImgs{
 	max-width:100%;
 }
-
+/*
+	이미지 리스트들 포커스커서 필요없어짐 
 .wPostAttachedImgList li:focus, .wPostAttachedImgList li:hover{
+	cursor:pointer;
+}
+*/
+/*	이미지 리스트들 중에 삭제 아이콘 hover시 커서*/
+.wPostAttachImgDelIcon:hover, .wPostAttachImgDelIcon:focus{
 	cursor:pointer;
 }
 

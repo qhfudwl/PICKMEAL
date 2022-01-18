@@ -48,12 +48,13 @@
 
                         <div class="wPostAttachedImgListWrap postInputTCom" >
                             <ul class="wPostAttachedImgList">
+                            	<!--  임시 
                                 <li class="wPostSelectedImg">
                                     <img src="posting/attached_picture.png" class="wPostAttachImgIcon" alt="이미지파일 아이콘">
                                     <p class="wPostAttachImgTitle">sky.jpg<span>(20Mbyte)</span></p>
                                     <img src="posting/close.png" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">
                                 </li>
-                            
+                            	-->
                             </ul>
                         </div>
                     </div>
