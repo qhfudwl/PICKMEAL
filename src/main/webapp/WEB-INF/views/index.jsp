@@ -32,7 +32,7 @@
 
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/incl/header.jsp"%>
+	<jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 	<!-- 김보령 -->
 	<section id="content">
 	<h2 class="hidden">게임하기</h2>

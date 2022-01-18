@@ -12,7 +12,6 @@ import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
 @Log
-@Log4j
 public class ChattingHandler extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();

@@ -21,11 +21,11 @@ public class WritingPostController {
 	@Resource(name="uploadPath")
 	String uploadPath;
 	
-	@GetMapping("writing")
+	@GetMapping("post_write")
 	public ModelAndView writingPostMain(HttpServletRequest request) {
 		System.out.println("this is root "+ request.getSession().getServletContext().getRealPath("/"));
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("posting/writingPost");
+		mav.setViewName("posting/post_write");
 		return mav;
 	}
 	
