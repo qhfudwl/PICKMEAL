@@ -1,6 +1,10 @@
 package pickmeal.dream.pj.message.domain;
 
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,8 +13,8 @@ import lombok.ToString;
 @ToString
 public class Message {
 	private long id;
-	private char type;
-	private String content;
+	private char type; //messageType
+	private String content; 
 	
 	public Message() {}
 	

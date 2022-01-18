@@ -24,5 +24,10 @@ public class MessageServiceImpl implements MessageService{
 		return mList.get(i).getContent();
 	}
 	
+	// 매일 첫 로그인 후 게임하기 눌렀을 때 팝업에 띄워줄 메세지
+	public String bringFirstMsg() {
+		String firstMsg = md.bringFirstMsg('F');
+		return firstMsg;
+	}
 	
 }

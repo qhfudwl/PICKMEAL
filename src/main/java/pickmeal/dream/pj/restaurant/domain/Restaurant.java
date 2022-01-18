@@ -33,16 +33,17 @@ public class Restaurant {
 		return "Restaurant [id=" + id + " apiId=" + apiId + ", rType=" + rType + ", lat=" + lat + ", lng=" + lng + ", address=" + address
 				+ ", rName=" + rName + "]";
 	}
-	public boolean isrType() {
+	
+	public boolean isRType() {
 		return rType;
 	}
-	public void setrType(boolean rType) {
+	public void setRType(boolean rType) {
 		this.rType = rType;
 	}
-	public String getrName() {
+	public String getRName() {
 		return rName;
 	}
-	public void setrName(String rName) {
+	public void setRName(String rName) {
 		this.rName = rName;
 	}
 	

@@ -56,9 +56,9 @@ public class CouponCountroller {
 		/*레스토랑이 제휴 레스토랑인지 비교 하기*/
 		Restaurant restaurant = cs.findRestaurantById(3);
 		System.out.println(restaurant);
-		System.out.println(restaurant.isrType());
+		System.out.println(restaurant.isRType());
 		
-		if(restaurant.isrType()== true) {
+		if(restaurant.isRType()== true) {
 			/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
 			CouponCategory couponCategory = cs.findCouponCategoryTest();
 			/*쿠폰이 발급이 안되서 리턴값이 없을 경우 그냥 통과*/
