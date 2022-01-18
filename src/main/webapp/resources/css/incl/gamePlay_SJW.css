@@ -107,8 +107,9 @@ li {list-style: none;}
 	}
 }
 
-.svgDiv {width: 840px; height: 700px; margin: 0 auto; border: 1px solid #000;}
 
 .svg2Div {width: 840px; height: 700px; margin: 0 atuo; border: 1px solid #000;}
+.svgDiv {width: 840px; height: 700px; margin: 0 auto; border: 1px solid #000;}
+
 .ladderUl { display: flex; }
 .ladderLi { width: 130px; height: 65px;}

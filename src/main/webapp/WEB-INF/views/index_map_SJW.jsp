@@ -15,6 +15,7 @@
 <%@ include file="/WEB-INF/views/incl/link.jsp" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=001358587c4d106ce5a3702588b8ce85&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/resources/js/incl/index_map_SJW.js" defer></script>
+
 </head>˙
 <body>
 <section id="mapContent">
@@ -27,8 +28,7 @@
 				<span id="retryMsg" name="retryMsg">${retryMsg}</span>
 			</c:when>
 		</c:choose>
-		
-		
+	
 	 <!-- action="viewOrderRecordByMenu" id="periodForm" method="GET" -->
 		<div id="mapRadius">
 			<input type="radio" class="radius" name="radius" value="300">300m

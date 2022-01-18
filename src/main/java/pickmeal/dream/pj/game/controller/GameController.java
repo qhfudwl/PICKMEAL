@@ -83,6 +83,7 @@ public class GameController {
 			
 			
 			// 마지막 게임이 언제였는지를 오늘 날짜와 차이로 나타내준다.
+			// LastGameRecord 테이블 안에 로그인한 Id의 게임 기록이 없을 때. 어떻게 할 것인가. 
 			diffOfDate = gs.checkLastGameRecord(member.getId());
 			//차이가 0이 아니면 => 즉, 오늘 첫게임이면 first msg 보낸다.
 			if(diffOfDate != 0) {
@@ -200,8 +201,10 @@ public class GameController {
 		
 		if(validator.isEmpty(member)) {
 			// 비회원 일 때.
+			log.info("비회원일 경우 ");
 		} else {
 			//회원일 때 가장 최근 게임을 테이블에 넣기.
+			System.out.println("");
 			gs.insertLastGameRecord(member.getId(), restaurant.getId());
 		}
 		session.setAttribute("restaurant", restaurant);

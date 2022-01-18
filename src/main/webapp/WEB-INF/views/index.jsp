@@ -24,6 +24,7 @@
 <!-- 김보령  -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=001358587c4d106ce5a3702588b8ce85&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/resources/js/incl/index_map.js" defer></script>
+<script src="${pageContext.request.contextPath}/resources/js/incl/index_map_SJW.js" defer></script>
 
 
 
@@ -38,14 +39,40 @@
 	<h2 class="hidden">게임하기</h2>
 	<section id="mapWrap">
 		<h3 class="hidden">지도 표시</h3>
+		
+		
 		<div id="mapWindow">
-			<div id="buttonWrap">
+			<form id="gameDataForm" name="gameDataForm" method="GET">
+				<c:choose>
+					<c:when test="${not empty cntForRetry}">
+						<input type="hidden" id="cntForRetry" name="cntForRetry" value="${cntForRetry}">	
+						<span id="retryMsg" name="retryMsg">${retryMsg}</span>
+					</c:when>
+				</c:choose>
+			
+			 <!-- action="viewOrderRecordByMenu" id="periodForm" method="GET" -->
+				<div id="mapRadius">
+					<input type="radio" class="radius" name="radius" value="300">300m
+					<input type="radio" class="radius" name="radius" value="600">600m
+					<input type="radio" class="radius" name="radius" value="1000">1000m
+					 
+				</div>
+				<div id="resCategory">
+					<input type="radio" class="category" name="category" value="혼밥">혼밥
+					<input type="radio" class="category" name="category" value="카페">카페
+					<input type="radio" class="category" name="category" value="술집">술집
+					<input type="radio" class="category" name="category" value="밥집">밥집
+					
+					<input type="submit" class="gamePlayBtn" value="게임하기">
+				</div>
+			</form>
+			<!-- <div id="buttonWrap">
 				<button name="radius" class="radius" value="300">300m</button>
 				<button name="radius" class="radius" value="600">600m</button>
 				<button name="radius" class="radius" value="900">900m</button>
 				<button id="gameDone">게임끝</button>
-			</div>
-			<p id="memberPosition"></p>
+			</div> -->
+			
 			<div id="map"></div>
 		</div>
 	</section>

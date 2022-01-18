@@ -2,13 +2,14 @@ CREATE TABLE Member (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,
 	memberType		CHAR(1)			NOT NULL,
 	email			VARCHAR(30)		NOT NULL	UNIQUE,
-	passwd			VARCHAR(30)		NOT NULL,
+	passwd			VARCHAR(60)		NOT NULL,
 	nickName		VARCHAR(30)		NOT NULL	UNIQUE,
 	birth			CHAR(8)			NOT NULL,
 	gender			CHAR(1)			NOT NULL,
 	profileImgPath	VARCHAR(100)	NOT NULL,
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP
 )
+ALTER TABLE Member MODIFY COLUMN passwd VARCHAR(60) NOT NULL;
 
 CREATE TABLE FoodPowerPoint (
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,
@@ -40,6 +41,7 @@ DROP TABLE Member;
 DROP TABLE FoodPowerPoint;
 DROP TABLE MannerTemperature;
 DROP TABLE Attendance;
+DROP TABLE Coupon;
 
 SELECT * FROM Member;
 SELECT * FROM FoodPowerPoint;
@@ -113,6 +115,18 @@ CREATE TABLE LastGameRecord (
 )
 SELECT * FROM LastGameRecord;
 
+INSERT INTO LastGameRecord(restaurantId, memberId) VALUES(1, 1);
+SELECT TIMESTAMPDIFF(DAY, regDate, CURDATE()) AS DIFF_DAY FROM LastGameRecord WHERE memberId = 1;
+SELECT id, memberId FROM LastGameRecord WHERE memberId IN (1);
+SELECT id, memberId FROM LastGameRecord WHERE memberId IN (1);
+select EXISTS (select memberID from LastGameRecord where memberId = 1);
+
+
+SELECT IF((select EXISTS (select memberID from LastGameRecord where memberId = 2)) = 0 , 0, (SELECT TIMESTAMPDIFF(DAY, regDate, CURDATE()) AS DIFF_DAY FROM LastGameRecord WHERE memberId = 1));
+
+
+
+
 CREATE TABLE Message (
 	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
 	messageType		CHAR(1)			NOT NULL,
@@ -123,6 +137,9 @@ INSERT INTO Message(messageType, content) VALUES('F', "또 왔네~");
 INSERT INTO Message(messageType, content) VALUES('F', "좋은 하루 보내");
 
 SELECT * FROM Message;
+SELECT * FROM LastGameRecord;
+SELECT * FROM RestaurantPreference;
+SELECT * FROM Menu;
 
 
 

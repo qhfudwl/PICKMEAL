@@ -329,7 +329,8 @@ $('.gameBtn').on('click', function(e){
 							console.log(opener.parent);
 						
 							// 식당 정보를 띄우기 위해서 결과 식당의 좌표를 부모 함수에 넣고 호출.
-							// opener.parent.displayRestaurantInfo(resultRes.lat, resultRes.lng);
+							console.log("hihihihihihihihiihihihihihihi");
+							opener.parent.displayRestaurantInfo(resultRes.lat, resultRes.lng, resultRes.rname);
 						}
 					})
 				}
@@ -416,7 +417,7 @@ $('.gameBtn').on('click', function(e){
 								console.log(opener.parent);
 							
 								// 식당 정보를 띄우기 위해서 결과 식당의 좌표를 부모 함수에 넣고 호출.
-								// opener.parent.displayRestaurantInfo(resultResOfLadder.lat, resultResOfLadder.lng);
+								//opener.parent.displayRestaurantInfo(resultResOfLadder.lat, resultResOfLadder.lng, resultResOfLadder.rname);
 							}
 						})						
 					}

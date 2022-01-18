@@ -28,7 +28,7 @@ public class GameServiceImpl implements GameService{
 		// TODO Auto-generated method stub
 		Timestamp now = pt.bringPresentTime();
 		log.info("현재시간 to timestamp : " + now);
-		
+		System.out.println("insertLastGameRecord by ServiceImpl");
 		gd.insertLastGameRecord(memberId, resId);
 		
 	}
