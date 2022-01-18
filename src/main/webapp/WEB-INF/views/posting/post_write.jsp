@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
+<script src="${pageContext.request.contextPath}/resources/js/posting/post_write.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/posting/post.css" />
 <title>게시글쓰기</title>
 </head>
@@ -19,6 +20,7 @@
                     <h3>공지사항 글쓰기</h3>
                 </div>
             </div>
+           
             <div id="wPostContentContainer">
                 <div class="wPostSubTitleWrap wPostLineCommon">
                     <p class="wPostLeftSideSubTitle">제목</p>
@@ -38,32 +40,20 @@
                     <p class="wPostLeftSideSubTitle">사진첨부</p>
                     <div class="wPostImgInputWrap wPostComInputArea">
                         <div class="wPostAttachImgBtnWrap">
-                            <a href="#" class="wPostAttachBtn postBtnCom">첨부하기</a>
+							<label for="multiFileInput" class="wPostAttachBtn postBtnCom">첨부하기</label>
+                        	<input multiple="multiple"  type="file" name="postImgFiles" required="required" id="multiFileInput" >
+                            <!-- <a href="#" class="wPostAttachBtn postBtnCom">첨부하기</a> -->
                             <p class="wPostAttachBtnRefer">(지원 포맷 : jpg, jpeg, png / 최대 20개까지 첨부 가능)</p>
                         </div>
 
                         <div class="wPostAttachedImgListWrap postInputTCom" >
-                            <ul class="">
+                            <ul class="wPostAttachedImgList">
                                 <li class="wPostSelectedImg">
                                     <img src="posting/attached_picture.png" class="wPostAttachImgIcon" alt="이미지파일 아이콘">
                                     <p class="wPostAttachImgTitle">sky.jpg<span>(20Mbyte)</span></p>
                                     <img src="posting/close.png" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">
                                 </li>
-                                <li>
-                                    <img src="posting/attached_picture.png" class="wPostAttachImgIcon" alt="이미지파일 아이콘">
-                                    <p class="wPostAttachImgTitle">sky.jpg<span>(20Mbyte)</span></p>
-                                    <img src="posting/close.png" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">
-                                </li>
-                                <li>
-                                    <img src="posting/attached_picture.png" class="wPostAttachImgIcon" alt="이미지파일 아이콘">
-                                    <p class="wPostAttachImgTitle">sky.jpg<span>(20Mbyte)</span></p>
-                                    <img src="posting/close.png" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">
-                                </li>
-                                <li>
-                                    <img src="posting/attached_picture.png" class="wPostAttachImgIcon" alt="이미지파일 아이콘">
-                                    <p class="wPostAttachImgTitle">sky.jpg<span>(20Mbyte)</span></p>
-                                    <img src="posting/close.png" class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">
-                                </li>
+                            
                             </ul>
                         </div>
                     </div>
@@ -117,7 +107,7 @@
                 </div>
 
             </div>
-
+		
         </div>
 
     </section>

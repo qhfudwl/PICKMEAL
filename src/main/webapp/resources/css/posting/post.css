@@ -1,70 +1,78 @@
 @charset "UTF-8";
-#totalPostContainer{
-  width: 100%;  min-height: 100vh;
-  background: #fff8f8;
 
+#totalPostContainer {
+	width: 100%;
+	min-height: 100vh;
+	background: #fff8f8;
 }
 
-#rwPostContainer, #postListContainer{
-  width: 60%; min-height: 100vh;
-  margin: 0 auto;
-  padding: 82px 96px 50px;
-  min-width: 960px;
-  background: #fff;
-  box-sizing: border-box;
+#rwPostContainer, #postListContainer {
+	width: 60%;
+	min-height: 100vh;
+	margin: 0 auto;
+	padding: 82px 96px 50px;
+	min-width: 960px;
+	background: #fff;
+	box-sizing: border-box;
 }
-#postListContainer{
-    padding: 82px 50px 50px;
+
+#postListContainer {
+	padding: 82px 50px 50px;
 }
 
 /*
     타이틀
 */
-#rwPostTitleContainer{
-    margin-bottom: 35px;
-}
-.rwPostTitleWrap{
-    width: 100%; height: 70px; line-height: 70px;
-    background: #ed7672;
-    border-top: 1px solid #f23f3f;
-    border-bottom: 1px solid #f23f3f;
-    padding-left: 20px; box-sizing: border-box;
-}
-.rwPostTitleWrap > h3 {
-    font-weight: 700;
-    color: #fff;
-    font-size: 1.6em;
+#rwPostTitleContainer {
+	margin-bottom: 35px;
 }
 
+.rwPostTitleWrap {
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+	background: #ed7672;
+	border-top: 1px solid #f23f3f;
+	border-bottom: 1px solid #f23f3f;
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+
+.rwPostTitleWrap>h3 {
+	font-weight: 700;
+	color: #fff;
+	font-size: 1.6em;
+}
 
 /*
     왼쪽 / 오른쪽 공통 영역
 */
-.wPostLineCommon{
-    width: 100%;
-    clear: both;
-    margin-bottom: 12px; height: auto;
+.wPostLineCommon {
+	width: 100%;
+	clear: both;
+	margin-bottom: 12px;
+	height: auto;
 }
 /*
     왼쪽 부제목 영역 설정
 */
-.wPostLeftSideSubTitle{
-    width: 20%;
-    padding-left: 20px; padding-top:10px;box-sizing: border-box;
-    font-size: 1.1em;
-    font-weight: 500;
-    float: left;
+.wPostLeftSideSubTitle {
+	width: 20%;
+	padding-left: 20px;
+	padding-top: 10px;
+	box-sizing: border-box;
+	font-size: 1.1em;
+	font-weight: 500;
+	float: left;
 }
 
 /*
     오른쪽 내용 영역 설정
 */
-
-.wPostComInputArea{
-    width: 80%;
-    float: right;
+.wPostComInputArea {
+	width: 80%;
+	float: right;
 }
-
 
 /*
 
@@ -73,36 +81,39 @@
 */
 
 /*    input text 관련     */
-.postInputTCom{
-    width: 100%; height: 48px;
-    border:1px solid #e5e5e5;
-    outline-style: none;
-    padding-left:10px; box-sizing:border-box;
-    -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
-    -moz-appearance: none;
-    appearance: none;
-    font-size: 0.9em;
-
-}
-.postInputTCom::placeholder{
-    color:#bebebe;
+.postInputTCom {
+	width: 100%;
+	height: 48px;
+	border: 1px solid #e5e5e5;
+	outline-style: none;
+	padding-left: 10px;
+	box-sizing: border-box;
+	-webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 0.9em;
 }
 
-
+.postInputTCom::placeholder {
+	color: #bebebe;
+}
 
 /*    submit 버튼 관련 - 클릭했을 때 ( 기본 )   */
-.postBtnCom{
-    display: block;
-    width: 180px; height: 48px; line-height: 48px;
-    background: #ed7672;
-    text-align: center; color:#fff;
-    font-weight: 600;
-    font-size: 0.9em;
+.postBtnCom {
+	display: block;
+	width: 180px;
+	height: 48px;
+	line-height: 48px;
+	background: #ed7672;
+	text-align: center;
+	color: #fff;
+	font-weight: 600;
+	font-size: 0.9em;
 }
 /*    submit 버튼 관련 - 클릭안했을 때  */
-.postBtnComUnClick{
-    background: #ffecec;
-    color: #ed7672;
+.postBtnComUnClick {
+	background: #ffecec;
+	color: #ed7672;
 }
 
 /*
@@ -111,9 +122,8 @@
 
 */
 /* 글제목 - 영역 */
-.wPostSubTitleWrap{
-    height: 48px;
-
+.wPostSubTitleWrap {
+	height: 48px;
 }
 /*
 
@@ -121,17 +131,16 @@
 
 */
 /* 글본문 - 영역 */
-.wPostContentWrap{
-    height: 245px;
-}
-.wPostContentInput{
-    padding-left: 15px; box-sizing: border-box;
-    padding-top:15px;
-    height: 245px;
+.wPostContentWrap {
+	height: 245px;
 }
 
-
-
+.wPostContentInput {
+	padding-left: 15px;
+	box-sizing: border-box;
+	padding-top: 15px;
+	height: 245px;
+}
 
 /*
 
@@ -139,71 +148,91 @@
 
 */
 /*     사진첨부 - 영역 */
-.wPostImgWrap{
-    height: 188px;
-}
-.wPostAttachImgBtnWrap{
-    height: 48px;
-}
-/*    사진첨부 - 첨부버튼 라인    */
-.wPostAttachBtn{
-    float:left;
-}
-.wPostAttachBtnRefer{
-    float:left; line-height: 48px;
-    margin-left: 20px;
-    color: #bebebe;
-    font-size: 0.9em;
-}
-/*    사진첨부 - 첨부파일리스트 영역   */
-.wPostAttachedImgListWrap{
-    clear:both;
-    height: 133px;
-    border:1px solid #e5e5e5;
-    margin: 12px 0;
-    padding-left: 0;
-    overflow-y: scroll;
+.wPostImgWrap {
+	height: 188px;
 }
 
-.wPostAttachedImgListWrap > ul > li{
-    height: 45px;
-    clear: both;
-    padding-left: 15px;
-    display: flex;
-    align-items: center;
+.wPostAttachImgBtnWrap {
+	height: 48px;
+}
+/*    사진첨부 - 첨부버튼 라인    */
+.wPostAttachBtn {
+	float: left;
+}
+
+.wPostAttachBtn:focus, .wPostAttachBtn:hover {
+	cursor: pointer;
+}
+/*	  사진첨부 숨기기			*/
+input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.wPostAttachBtnRefer {
+	float: left;
+	line-height: 48px;
+	margin-left: 20px;
+	color: #bebebe;
+	font-size: 0.9em;
+}
+/*    사진첨부 - 첨부파일리스트 영역   */
+.wPostAttachedImgListWrap {
+	clear: both;
+	height: 133px;
+	border: 1px solid #e5e5e5;
+	margin: 12px 0;
+	padding-left: 0;
+	overflow-y: scroll;
+}
+
+.wPostAttachedImgListWrap>ul>li {
+	height: 45px;
+	clear: both;
+	padding-left: 15px;
+	display: flex;
+	align-items: center;
 }
 
 /*    사진첨부 - 첨부파일 리스트1개  */
 /*    선택된거1개     */
-.wPostSelectedImg{
-    background: #fff9f9;
+.wPostSelectedImg, .wPostHoverImg {
+	background: #fff9f9 !important;
 }
 
-.wPostAttachImgIcon{
-    float: left;
-    display: block;
-    width: 15px;height: 15px;
-}
-.wPostAttachImgTitle{
-    float: left;
-    width: 92%;
-    font-size: 0.9em;
-    color:#bebebe;
-    margin: 0 5px 0 10px;
-    text-align: left;
-}
-.wPostAttachImgTitle > span{
-    margin-left: 10px;
-}
-.wPostAttachImgDelIcon{
-    float: right;
-    display: block;
-    width: 12px;height: 12px;
+.wPostAttachImgIcon {
+	float: left;
+	display: block;
+	width: 15px;
+	height: 15px;
 }
 
+.wPostAttachImgTitle {
+	float: left;
+	width: 92%;
+	font-size: 0.9em;
+	color: #bebebe;
+	margin: 0 5px 0 10px;
+	text-align: left;
+}
 
+.wPostAttachImgTitle>span {
+	margin-left: 10px;
+}
 
-
+.wPostAttachImgDelIcon {
+	float: right;
+	display: block;
+	width: 12px;
+	height: 12px;
+}
 
 /*
 
@@ -211,21 +240,17 @@
 
 */
 /* 카테고리- 영역 */
-.wPostCateWrap{
-    height: 48px;
-}
-.wPostCateSelectBox{
-    height: 48px; width: 180px;
-    background: url('../downward-arrow.png') no-repeat 92% 50% / 20px 20px;
-    font-size: 0.9em;
-
+.wPostCateWrap {
+	height: 48px;
 }
 
-
-
-
-
-
+.wPostCateSelectBox {
+	height: 48px;
+	width: 180px;
+	background: url('/pickmeal/resources/img/posting/downward-arrow.png')
+		no-repeat 92% 50%/20px 20px;
+	font-size: 0.9em;
+}
 
 /*
 
@@ -233,23 +258,23 @@
 
 */
 /* 날짜/시간 - 영역 */
-.wPostDateTimeWrap{
-    height: 48px;
+.wPostDateTimeWrap {
+	height: 48px;
 }
 
 /*    날짜    */
-.wPostDateInput{
-    width: 180px;
-    padding: 0 10px; box-sizing: border-box;
+.wPostDateInput {
+	width: 180px;
+	padding: 0 10px;
+	box-sizing: border-box;
 }
 /*    시간    */
-.wPostTimeInput{
-    margin-left:5px;
-    width: 180px;
-    padding: 0 10px; box-sizing: border-box;
+.wPostTimeInput {
+	margin-left: 5px;
+	width: 180px;
+	padding: 0 10px;
+	box-sizing: border-box;
 }
-
-
 
 /*
 
@@ -257,31 +282,28 @@
 
 */
 /*     장소 - 영역 */
-.wPostMapWrap{
-    height: 454px;
+.wPostMapWrap {
+	height: 454px;
 }
 /*    장소 - 주소로 찾기    */
-.wPostMapSetAddressBtn{
-    float:left;
+.wPostMapSetAddressBtn {
+	float: left;
 }
 /*    장소 - 현재위치에서 찾기    */
-.wPostMapCurrentPlaceBtn{
-    margin-left:8px;
-    float:left;
+.wPostMapCurrentPlaceBtn {
+	margin-left: 8px;
+	float: left;
 }
 
 /*    상세주소 영역    */
-.wPostMapDetailAddressInput{
-    clear: both;
-    margin:12px 0;
+.wPostMapDetailAddressInput {
+	clear: both;
+	margin: 12px 0;
 }
 /*    지도 들어가는 영역    */
-
-.wPostMapArea{
-    height: 350px;
+.wPostMapArea {
+	height: 350px;
 }
-
-
 
 /*
 
@@ -289,17 +311,17 @@
 
 */
 /* 작성완료 버튼 - 영역 */
-.wPostSubmitBtnWrap{
-    height: 48px;
-}
-.wPostSubmitBtnInputWrap{
-    margin: 12px 0;
-}
-.wPostSubmitBtn{
-    width: 100%;
+.wPostSubmitBtnWrap {
+	height: 48px;
 }
 
+.wPostSubmitBtnInputWrap {
+	margin: 12px 0;
+}
 
+.wPostSubmitBtn {
+	width: 100%;
+}
 
 /*
 
@@ -317,80 +339,81 @@
 
 /* The switch - the box around the slider */
 .switch {
-  position: relative;
-  display: inline-block;
-  /*
+	position: relative;
+	display: inline-block;
+	/*
   width: 60px;
   height: 34px;
   */
-  width: 50px;
-  height: 25px;
-  vertical-align:middle;
+	width: 50px;
+	height: 25px;
+	vertical-align: middle;
 }
 
 /* Hide default HTML checkbox */
-.switch input {display:none;}
+.switch input {
+	display: none;
+}
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  /*
+	position: absolute;
+	content: "";
+	/*
   height: 26px;
   width: 26px;
   */
-  height: 19px;
-  width: 19px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+	height: 19px;
+	width: 19px;
+	left: 3px;
+	bottom: 3px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #f23f3f;
+input:checked+.slider {
+	background-color: #f23f3f;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #f23f3f;
+input:focus+.slider {
+	box-shadow: 0 0 1px #f23f3f;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(24px);
-  -ms-transform: translateX(24px);
-  transform: translateX(24px);
+input:checked+.slider:before {
+	-webkit-transform: translateX(24px);
+	-ms-transform: translateX(24px);
+	transform: translateX(24px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 
 .rPostCheck {
-	margin:0px;
-    margin-right: 5px;
-	display:inline-block;
-	font-size:0.9em;
-	font-weight:bold;
+	margin: 0px;
+	margin-right: 5px;
+	display: inline-block;
+	font-size: 0.9em;
+	font-weight: bold;
 }
-
 
 /*
 
@@ -398,59 +421,63 @@ input:checked + .slider:before {
 
 */
 /*    읽기 헤더 - 모집 태그 - 왼쪽     */
-#rPostHeaderWrap{
-
-    border-bottom: 1px solid #f4f4f4;
-}
-.rPostTagListWrap{
-    height: 35px;
-    margin-top: 52px;
-
+#rPostHeaderWrap {
+	border-bottom: 1px solid #f4f4f4;
 }
 
-
-
-.rPostTagStaticWrap, .rPostTagStaticWrap > li, .rPostTagDynamicWrap > li{
-    float:left;
-
-}
-.rPostTagStaticWrap > li{
-    padding: 7px 18px; box-sizing: border-box;
-    background: #f6f6f6;
-    border-radius: 10px;
-    font-size: 0.8em;
-    margin-right: 5px;
-}
-.rPostTagStaticWrap > li:first-child{
-    display: flex;align-items: center;
+.rPostTagListWrap {
+	height: 35px;
+	margin-top: 52px;
 }
 
-.rPostTagTogetherIng, .postListConTagTogetherIng{
-    margin-left: 5px;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: #50d23f;
+.rPostTagStaticWrap, .rPostTagStaticWrap>li, .rPostTagDynamicWrap>li {
+	float: left;
 }
 
+.rPostTagStaticWrap>li {
+	padding: 7px 18px;
+	box-sizing: border-box;
+	background: #f6f6f6;
+	border-radius: 10px;
+	font-size: 0.8em;
+	margin-right: 5px;
+}
+
+.rPostTagStaticWrap>li:first-child {
+	display: flex;
+	align-items: center;
+}
+
+.rPostTagTogetherIng, .postListConTagTogetherIng {
+	margin-left: 5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #50d23f;
+}
 
 /*    읽기 헤더 - 모집 태그 - 오른쪽     */
-.rPostTagDynamicWrap{
-    float:right;
-    display: flex;
-    align-items: center;
+.rPostTagDynamicWrap {
+	float: right;
+	display: flex;
+	align-items: center;
 }
-.rPostTagDynamicWrap li:first-child{
-  display: flex; align-items: center;
+
+.rPostTagDynamicWrap li:first-child {
+	display: flex;
+	align-items: center;
 }
-.rPostTagDynamicWrap li:last-child a{
-    display: block;
-    padding: 7px 18px; box-sizing: border-box;
-    border-radius: 10px;
-    border:1px solid #f24241;
-    font-size: 0.8em;
-    color:#f24241;
-    font-weight: 600;
-    margin-left: 5px;
+
+.rPostTagDynamicWrap li:last-child a {
+	display: block;
+	padding: 7px 18px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	border: 1px solid #f24241;
+	font-size: 0.8em;
+	color: #f24241;
+	font-weight: 600;
+	margin-left: 5px;
 }
 
 /*
@@ -458,15 +485,16 @@ input:checked + .slider:before {
     읽기 헤더 - 타이틀
 
 */
-.rPostTitleWrap{
-    clear: both;
-    height: 60px;
-    margin: 35px 0 15px;
+.rPostTitleWrap {
+	clear: both;
+	height: 60px;
+	margin: 35px 0 15px;
 }
-.rPostTitle{
-    font-size: 2.5em;
-    font-weight: 600;
-    letter-spacing: -0.05em;
+
+.rPostTitle {
+	font-size: 2.5em;
+	font-weight: 600;
+	letter-spacing: -0.05em;
 }
 
 /*
@@ -474,103 +502,123 @@ input:checked + .slider:before {
     읽기 헤더 - 회원프로필
 
 */
-.rPostProfileWrap{
-    margin-bottom: 10px;height: 30px;
-}
-.rPostProfileWrap ul{
-
+.rPostProfileWrap {
+	margin-bottom: 10px;
+	height: 30px;
 }
 
-.rPostProfileWrap ul li{
-    float:left; height: 30px; line-height: 30px;
-    font-size: 0.9em;
+.rPostProfileWrap ul {
+	
+}
+
+.rPostProfileWrap ul li {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	font-size: 0.9em;
 }
 
 /*    닉네임     */
-.rPostProfileImg{
-    width: 30px; height: 30px;
+.rPostProfileImg {
+	width: 30px;
+	height: 30px;
 }
-.rPostProfileNickName{
-    margin: 0 10px;
+
+.rPostProfileNickName {
+	margin: 0 10px;
 }
 /*    온도     */
-.rPostProfileTempArea{
-    display: flex;align-items: center;
+.rPostProfileTempArea {
+	display: flex;
+	align-items: center;
 }
-.rPostProfileTempAreaSub1{
-    position: relative;
-    width: 100px; height: 10px;
-    border-radius: 10px;
-    background: #ffecec;
+
+.rPostProfileTempAreaSub1 {
+	position: relative;
+	width: 100px;
+	height: 10px;
+	border-radius: 10px;
+	background: #ffecec;
 }
-.rPostProfileTempAreaSub2{
-    position: absolute;
-    top:0;left:0;
-    width: 80px; height: 10px;
-    border-radius: 10px;
-    background: #f8927e;
+
+.rPostProfileTempAreaSub2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 80px;
+	height: 10px;
+	border-radius: 10px;
+	background: #f8927e;
 }
-.rPostProfileTempText{
-    color:#f8927e;
-    font-weight: 500;
-    margin:0 30px 0 10px;
+
+.rPostProfileTempText {
+	color: #f8927e;
+	font-weight: 500;
+	margin: 0 30px 0 10px;
 }
 
 /*    작성날짜 / 조회     */
-.rPostContentRegDate, .rPostContenHitCount{
-    color:#d7d4d4;
-}
-.rPostContentRegDate > span{
-    margin: 0 15px 0 1px;
+.rPostContentRegDate, .rPostContenHitCount {
+	color: #d7d4d4;
 }
 
+.rPostContentRegDate>span {
+	margin: 0 15px 0 1px;
+}
 
 /*
 
     읽기 본문
 
 */
-#rPostContentWrap{
-    clear: both;
-    width: 100%;
-    margin-top: 65px;
+#rPostContentWrap {
+	clear: both;
+	width: 100%;
+	margin-top: 65px;
 }
-.rPostContentMapWrap{
-    width: 100%; height: 685px;
 
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+.rPostContentMapWrap {
+	width: 100%;
+	height: 685px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-#rPostContentMap{
-  width: 100%; height: 485px;
+
+#rPostContentMap {
+	width: 100%;
+	height: 485px;
 }
-.rPostContentMapDetails{
-  width: 100%; height: 200px;
-  display: flex;
-  align-items: center;
-  background: #f3f143;
+
+.rPostContentMapDetails {
+	width: 100%;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	background: #f3f143;
 }
+
 .rPostContentMapDetails table {
-  border-collapse: separate;
-  border-spacing: 25px 10px;
-  background: #a5f886;
-  margin-left: 25px;
+	border-collapse: separate;
+	border-spacing: 25px 10px;
+	background: #a5f886;
+	margin-left: 25px;
 }
-.rPostContentMapDetails table tr{
 
-
+.rPostContentMapDetails table tr {
+	
 }
-.rPostContentMapDetails table tr th{
-  font-size: 0.8em; padding:5px 20px;
-  background: #f6f6f6;
+
+.rPostContentMapDetails table tr th {
+	font-size: 0.8em;
+	padding: 5px 20px;
+	background: #f6f6f6;
 }
 
 /*   읽기 테스트   */
-.rPostContentBody{
-  width: 100%; height: auto;
-  margin: 55px 0 125px;
+.rPostContentBody {
+	width: 100%;
+	height: auto;
+	margin: 55px 0 125px;
 }
-
-
 
 /*
 
@@ -583,35 +631,44 @@ input:checked + .slider:before {
     읽기 추가정보 - 왼쪽영역
 
 */
-#rPostAdditionalInfoWrap{
-  width: 100%; height: 20px;
-}
-.rPostAdditioanInfoLeftSide{
-    float: left;
-}
-.rPostAdditioanInfoLeftSide li, .rPostAdditioanInfoLeftSide li img, .rPostAdditioanInfoLeftSide li p{
-    float: left;
-    display: flex;
-    align-items: center;
-}
-.rPostAdditioanInfoLeftSide li p{
-  font-size: 0.9em;
-  font-weight: 500;
-  margin: 0 10px 0 5px;
-}
-.rPostAdditioanInfoLeftSide li p span{
-  margin-left: 5px;
+#rPostAdditionalInfoWrap {
+	width: 100%;
+	height: 20px;
 }
 
-.rPostLikesImg{
-    width: 18px; height: 18px;
-}
-.rPostLikesImg:focus, .rPostLikesImg:hover{
-  cursor: pointer;
+.rPostAdditioanInfoLeftSide {
+	float: left;
 }
 
-.rPostCommentCountImg{
-    width: 18px; height: 18px;
+.rPostAdditioanInfoLeftSide li, .rPostAdditioanInfoLeftSide li img,
+	.rPostAdditioanInfoLeftSide li p {
+	float: left;
+	display: flex;
+	align-items: center;
+}
+
+.rPostAdditioanInfoLeftSide li p {
+	font-size: 0.9em;
+	font-weight: 500;
+	margin: 0 10px 0 5px;
+}
+
+.rPostAdditioanInfoLeftSide li p span {
+	margin-left: 5px;
+}
+
+.rPostLikesImg {
+	width: 18px;
+	height: 18px;
+}
+
+.rPostLikesImg:focus, .rPostLikesImg:hover {
+	cursor: pointer;
+}
+
+.rPostCommentCountImg {
+	width: 18px;
+	height: 18px;
 }
 
 /*
@@ -619,28 +676,31 @@ input:checked + .slider:before {
     읽기 추가정보 - 오른쪽영역
 
 */
-.rPostAdditioanInfoRightSide{
-    float: right;
-    width: 100px;
-}
-.rPostAdditioanInfoRightSide li:hover, .rPostAdditioanInfoRightSide li:focus{
-  cursor: pointer;
-}
-.rPostAdditioanInfoRightSide li:first-child{
-    position: relative;
-    float: left;
-    margin-right: 25px;
-}
-.rPostAdditioanInfoRightSide li:first-child::after{
-  content:"";
-  position: absolute; right: -12px; top: 3px;
-  width: 1px; height: 18px;
-  background: #d2d2d2;
-
+.rPostAdditioanInfoRightSide {
+	float: right;
+	width: 100px;
 }
 
+.rPostAdditioanInfoRightSide li:hover, .rPostAdditioanInfoRightSide li:focus
+	{
+	cursor: pointer;
+}
 
+.rPostAdditioanInfoRightSide li:first-child {
+	position: relative;
+	float: left;
+	margin-right: 25px;
+}
 
+.rPostAdditioanInfoRightSide li:first-child::after {
+	content: "";
+	position: absolute;
+	right: -12px;
+	top: 3px;
+	width: 1px;
+	height: 18px;
+	background: #d2d2d2;
+}
 
 /*
 
@@ -654,48 +714,52 @@ input:checked + .slider:before {
     타이틀
     
 */
-#postListTitleContainer{
-  width: 100%; height: 183px;
-  border-top: 1px solid #f23f3f;
-  border-bottom: 1px solid #f23f3f;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  
+#postListTitleContainer {
+	width: 100%;
+	height: 183px;
+	border-top: 1px solid #f23f3f;
+	border-bottom: 1px solid #f23f3f;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
 }
 /*    타이틀 - 텍스트     */
-.postListTitleWrap{
-    text-align:center;
+.postListTitleWrap {
+	text-align: center;
 }
 
-.postListTitleWrap > h3{
-    color:#f23f3f;
-    font-size: 1.6em;
-    font-weight: 800;
+.postListTitleWrap>h3 {
+	color: #f23f3f;
+	font-size: 1.6em;
+	font-weight: 800;
 }
-.postListTitleWrap  > p{
-    color:#ed7672;
+
+.postListTitleWrap>p {
+	color: #ed7672;
 }
-.postListTitleBtnWrap{
-    margin-top:25px;
+
+.postListTitleBtnWrap {
+	margin-top: 25px;
 }
 /*    타이틀 - 카테고리 버튼    */
-.postListTitleBtnWrap ul li{
-    float: left;
-    margin: 0 3px;
+.postListTitleBtnWrap ul li {
+	float: left;
+	margin: 0 3px;
 }
-.postListTitleBtnWrap ul li a{
-    display: block;
-    padding: 5px 33px;
-    border:1px solid #ed7672;
-    color: #ed7672;
-    font-weight: 500;
-    font-size: 0.9em;
+
+.postListTitleBtnWrap ul li a {
+	display: block;
+	padding: 5px 33px;
+	border: 1px solid #ed7672;
+	color: #ed7672;
+	font-weight: 500;
+	font-size: 0.9em;
 }
-.postListTitleBtnOn{
-    background: #ed7672;
-    color:#fff !important;
+
+.postListTitleBtnOn {
+	background: #ed7672;
+	color: #fff !important;
 }
 
 /*
@@ -703,60 +767,74 @@ input:checked + .slider:before {
     게시판목록
     
 */
-#postListContentContainer{
-    margin-top: 3px;
-    padding-bottom: 30px;
-    border-top: 2px solid #f23f3f;
-}
-.postListContentTable{
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1em;
-}
-.postListContentTable tr{
-    border-bottom: 1px solid #fae6e3;
-    height: 44px;;
-}
-.postListContentTable tr th{
-    font-weight: 600; text-overflow: ellipsis;white-space: nowrap; overflow: hidden;
-}
-.postListContentTable tr td{
-    font-size: 0.9em;
-    
+#postListContentContainer {
+	margin-top: 3px;
+	padding-bottom: 30px;
+	border-top: 2px solid #f23f3f;
 }
 
+.postListContentTable {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1em;
+}
+
+.postListContentTable tr {
+	border-bottom: 1px solid #fae6e3;
+	height: 44px;;
+}
+
+.postListContentTable tr th {
+	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.postListContentTable tr td {
+	font-size: 0.9em;
+}
 
 /*    게시판 타이틀     */
-.postListContentTable tr th:nth-child(1){
-    width: 71%;
+.postListContentTable tr th:nth-child(1) {
+	width: 71%;
 }
-.postListContentTable tr th:nth-child(2){
-    width: 10%; text-align: left;
+
+.postListContentTable tr th:nth-child(2) {
+	width: 10%;
+	text-align: left;
 }
-.postListContentTable tr th:nth-child(3){
-    width: 8%;
+
+.postListContentTable tr th:nth-child(3) {
+	width: 8%;
 }
-.postListContentTable tr th:nth-child(4){
-    width: 5%;
+
+.postListContentTable tr th:nth-child(4) {
+	width: 5%;
 }
-.postListContentTable tr th:nth-child(5){
-    width: 5%;
+
+.postListContentTable tr th:nth-child(5) {
+	width: 5%;
 }
 /*    게시판 내용    */
-.postListContentTable tr td:nth-child(1){
-     text-align: left;
+.postListContentTable tr td:nth-child(1) {
+	text-align: left;
 }
-.postListContentTable tr td:nth-child(2){
-    text-align: left;
+
+.postListContentTable tr td:nth-child(2) {
+	text-align: left;
 }
-.postListContentTable tr td:nth-child(3){
-    text-align: center;
+
+.postListContentTable tr td:nth-child(3) {
+	text-align: center;
 }
-.postListContentTable tr td:nth-child(4){
-    text-align: center;
+
+.postListContentTable tr td:nth-child(4) {
+	text-align: center;
 }
-.postListContentTable tr td:nth-child(5){
-    text-align: center;
+
+.postListContentTable tr td:nth-child(5) {
+	text-align: center;
 }
 
 /*
@@ -764,138 +842,190 @@ input:checked + .slider:before {
     게시판 글제목
 
 */
-.postListContentTitle{
-     line-height: 44px;
-     margin-left: 5px;
-     font-weight: 500;
-     text-overflow: ellipsis;white-space: nowrap;overflow: hidden;
-}
-.postListContentTitleTagsWrap{
-    height: 44px; float: left;
-    display: flex; align-items: center;
-}
-.postListContentTitleTagsWrap li{
-    float:left;
-    padding: 4px 12px; box-sizing: border-box;
-    background: #f6f6f6;
-    border-radius: 8px;
-    font-size: 0.8em;
-    margin-right: 5px;
-}
-.postListContentTitleTagsWrap > li:first-child{
-    display: flex; align-items: center;
+.postListContentTitle {
+	line-height: 44px;
+	margin-left: 5px;
+	font-weight: 500;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
-
-.postListConTagTogetherIng{
-    margin-top: 3px;
-    margin-left: 5px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #50d23f;
+.postListContentTitleTagsWrap {
+	height: 44px;
+	float: left;
+	display: flex;
+	align-items: center;
 }
 
+.postListContentTitleTagsWrap li {
+	float: left;
+	padding: 4px 12px;
+	box-sizing: border-box;
+	background: #f6f6f6;
+	border-radius: 8px;
+	font-size: 0.8em;
+	margin-right: 5px;
+}
 
+.postListContentTitleTagsWrap>li:first-child {
+	display: flex;
+	align-items: center;
+}
 
+.postListConTagTogetherIng {
+	margin-top: 3px;
+	margin-left: 5px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #50d23f;
+}
 
 /*
 
     게시글 정렬
 
 */
-#postListSubInfoContainer{
-    width: 100%; height: 60px;
-}
-.postListSortWrap{
-    float: left;
-}
-.postListSortWrap ul li{
-    
-     height: 20px;
-    float:left;
-    margin-right: 18px;
+#postListSubInfoContainer {
+	width: 100%;
+	height: 60px;
 }
 
-.postListSortWrap ul li a{
-    position: relative; height: 20px;
-    color: #f9cfc9;
-    font-weight: 600;
-    font-size: 0.9em;
-}
-.postListSortWrap ul li a:hover::before{
-    content:"";
-    position: absolute;bottom: -5px;left: 0;
-    width: 100%; height: 2px;
-    background: #f9cfc9;
-    
-}
-.postListSortOn{
-    color: #ed7672 !important;
-}
-.postListSortOn:hover::before{
-    content:"";
-    position: absolute;bottom: -5px;left: 0;
-    width: 100%; height: 2px;
-    background: #ed7672 !important;
-    
+.postListSortWrap {
+	float: left;
 }
 
+.postListSortWrap ul li {
+	height: 20px;
+	float: left;
+	margin-right: 18px;
+}
+
+.postListSortWrap ul li a {
+	position: relative;
+	height: 20px;
+	color: #f9cfc9;
+	font-weight: 600;
+	font-size: 0.9em;
+}
+
+.postListSortWrap ul li a:hover::before {
+	content: "";
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #f9cfc9;
+}
+
+.postListSortOn {
+	color: #ed7672 !important;
+}
+
+.postListSortOn:hover::before {
+	content: "";
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #ed7672 !important;
+}
 
 /*
 
     검색 selecetbox
     
 */
-.postListSearchWrap{
-    float: right;
-}
-.postListSearchWrap ul li{
-    float: left;
-    margin-left: 5px;
-}
-.postListSearchSelectBox{
-    height: 34px; line-height: 34px; width: 120px;
-    background: url('../downward-arrow_pink.png') no-repeat 92% 50% / 20px 20px;
-    font-size: 0.85em;
-    border:1px solid #f9cfc9;
-    color:#ed7672;
+.postListSearchWrap {
+	float: right;
 }
 
-.postListSearchInput{
-    width: 195px; height: 34px; font-size: 0.85em;
-    border:1px solid #f9cfc9;
+.postListSearchWrap ul li {
+	float: left;
+	margin-left: 5px;
 }
-.postListSearchBtn{
-    width: 80px; height: 34px; line-height: 34px; font-size: 0.85em;
+
+.postListSearchSelectBox {
+	height: 34px;
+	line-height: 34px;
+	width: 120px;
+	background: url('../downward-arrow_pink.png') no-repeat 92% 50%/20px
+		20px;
+	font-size: 0.85em;
+	border: 1px solid #f9cfc9;
+	color: #ed7672;
+}
+
+.postListSearchInput {
+	width: 195px;
+	height: 34px;
+	font-size: 0.85em;
+	border: 1px solid #f9cfc9;
+}
+
+.postListSearchBtn {
+	width: 80px;
+	height: 34px;
+	line-height: 34px;
+	font-size: 0.85em;
 }
 /*
 
     게시판 네비게이션
 
 */
-#postListNaviContainer{
-    clear: both;
-    display: flex; justify-content: center;
-    margin-top: 86px;
+#postListNaviContainer {
+	clear: both;
+	display: flex;
+	justify-content: center;
+	margin-top: 86px;
 }
 
-.postListNaviWrap ul li{
-    float: left;
-    margin: 0 10px;
-    
+.postListNaviWrap ul li {
+	float: left;
+	margin: 0 10px;
+}
 
+.postListNaviWrap ul li a {
+	position: relative;
+	color: #ed7672;
+	font-weight: 600;
+	font-size: 0.9em;
 }
-.postListNaviWrap ul li a{
-    position: relative;
-    color:#ed7672;
-    font-weight: 600;
-    font-size: 0.9em;
+
+.postListNaviWrap ul li a:hover::after {
+	content: "";
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	height: 2px;
+	width: 100%;
+	background: #ed7672;
 }
-.postListNaviWrap ul li a:hover::after{
-    content: "";
-    position: absolute; bottom:-5px; left:0;
-    height: 2px;width: 100%;
-    background: #ed7672;
+
+
+
+
+/*
+
+	첨부이미지 css
+
+*/
+.attachedImgs{
+	max-width:100%;
 }
+
+.wPostAttachedImgList li:focus, .wPostAttachedImgList li:hover{
+	cursor:pointer;
+}
+
+
+
+
+
+
 
 

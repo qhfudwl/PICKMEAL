@@ -30,21 +30,71 @@
 		<!-- <input type="time" name="time" />  -->
 		<input type="text" name="time" id="text123" value="hi"/>
 		 <input type="file" name="file"/>
-		  <input multiple="multiple"  type="file" name="picFile" required="required">
-		<button type="button" onclick="onClickBtn()">버튼</button>
+		 
+		 <!-- 멀티파일~~~~ -->
+		  <input multiple="multiple"  type="file" name="picFile" required="required" id="multifileInput">
+		<button type="button" onclick="onClickBtn()">버튼2</button>
 		<button type="submit">버튼</button>
 	</form>
 	<div id="map" style="width: 800px; height: 600px; margin-top: 10px; display: none"></div>
 	<p><em>지도를 클릭해주세요!</em></p> 
 <div id="clickLatlng"></div>
-
+<div class="fileList"></div>
 
 
 
 	<script type="text/javascript">
+	var html = '';
+	var files2;
+	$('#multifileInput').change(function(){
+        const target = $('#multifileInput');
+        /*
+        console.log('hi script multifileInput is ?'+target);				//객체
+        console.log('hi script target[0] is ?'+target[0]);					//object HTMLInputElement]
+        console.log('hi script target[0].files is ?'+target[0].files);		//파일리스트들
+        console.log('hi script target[1].files is ?'+target[1].files);		//없음
+        */
+        
+
+        $.each(target[0].files, function(index, file){
+        	files2 += file;
+            const fileName = file.name;
+            html += '<div class="file">';
+            html += '<img src="'+URL.createObjectURL(file)+'">'
+            html += '<span>'+fileName+'</span>';
+            html += '<span>기간 '+'<input type="text" style="width:250px/"></span>';
+            html += '<a href="#" id="removeImg">╳</a>';
+            html += '</div>';
+            const fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
+            if(fileEx != "jpg" && fileEx != "png" &&  fileEx != "gif" &&  fileEx != "bmp" && fileEx != "wmv" && fileEx != "mp4" && fileEx != "avi"){
+                alert("파일은 (jpg, png, gif, bmp, wmv, mp4, avi) 형식만 등록 가능합니다.");
+                resetFile();
+                return false;
+            }
+            $('.fileList').html(html);
+           console.log(files2.length)
+        });
+        $('#multifileInput')[0].files=files2;
+    	console.log('is it ok?'+$('#multifileInput')[0].files);
+    });
+
+
+
+
 		function onClickBtn() {
-			$('#text123').attr('value',$('#writeArea').html())
-			console.log($('#writeArea').html())
+			
+			
+			
+			
+			//$('#text123').attr('value',$('#writeArea').html())
+			//console.log($('#writeArea').html())
+			
+			//ajax Controller Test 
+			
+			
+			
+			
+			
 		}
 		
 		
