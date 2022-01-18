@@ -61,7 +61,7 @@
 		        <div id="weather">
 		            <c:choose>
 		        		<c:when test="${weather.sky eq 1 }">
-		        			<c:if test="${now gt 6 || now lt 18 }">
+		        			<c:if test="${now gt 6 && now lt 18}">
 			            		<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
 		        			</c:if>
 		        			<c:if test="${now gt 18 || now lt 6 }">
