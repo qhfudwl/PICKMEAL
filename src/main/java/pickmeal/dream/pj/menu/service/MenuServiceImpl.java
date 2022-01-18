@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.domain.Menuclassify;
 import pickmeal.dream.pj.menu.repository.MenuDao;
-import pickmeal.dream.pj.weather.command.WeatherCommand;
+import pickmeal.dream.pj.weather.domain.PickMealWeather;
 
 @Service("menuService")
 public class MenuServiceImpl implements MenuService{
@@ -88,8 +88,19 @@ public class MenuServiceImpl implements MenuService{
 		}
 	}
 	@Override
-	public Menu findMenuByWeather(WeatherCommand wc) {
+	public Menu findMenuByWeather(PickMealWeather wc) {
+		int temperature;
+		if(wc.getTemperature() >= 25) {
+			temperature = 1;
+		}else if (wc.getTemperature() <= 10) {
+			temperature = 2;
+		}else {
+			temperature = 0;
+		}
 		
+//		List<Menu> menuList = menudao.findMenuByWeather(temperature, wc.getSky());
+//		Random rand = new Random();
+//		wc.setMenuName(menuList.get(rand.nextInt(menuList.size())).getMenuName());
 		return null;
 	}
 }
