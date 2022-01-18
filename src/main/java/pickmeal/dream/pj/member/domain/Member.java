@@ -1,7 +1,7 @@
 package pickmeal.dream.pj.member.domain;
 
-import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 import static pickmeal.dream.pj.web.constant.Constants.*;
+import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 
 import java.util.Date;
 
@@ -28,41 +28,49 @@ public class Member {
 	private char gender;
 	private String profileImgPath;
 	private Date regDate;
-	private int foodPowerPoint;
-	private double mannerTemperature;
-	private int attendence;
+	private int foodPowerPoint; // 테이블로부터 셋팅 필요
+	private double mannerTemperature; // 테이블로부터 셋팅 필요
+	private int attendance; // 테이블로부터 셋팅 필요
 	
+
+	public Member(long id) {
+		super();
+		this.id = id;
+	}
+	
+	/**
+	 * 식력 포인트에 따른 프로필 이미지 경로 잡기
+	 * @param c
+	 */
+	public void makeProfileImgPath() {
+		if (this.foodPowerPoint >= 50000) {
+			this.profileImgPath = LEVEL5.getImgPath();	
+		} else if (this.foodPowerPoint >= 15000) {
+			this.profileImgPath = LEVEL4.getImgPath();	
+		} else if (this.foodPowerPoint >= 5000) {
+			this.profileImgPath = LEVEL3.getImgPath();	
+		} else if (this.foodPowerPoint >= 1000) {
+			this.profileImgPath = LEVEL2.getImgPath();	
+		} else if (this.foodPowerPoint >= 300) {
+			this.profileImgPath = LEVEL1.getImgPath();	
+		} else {
+			this.profileImgPath = LEVEL0.getImgPath();	
+		}
+		this.profileImgPath = "/resources/img/profile/" + getProfileImgPath() + ".png";
+	}
+	
+	/**
+	 * 식력 포인트 적립
+	 * 회원 가입 제외 모든 활동에서는 ++ 한다.
+	 * @param spc
+	 */
 	public void saveFoodPowerPoint(SavingPointConstants spc) {
 		switch(spc) {
 		case SIGN_UP:
 			this.foodPowerPoint = SIGN_UP.getPoint();
 			break;
-		case ATTENDANCE:
-			this.foodPowerPoint += ATTENDANCE.getPoint();
-			break;
-		case ATTENDANCE_7DAYS:
-			this.foodPowerPoint += ATTENDANCE_7DAYS.getPoint();
-			break;
-		case ATTENDANCE_15DAYS:
-			this.foodPowerPoint += ATTENDANCE_15DAYS.getPoint();
-			break;
-		case ATTENDANCE_30DAYS:
-			this.foodPowerPoint += ATTENDANCE_30DAYS.getPoint();
-			break;
-		case PLAY_GAME:
-			this.foodPowerPoint += PLAY_GAME.getPoint();
-			break;
-		case CHECK_VISIT:
-			this.foodPowerPoint += CHECK_VISIT.getPoint();
-			break;
-		case REVIEW:
-			this.foodPowerPoint += REVIEW.getPoint();
-			break;
-		case WRITE_POST:
-			this.foodPowerPoint += WRITE_POST.getPoint();
-			break;
-		case WRITE_COMMENT:
-			this.foodPowerPoint += WRITE_COMMENT.getPoint();
+		default:
+			this.foodPowerPoint += spc.getPoint();
 			break;
 		}
 	}
@@ -75,17 +83,11 @@ public class Member {
 	 */
 	public void saveMannerTemperature(Constants c) {
 		switch(c) {
-		case GOOD:
-			this.mannerTemperature += GOOD.getPoint();
-			break;
-		case BAD:
-			this.mannerTemperature += BAD.getPoint();
-			break;
-		case NORMAl:
-			this.mannerTemperature += NORMAl.getPoint();
-			break;
 		case SIGN_UP_MANNER:
 			this.mannerTemperature = SIGN_UP_MANNER.getPoint();
+			break;
+		default: 
+			this.mannerTemperature += c.getPoint();
 			break;
 		}
 	}

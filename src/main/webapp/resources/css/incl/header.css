@@ -16,6 +16,10 @@ header{
 /*
     로고
 */
+.logoWrap{
+	/*position: absolute;*/
+	 
+}
 .logo{
   position: absolute;
   left: 20px;
@@ -24,6 +28,7 @@ header{
   color:#f23f3f;
   font-family: 'DungGeunMo';
   cursor: pointer;
+  
 }
 .logo:hover, .logo:focus{
  	animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; 
@@ -145,7 +150,7 @@ header{
 
 .profileAreaWrap{
   position: absolute; top:55px; right:0;
-  background: #fffafa;
+  background: #fffafa; z-index: 5000;
   width: 120px;
   padding: 10px 0;
   border-radius:7px;
@@ -195,7 +200,7 @@ header{
 
 /* 알림내역 서브네비게이션 */
 .alarmTitle{
-  position: relative; z-index: 3;
+  position: relative; z-index: 5000;
   width: 100%; text-align: center;
   font-size: 0.75em;
   font-weight: 400;

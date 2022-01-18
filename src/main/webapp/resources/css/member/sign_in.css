@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/* 전체 구성 */
+#content {
+	width: 90%; height: calc(100% - 80px);
+	display: flex; justify-content: center; align-items: center;
+	margin: 0 auto;
+}
+/* section */
+#signInFormWrap {
+	position: relative
+}
+/* 회원가입 입력 폼 */
+#signInFormWrap .labelValue {
+	font-weight: bold; font-size: 14px; padding-bottom: 10px;
+}
+#signInFormWrap .inputValue {
+	outline: none; border: 1px solid #ffecec;
+	background-color: #f5f5f5; text-indent: 10px;
+	height: 60px; width: 500px; margin-bottom: 40px; margin-top: 10px;
+	font-size: 18px;
+}
+#signInFormWrap .signInInputWrap {
+	position: relative;
+}
+/* invalud Info */
+#invalidInfo {
+	margin-bottom: 20px; color: #f00; font-weight: bold;
+	position: absolute; top: -50px; left: 0;
+}
+/* errMsg */
+#signInFormWrap .errMsg {
+	color: #ff0000; font-size: 13px;
+	position: absolute; left: 0; bottom: 10px;
+}
+/* 회원가입 버튼 */
+#signUpBtn {
+	line-height: 25px; outline: none; border: 0; background-color: #fff; font-weight: bold;
+	border-bottom: 1px solid #808080; color: #808080; transition-duration: 0.2s;
+}
+#signUpBtn:hover {
+	border-color: #f23f3f; color: #f23f3f;
+}
+/* 로그인 버튼 */
+#signInFormWrap .signInBtnWrap {
+	display: flex; justify-content: space-between; align-items: center;
+}
+#signInBtn {
+	line-height: 40px; width: 150px; text-align: center; font-weight: bold;
+	outline: none; border: 0; background-color: #f23f3f; color: #fff; font-size: 16px;
+}

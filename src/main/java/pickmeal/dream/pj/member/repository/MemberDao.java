@@ -63,4 +63,6 @@ public interface MemberDao {
 	 * @return
 	 */
 	public Member findLastAddMember();
+	
+	
 }

@@ -11,10 +11,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class Message {
 	private long id;
-	private String content;
-	private char messageType;
+	private char type; //messageType
+	private String content; 
+	
+	public Message() {}
+	
+	public Message(long id, char type, String content) {
+		this.id = id;
+		this.type = type;
+		this.content = content;
+	}
 }

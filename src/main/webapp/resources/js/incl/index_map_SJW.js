@@ -1,6 +1,7 @@
 let nowLat, nowLng, map, geocoder, marker, ps, nowAddress, circle;
 let wtmY, wtmX; // y = lat, x = lng
 let earth = 6371000;
+let gameDataForm = document.gameDataForm;
 	
 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 if (navigator.geolocation) {
@@ -40,34 +41,24 @@ if (navigator.geolocation) {
         
     displayMarker(locPosition, message);
 }
-/*
-$("button[name=radius]").click(function() {
-	let diffM = Number($(this).val());
-	let json = {"nowLat" : nowLat, "nowLng" : nowLng, "diffM" : diffM};
-	
+
+function searchResList(radius, keword){				
 	$.ajax({
-		url: getContextPath() + "/calculateMap",
+		url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
+		 + keword,
+		x: nowLat,
+		y: nowLng,
+		radius: radius,
 		type: "get",
-		data: json,
-		dataType: 'json',
+		headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
+		dataType: "json",
 		success: function(data){
-			let points = [
-			    new kakao.maps.LatLng(data[0], data[1]),
-			    new kakao.maps.LatLng(data[2], data[3])
-			];
-			let bounds = new kakao.maps.LatLngBounds();
-			for(i=0; i<points.length; i++){
-				bounds.extend(points[i]);
+			for(let m=0; m<data["documents"].length; m++){
+				totalArr.push(data["documents"][i]);
 			}
-			map.setBounds(bounds);
-			//circle.setRadius(diffM);
 		}
 	})
-	
-	
-	
-})
-*/
+}
 
 // 지도에 마커와 인포윈도우를 표시하는 함수입니다
 function displayMarker(locPosition, message) {
@@ -92,17 +83,26 @@ function displayMarker(locPosition, message) {
 
 //button[name=radius]
 $('.gamePlayBtn').on('click', function(e){
-	
-
 	e.preventDefault();
 	let popupWidth = 600;
 	let popupHeight = 600;
 	let radius = $(".radius:checked").val();
 	let category = $(".category:checked").val();
+	var input1;
+	var input2;
 	
+	/*
+	var inputForLat = document.createElement('input');
+	div.createTextNode('This is div');
+	*/
+	createLatLng(nowLat, input1, "nowLat");
+	createLatLng(nowLng, input2, "nowLng");
 	
 	console.log(radius);
 	console.log(category);
+	console.log(nowLat);
+	console.log(nowLng);
+	console.log(getContextPath());
 
 	let popupX = (document.body.offsetWidth / 2) - (popupWidth / 2);
 	// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
@@ -110,22 +110,66 @@ $('.gamePlayBtn').on('click', function(e){
 	let popupY = (document.body.offsetHeight / 2) - (popupHeight / 2);
 	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 	
-	window.open("openGamePopUp", "게임하기", "width=600, height = 600, top=" + popupY + ", left=" + popupX + ""); //선언과 초기화 동시에 해도 됨
+	window.open("openGamePopUp", "게임하기", "width=1000, height = 1000, top=" + popupY + ", left=" + popupX + ""); //선언과 초기화 동시에 해도 됨
+	//popUp.document.getElement("") = document.getElementById();
 	
 	
 	console.log(radius);
 	console.log(category);
 	let popUpUrl = getContextPath() + "/sendDataToPopUp";
 	
-	let gameDataForm = document.gameDataForm;
-				gameDataForm.action = popUpUrl;
-				gameDataForm.target = "게임하기";
-				gameDataForm.method = "get";
-				
-				gameDataForm.submit();
-				
 	
-	/*
+	
+	//let gameDataForm = document.gameDataForm;
+	gameDataForm.action = popUpUrl;
+	gameDataForm.target = "게임하기";
+	gameDataForm.method = "get";
+	
+	gameDataForm.submit();
+})
+
+function createLatLng(data, input, name){
+	input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = name;
+	input.id = name;
+	input.value = data;
+	
+	gameDataForm.appendChild(input);
+}
+
+function displayRestaurantInfo(lat, lng) {
+	let latlng = new kakao.maps.LatLng(lat, lng);
+	// 마커 위치를 좌표 위치로 옮깁니다
+    eMarker.setPosition(latlng);
+ 	// click marker show
+	eMarker.setVisible(true);
+	$("#eInfoW").show();
+	eInfoW.setPosition(latlng);
+	// 식당 정보 페이지 url 가져오기
+	let callback = function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	        console.log(result[0].address.address_name);
+		
+			$.ajax({
+				url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
+				 + result[0].address.address_name + "&x=" + latlng.getLng() + "&y=" + latlng.getLat(),
+				type: "get",
+				headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
+				dataType: "json",
+				success: function(data){
+					$("#restaurantUrl").attr("src", data["documents"][0].place_url);
+				}
+			})
+	    }
+	};
+	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
+}
+
+
+
+
+/*
 	let json = { "radius": radius, "category": category};
 	$.ajax({
 		url: getContextPath() + "/sendDataToPopUp",
@@ -135,63 +179,5 @@ $('.gamePlayBtn').on('click', function(e){
 		success: function(){
 			console.log("successssssssssssss")
 			window.open("openGamePopUp", "게임하기", "width=600, height = 600, top=" + popupY + ", left=" + popupX + ""); //선언과 초기화 동시에 해도 됨
-		}
-		
-	}) */	
-})
-	
-//	window.onload = function() 
-
-	/*
-	$("#updateMenu").click(function(e) {
-				e.preventDefault();
-				if ($("input[name=choiceItem]:checked").val() == null) {
-					alert("먼저 메뉴를 선택해주세요!");
-				} else {
-					popupUpdateMenu("popUpdateMenu", 600, 300);
-				}
-			})
-function popupUpdateMenu(goUrl, popWidth, popHeight) {
-	let windowWidth = window.screen.width;
-	let windowHeight = window.screen.height;
-	
-	let popupX = (windowWidth/2) - popWidth/2;
-	let popupY = (windowHeight/2) - popHeight/2;
-	
-	let popUpdateMenuUrl = getContextPath() + "/menu/" + goUrl;
-	let popUpdateMenuOption = "width=" + popWidth + "px, height=" + popHeight + "px, top=" + popupY + "px, left=" + popupX + "px";
-	let popUpdateMenuTitle = "메뉴 업데이트";
-	
-	window.open(popUpdateMenuUrl, popUpdateMenuTitle, popUpdateMenuOption);
-	
-	let updateMenuForm = document.updateMenuForm;
-	updateMenuForm.action = popUpdateMenuUrl;
-	updateMenuForm.target = popUpdateMenuTitle;
-	updateMenuForm.method = "post";
-	
-	updateMenuForm.submit();
-	
-} */
-	
-/*	
-function popupUpdateMenu(goUrl, popWidth, popHeight) {
-	let windowWidth = window.screen.width;
-	let windowHeight = window.screen.height;
-	
-	let popupX = (windowWidth/2) - popWidth/2;
-	let popupY = (windowHeight/2) - popHeight/2;
-	
-	let popUpdateMenuUrl = getContextPath() + "/menu/" + goUrl;
-	let popUpdateMenuOption = "width=" + popWidth + "px, height=" + popHeight + "px, top=" + popupY + "px, left=" + popupX + "px";
-	let popUpdateMenuTitle = "메뉴 업데이트";
-	
-	window.open(popUpdateMenuUrl, popUpdateMenuTitle, popUpdateMenuOption);
-	
-	let updateMenuForm = document.updateMenuForm;
-	updateMenuForm.action = popUpdateMenuUrl;
-	updateMenuForm.target = popUpdateMenuTitle;
-	updateMenuForm.method = "post";
-	
-	updateMenuForm.submit();
-	}
-*/
+		}	
+	}) */	 

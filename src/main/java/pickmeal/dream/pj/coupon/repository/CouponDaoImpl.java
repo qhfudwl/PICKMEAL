@@ -24,8 +24,8 @@ public class CouponDaoImpl implements CouponDao{
 	 */
 	@Override
 	public CouponCategory generateCouponTypeByRestaurant(char couponType) {
-		String sql = "SELECT id, couponName, couponType FROM CouponCategory WHERE couponType = ?";
-		CouponCategory couponCategory = jt.queryForObject(sql, new CouponCategoryRowMapper(), couponType);
+		String sql = "SELECT id, couponName, couponType, limitPrice FROM CouponCategory WHERE couponType = ?";
+		CouponCategory couponCategory = jt.queryForObject(sql, new CouponCategoryRowMapper(), String.valueOf(couponType));
 		return couponCategory;
 	}
 
@@ -62,10 +62,19 @@ public class CouponDaoImpl implements CouponDao{
 	@Override
 	public void addCoupon(Coupon coupon) {
 		String sql = "INSERT INTO Coupon(memberId, couponId, restaurantId, couponNumber)"
-				+ " VALUES(?, ?, ?)";
+				+ " VALUES(?, ?, ?, ?)";
 		jt.update(sql,coupon.getMember().getId(), coupon.getCouponCategory().getId(), 
 				 coupon.getRestaurant().getId(), coupon.getCouponNumber());
 		
+	}
+
+
+
+	@Override
+	public boolean isCouponByCouponNumber(String couponNumber) {
+		String sql = "SELECT EXISTS (SELECT id FROM Coupon WHERE couponNumber = ?)";
+		
+		return jt.queryForObject(sql, Boolean.class,couponNumber);
 	}
 
 }

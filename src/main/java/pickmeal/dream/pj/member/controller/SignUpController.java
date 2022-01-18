@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
+import pickmeal.dream.pj.coupon.domain.Coupon;
+import pickmeal.dream.pj.coupon.domain.CouponCategory;
+import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.command.MemberCommand;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
+import pickmeal.dream.pj.restaurant.domain.Restaurant;
 
 @Controller
 @Log
@@ -22,6 +26,10 @@ public class SignUpController {
 	
 	@Autowired
 	MemberService ms;
+	
+	/*쿠폰 서비스 추가*/
+	@Autowired
+	CouponService cs;
 	
 	@GetMapping("/member/viewSignUp")
 	public ModelAndView viewSignUp() {
@@ -38,7 +46,7 @@ public class SignUpController {
 		String check = null;
 		
 		if (signInfo.equals("")) {
-			check = "필수 입력값입니다.";
+			check = "";
 		} else {
 			if (type.equals("email")) {
 				if(!ms.isMemberByEmail(signInfo)) {
@@ -86,13 +94,33 @@ public class SignUpController {
 		enterMember.setEmail(member.getEmail());
 		enterMember.setNickName(member.getNickName());
 		
-		log.info(String.valueOf(member.getId()));
+		log.info(member.toString());
 		
 		
 		// 완료 후 세션에 멤버를 넣어준다 (자동 로그인)
 		session.setAttribute("member", enterMember);
 		
+		
+		/*쿠폰 자동 넣기 서비스*/
+		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
+			Member member2 = (Member) session.getAttribute("member");
+			Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+			CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
+		
+		
+			Coupon coupon = new Coupon();
+			coupon.setMember(member2);
+			coupon.setRestaurant(restaurant);
+			coupon.setCouponCategory(couponCategory);
+			cs.addCoupon(coupon);
+		
+			session.removeAttribute("couponCategory");
+		
 		// 요청 정보를 버리고 리다이렉션으로 메인화면으로 보낸다.
 		return "redirect:/viewIndexMap";
+		}else {
+			return "redirect:/viewIndexMap";
+		}
+		
 	}
 }

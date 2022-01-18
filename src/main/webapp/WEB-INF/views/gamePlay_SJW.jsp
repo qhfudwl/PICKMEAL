@@ -12,14 +12,35 @@
 <script src="${pageContext.request.contextPath}/resources/js/incl/gamePlay_SJW.js" defer></script>
 </head>
 <body>
-	<div>${radius}</div>
-	<div>${category}</div>
-	<div>왜 값을 안받아오냐고.</div>
+ <!-- firstGameMsg 조건을 만들어야함. 이거 안되면 diffofdate 가 0인지 아닌지 확인해서 하면 됨. num == 5 eq 5 -->
+	<c:choose>
+		<c:when test="${not empty firstGameMsg}">
+			<div class="firstMsgContent">${firstGameMsg}</div>
+		</c:when>
+		<c:otherwise>
+			<div class="firstMsgContent">하이?!</div>
+		</c:otherwise>
+	</c:choose>
 	<input type="hidden" id="hRadius" value="${radius}">
+	<input type="hidden" id="nowLat" value="${nowLat}">
+	<input type="hidden" id="nowLng" value="${nowLng}">
+	<input type="hidden" id="diffOfDate" value="${diffOfDate}">
+	<!-- 얘를 가지고 0이면 암것도 안하고 1이면 화면 띄우기. -->
+	
+	<div id="gameBtnWrap">
+		<ul>
+			<li><button class="gameBtn ladderBtn" name="ladder" value="L"></button></li>
+			<li><button class="gameBtn cardBtn" name="card" value="C"></button></li>
+		</ul>
+	</div>
+	
+	<%-- <input type="hidden" id="nowLat" value="${nowLat}">
+	<input type="hidden" id="nowLng" value="${nowLng}"> --%>
 	
 	<div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
+	
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
@@ -35,5 +56,17 @@
     </div>
 </div>
 <p id="memberPosition"></p>
+
+<div id="gameWrap" name="gameWrap">
+	<!-- <ul></ul> -->
+		
+</div>
+
+<div id="submitWrap">
+	<form action="" id="submitForm" method="post">
+		<button type="submit" id="submitBtn">확인</button>
+		<!-- input hidden -->
+	</form>
+</div>
 </body>
 </html>

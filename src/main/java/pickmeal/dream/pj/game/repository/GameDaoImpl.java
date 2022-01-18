@@ -26,6 +26,7 @@ public class GameDaoImpl implements GameDao{
 	@Override
 	public int checkLastGameRecord(long memberId) {
 		String sql = "SELECT TIMESTAMPDIFF(DAY, regDate, CURDATE() AS DIFF_DAY FROM LastGameRecord WHERE memberId = ?";
+		//String sql2 = "Select count(regdate) from table group by memberId having regdate = curdate();" 
 		
 		return jt.queryForObject(sql, Integer.class, memberId);
 	}

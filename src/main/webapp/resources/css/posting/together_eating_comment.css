@@ -1,0 +1,82 @@
+@charset "UTF-8";
+/* section */
+#commentsWrap {
+	width: 80%; margin: 20px auto;
+}
+/* 댓글 목록 영역 */
+.commentWrap {
+	display: flex; flex-flow: row nowrap; justify-content: space-between; align-items: center;
+	border-bottom: 1px solid #ffecec; font-size: 14px; padding: 5px 15px;
+	box-sizing: border-box;
+}
+/* 프로필 이미지 */
+.commentWrap img {width: 50px; border-radius: 50%;}
+/* 닉네임, 신뢰온도, 시간, 목록의 content */
+.memberContent {width: 85%;}
+/* 멤버 정보 (닉네임, 신뢰온도), 시간 */
+.memberInfo {
+	display: flex; flex-flow: row nowrap; justify-content: flex-start; align-items: center;
+	height: 30px;
+}
+.nickName {font-weight: bold;}
+.mannerTemp {margin: 0 20px; color: #F67E7E; font-weight: bold; font-size: 13px;}
+time {color: #7F7F7F; font-size: 13px;}
+/* 목록의 content */
+.viewCmtContent {
+	outline: none; border: 0; background-color: #fff; color: #000;
+	height: 25px; width: 90%;
+}
+/* 수정하기 버튼 */
+.viewCmtContent:disabled + .modifyContent {display: none;}
+.modifyContent {
+	outline: none; border: 0; background-color: #F67E7E; color: #fff; font-size: 12px;
+	font-weight: bold; padding: 3px 5px; cursor: pointer;
+}
+/* 더보기 버튼 */
+.moreWrap {position: relative; width: 80px;}
+/* ...버튼 */
+.popUpdate {
+	height: 100%;
+}
+.choiceCmt {display: none;}
+.popUpdate label {
+	display: flex; flex-flow: column nowrap; justify-content: space-between; align-items: center;
+	cursor: pointer; width: 20px; float: right; margin-bottom: 5px;
+}
+.point1, .point2, .point3 {
+	width: 3px; height: 3px; background-color: #7F7F7F; border-radius: 50%;
+	margin: 1px 0;
+}
+/* 팝업창(수정하기, 삭제하기) */
+.updateWrap {
+	position: absolute; top: 0; right: -90px; padding: 5px 10px;
+	display: none;
+	box-shadow: 0 0 5px #808080; background-color: #fff;
+}
+.updateWrap .update {
+	outline: none; border: 0; background-color: #fff; font-weight: bold; line-height: 25px;
+	font-size: 12px; cursor: pointer; display: block;
+	transition-duration: 0.2s;
+} 
+.updateWrap .update:hover {color: #f23f3f;}
+/* 채팅하기 버튼 */
+.chat {
+	outline: none; border: 0; background-color: #fff; text-decoration: underline;
+	color: #F67E7E; font-weight: bold; cursor: pointer; text-align: right; width: 100%;
+}
+/* 댓글 쓰기 */
+#writeCommentWrap {
+	padding: 5px 15px 35px 15px; width: 100%; box-sizing: border-box;
+}
+#writerNickName {
+	color: #f23f3f; font-weight: bold; margin-bottom: 5px;
+}
+#writeCmt {
+	outline: none; border: 1px solid #ffecec; width: 100%;
+	padding: 10px; box-sizing: border-box;
+}
+#writeOk {
+	background-color: #f23f3f; outline: none; border: 0; padding: 5px 10px;
+	font-weight: bold; font-size: 13px; color: #fff; float: right;
+	cursor: pointer;
+}
