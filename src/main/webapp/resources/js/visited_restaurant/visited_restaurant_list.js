@@ -20,3 +20,15 @@ function jjimrestaurant(){
 		
 	});
 }
+
+function reviewClick(){
+	var reviewradio = $("input[name='vrreviewradio']:checked").val();
+	var restaurantName = $("#restaurantNameis"+reviewradio).val();
+	var restaurantTableId=$("#restaurantrealid"+reviewradio).val();
+	console.log("내간식 id"+reviewradio);
+	console.log("찐식 id"+restaurantTableId);
+	console.log("레스토랑 명 : " + restaurantName);
+	$("#reviewRName").val(restaurantName+" 식당리뷰!");
+	$("#submititem").val(restaurantTableId);
+	
+}

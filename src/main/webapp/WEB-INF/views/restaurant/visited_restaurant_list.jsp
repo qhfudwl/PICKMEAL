@@ -81,7 +81,7 @@
                 	<c:forEach var="vrlist" items="${vrlist}" varStatus="status">
 	                    <div class="vrdiv">
 	                        <div class="vrmain">
-	                            <input type="text" class="vrName" value="${vrlist.getRestaurant().getRName()}" disabled/>
+	                            <input id="restaurantNameis${vrlist.getId()}" type="text" class="vrName" value="${vrlist.getRestaurant().getRName()}" disabled/>
 	                            <input type="text" class="vrRegDate" value="${vrlist.getRegDate()}" disabled/>
 	                            <input type="radio" id="mainlabel${vrlist.getId()}" class="vrRadio" name="vrmainradio"  value="${vrlist.getId()}">
 	                            <label id="mainInlabel${vrlist.getId()}" for="mainlabel${vrlist.getId()}" class="mainInlabel"></label>
@@ -99,8 +99,9 @@
 	                        <div class="vrrightbottom" id="reviewdiv${vrlist.getId()}">
 	                        	<c:choose>
 	                        		<c:when test="${vrlist.isReview() eq 'false'}">
+	                        			<input type="hidden" id="restaurantrealid${vrlist.getId()}"value="${vrlist.getRestaurant().getId()}"/>
 		                            	<input type="text" class="리뷰하기" value="리뷰하기" disabled/>
-		                            	<input type="radio" id="reviewlabel${vrlist.getId()}" class="reviewBtn" name="vrreviewradio" value="${vrlist.getId()}">
+		                            	<input type="radio" id="reviewlabel${vrlist.getId()}" class="reviewBtn" name="vrreviewradio" value="${vrlist.getId()}" onclick="reviewClick(this)">
 		                            	<label id="reviewInlabel${vrlist.getId()}" for="reviewlabel${vrlist.getId()}" class="reviewInlabel"></label>
 	                            	</c:when>
 	                            </c:choose>
@@ -113,7 +114,8 @@
             	<h3 >리뷰 하기</h3>
                 <form action="">
                     <div id="Reviewcheck">
-                        <h3 id="reviewRName">${vrlist.getRestaurant().getRName()} 식당 리뷰</h3>
+                    	<input type="hidden" id="submititem"value=""/>
+                        <input type="text" id="reviewRName" value=""/>
                         <div id="bathroomWrap" class= "checkboxWrap">
                             <img src="/pickmeal/resources/img/restaurant/review/icon_heart.png" alt="" class="reviewImg">
                             <input type="checkbox" id="bathroomBtn" class="reviewCheckbox" name="BATHROOM" value="0"/>
