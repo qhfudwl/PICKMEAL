@@ -15,7 +15,7 @@
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 	<section id="commentsWrap">
 		<h2 class="hidden">댓글</h2>
-		<form name="viewCmtForm">
+		<form name="viewCmtForm" id="viewCmtForm">
 			<c:forEach var="c" items="${comments}">
 				<div class="commentWrap" id="commentWrap${c.id}">
 					<img alt="${c.member.nickName}님의 프로필 이미지" src="${pageContext.request.contextPath}${c.member.profileImgPath}">
@@ -47,7 +47,9 @@
 						<c:if test="${member.id eq posting.member.id}">
 							<c:if test="${not empty member}">
 								<c:if test="${posting.category eq 'E'.charAt(0) }">
-									<button type="submit" class="chat" value="${c.member.id}">채팅하기</button>
+									<%-- <c:if test="${posting.member.id ne c.member.id}"> --%>
+										<button type="button" class="chat" onclick="goChat(this)" value="${c.member.email}">채팅하기</button>
+									<%-- </c:if> --%>
 								</c:if>
 							</c:if>
 						</c:if>
@@ -75,7 +77,7 @@
 		<form:form name="writeCmtForm" modelAttribute="commentCommand">
 			<input type="hidden" name="memberId" value="${member.id}"/>
 			<input type="hidden" name="postId" value="${posting.id}"/>
-			<input type="hidden" name="post_memberId" value="${posting.member.id}"/>
+			<input type="hidden" name="post_memberId" data-writer="${posting.member.email }" value="${posting.member.id}"/>
 			<input type="hidden" name="category" value="${posting.category}"/>
 			<c:if test="${not empty member }">
 				<section id="writeCommentWrap">

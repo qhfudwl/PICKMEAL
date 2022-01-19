@@ -85,5 +85,3 @@
 		</c:if>
 	</nav>
 </header>
-<%@ include file="/WEB-INF/views/incl/chat_alarm.jsp"%>
-<%-- <jsp:include page="/WEB-INF/views/incl/chat_alarm.jsp"/> --%>

@@ -1,5 +1,6 @@
 package pickmeal.dream.pj.member.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.member.util.PasswordDecoding;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
+import pickmeal.dream.pj.web.handler.WebSocketHandler;
 
 @Controller
 @Log
@@ -56,7 +58,6 @@ public class SignInController {
 		} else { // 해당 아이디가 있을 경우
 			member = ms.findMemberByMemberEmail(memberCommand.getEmail());
 			member = pd.convertPassword(member);
-			log.info(member.getPasswd());
 			if (!memberCommand.getPasswd().equals(member.getPasswd())) { // 비밀번호 불일치 시
 				chkInfo = false;
 			}

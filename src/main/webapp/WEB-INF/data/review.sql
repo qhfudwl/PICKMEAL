@@ -1,3 +1,4 @@
+
 SELECT * FROM Review;
 DELETE FROM Review;
 

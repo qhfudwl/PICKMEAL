@@ -1,13 +1,12 @@
 package pickmeal.dream.pj.config;
 
-import javax.servlet.ServletContext;
-
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+import lombok.RequiredArgsConstructor;
 /**
  * 
  * Resource Mapping 
@@ -16,22 +15,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  */
 
-@EnableWebMvc
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
-	
-	@Autowired
-	PropertiesConfiguration imgPropertyConfig;
-	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
-		//window일 때
-		registry.addResourceHandler(imgPropertyConfig.getString("file.mappingPath"))
-				.addResourceLocations(imgPropertyConfig.getString("file.locationPathFromWindow"));
-		//WebMvcConfigurer.super.addResourceHandlers(registry);
-	}
-	
-	
-
+@EnableWebSocket
+@RequiredArgsConstructor
+public class WebConfig implements WebSocketConfigurer {
+    private final WebSocketHandler webSocketHandler;
+    @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(webSocketHandler,"/oneChat");
+    }
 }

@@ -92,7 +92,7 @@ public class RestaurantController {
 		mav.addObject("AnonymousNumber", anonymousNumber);
 		
 		//View 이름 설정
-		mav.setViewName("index");
+		mav.setViewName("index_chatting");
 		return mav;
 		
 	}

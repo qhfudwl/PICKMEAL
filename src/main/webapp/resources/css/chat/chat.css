@@ -2,15 +2,21 @@
 
 /* 아무말 채팅 */
 #chatWrap {
-	width: 400px; height: 90%; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-	border: #ffecec 3px solid; border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+	width: 400px; height: 800px; border: #f35c5c 3px solid; border-right: 0; border-left: 0;
+    display: flex; flex-direction: column; background-color: #f0f0f0;
+    padding-top: 10px; padding-bottom: 0; position: relative;
 }
-
+#exitChat {
+	position: absolute; top: 10px; right: 10px; 
+	outline: none; border: 0; background-color: #f0f0f0; font-size: 18px; font-weight: bold;
+	cursor: pointer; transition-duration: 0.2s; z-index: 500;
+}
+#exitChat:hover {
+	color: #f23f3f;
+}
 #msgArea {
     flex: 20;
-    width: 100%;
+    width: 95%; margin: 0 auto;
     height: 100%;
     position: relative;
     overflow: auto;
@@ -40,7 +46,6 @@
     flex: 2;
     background-color: #fff;
     overflow: hidden;
-    border-top: #ffecec 3px solid;
 }
 
 #write_msg {
@@ -58,7 +63,7 @@
     flex: 2;
 }
 #button_send {
-    background-color: #ffecec;
+    background-color: #f35c5c; color: #fff; font-weight: bold;
     border: 0;
     width: 100%;
     height: 100%;
@@ -66,7 +71,7 @@
 
 #msgWrap {
     position: absolute;
-    width: 100%;
+    width: 95%;
     height: 100%;
     bottom: 0;
 }

@@ -1,5 +1,7 @@
 package pickmeal.dream.pj.posting.controller;
 
+import static pickmeal.dream.pj.web.constant.Constants.COMMENT_LIST;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.posting.command.CommentCommand;
 import pickmeal.dream.pj.posting.domain.Comment;
 import pickmeal.dream.pj.posting.domain.Posting;
 import pickmeal.dream.pj.posting.service.CommentService;
 import pickmeal.dream.pj.web.util.Validator;
-
-import static pickmeal.dream.pj.web.constant.Constants.*;
 
 @Controller
 @Log
@@ -27,6 +28,9 @@ public class CommentController {
 	
 	@Autowired
 	CommentService cs;
+	
+	@Autowired
+	MemberService ms;
 	
 	@Autowired
 	Validator v;
@@ -49,8 +53,17 @@ public class CommentController {
 			pageNum = allPageNum;
 		}
 		log.info(String.valueOf(pageNum));
+		
+		
+//		여기서부터
 		Posting posting = new Posting(1, 'E');
-		posting.setMember(new Member(39));
+		Member writer = ms.findMemberById(1);
+		Member enterWriter = new Member();
+		enterWriter.setId(writer.getId());
+		enterWriter.setEmail(writer.getEmail());
+		posting.setMember(enterWriter);
+//		여기까지 삭제해야한다
+		
 		mav.addObject("posting", posting);
 		mav.addObject("comments", comments);
 		mav.addObject("allPageNum", allPageNum);
@@ -77,7 +90,7 @@ public class CommentController {
 		comment = cs.addComment(comment);
 //		log.info(comment.toString());
 		log.info("category 테스트로 넣어놓은 것 반드시 삭제할 것");
-		comment.getPosting().setCategory('R'); // test 값이다 (나중에 반드시 삭제하자!!)
+		comment.getPosting().setCategory('E'); // test 값이다 (나중에 반드시 삭제하자!!)
 
 		return ResponseEntity.ok(comment);
 	}

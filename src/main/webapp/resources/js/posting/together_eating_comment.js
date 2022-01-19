@@ -56,8 +56,9 @@ $("#writeOk").click(function(e) {
 					} else {
 						moreHtml = "";
 					}
+																					//  && postMemberId != data.member.id
 					if (postMemberId == memberId && memberId != 0 && postCategory == 'E') {
-						chatHtml = '<button type="submit" class="chat" value="' + data.member.id + '">채팅하기</button>';
+						chatHtml = '<button type="submit" class="chat" onclick="goChat(this)" value="' + data.member.email + '">채팅하기</button>';
 					} else {
 						chatHtml = "";
 					}
@@ -258,8 +259,9 @@ function moveCommentPage(a) {
 					} else {
 						moreHtml = "";
 					}
-					if (postMemberId == memberId && memberId != 0 && postCategory == 'E') {
-						chatHtml = '<button type="submit" class="chat" value="' + data[i].member.id + '">채팅하기</button>';
+																					//  && postMemberId != data[i].member.id
+					if (postMemberId == memberId && memberId != 0 && category == 'E') {
+						chatHtml = '<button type="button" class="chat"  onclick="goChat(this)" value="' + data[i].member.email + '">채팅하기</button>';
 					} else {
 						chatHtml = "";
 					}
@@ -408,7 +410,30 @@ if($(".pageNum").length <= 10) {
 	$("#firstPage").hide();
 }
 
-
+// 채팅하기 (이메일 넣어주기)
+function goChat(a) {
+	let writer = $("input[name=post_memberId]").data("writer");
+	let commenter = $(a).val();
+	
+	let viewCmtForm = document.viewCmtForm;
+	viewCmtForm.action = "goChat";
+	viewCmtForm.method = "post";
+	//viewCmtForm.target = "_blank";
+	
+	let input1 = document.createElement("input");
+	let input2 = document.createElement("input");
+	input1.type = "hidden";
+	input1.name = "writer";
+	input1.value = writer;
+	input2.type = "hidden";
+	input2.name = "commenter";
+	input2.value = commenter;
+	
+	viewCmtForm.appendChild(input1);
+	viewCmtForm.appendChild(input2);
+	
+	viewCmtForm.submit();
+}
 
 
 
