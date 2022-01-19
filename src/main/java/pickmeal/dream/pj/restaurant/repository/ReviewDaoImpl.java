@@ -21,6 +21,4 @@ public class ReviewDaoImpl implements ReviewDao{
 				+" WHERE restaurantId=?";
 		return jt.queryForObject(sql, new ReviewRowMapper(), restaurantId );
 	}
-
-	
 }

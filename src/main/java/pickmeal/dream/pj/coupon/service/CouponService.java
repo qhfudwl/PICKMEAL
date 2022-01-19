@@ -9,7 +9,7 @@ import pickmeal.dream.pj.restaurant.domain.Restaurant;
 public interface CouponService {
 	CouponCategory findCouponCategoryByRestaurant(Restaurant restaurant);
 	
-	CouponCategory findCouponCategoryTest();
+	CouponCategory findCouponCategoryGo();
 	
 	Coupon addCoupon(Coupon coupon);
 	

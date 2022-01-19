@@ -23,3 +23,5 @@ INSERT INTO Review(restaurantId, bathroom, kind, specialDay, clean, parking, goo
 VALUES 
 (1, 10, 9, 8, 7, 6, 5, 4, 3, 2, 12 );
 
+delete from Review where id = 2;
+

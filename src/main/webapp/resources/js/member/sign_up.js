@@ -10,7 +10,7 @@ $("#signUpBtn").click(function(e) {
 		infoChkArr[5] = 1;
 		errMsg.text("")
 		infoChk = true;
-	}	
+	}
 	let submitChk = false;
 	let arr = [1, 1, 1, 1, 1, 1];
 	if (JSON.stringify(infoChkArr) === JSON.stringify(arr)) {
@@ -90,16 +90,28 @@ function checkSignUpInfo(signInfo, type, errMsg){
 
 // 비밀번호 체크
 $("#passwdChk").focusin(function() {
+	let pattern = new RegExp("^[A-Za-z0-9!@#$%^~*+=&-]*$");
 	let passwd = $("#passwd").val();
 	let errMsg = $("#passwd").next();
-	if (passwd.length == 0) { // 비밀번호가 비었을 때
-		errMsg.text("비밀번호를 입력해주세요.");
+	if (passwd.length < 4 || passwd.length > 20) { // 비밀번호 자릿수가 맞지 않을 때
+		errMsg.text("비밀번호는 4자리 이상 20자리 이하로 입력해주세요.");
 		infoChk = false;
 		infoChkArr[1] = 0;
+		return;
 	} else { // 비밀번호를 적었다면
 		errMsg.text("");
 		infoChk = true;
 		infoChkArr[1] = 1;
+	}
+	if (pattern.test(passwd)) { // 비밀번호가 패턴에 맞는다면
+		errMsg.text("");
+		infoChk = true;
+		infoChkArr[1] = 1;
+	} else {
+		errMsg.text("비밀번호는 대문자, 소문자, 숫자, 특수문자(!@#$%^~*+=&-)만 허용합니다.");
+		infoChk = false;
+		infoChkArr[1] = 0;
+		return;
 	}
 })
 
@@ -143,3 +155,11 @@ $("#birth").focus(function() {
 		}
 	})
 })
+// 화면 새로 고침 시 value 들을 모두 지워준다.
+$(document).ready(function(){
+	$("#email").val("");
+	$("#passwd").val("");
+	$("#passwdChk").val("");
+	$("#nickName").val("");
+	$("#birth").val("");
+});

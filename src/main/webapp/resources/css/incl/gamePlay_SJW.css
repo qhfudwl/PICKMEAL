@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+
+#menu_wrap { display: none;}
+
+.firstMsgContent{
+	width: 1000px; height: 1000px;
+	position:absolute; top: 0; left: 0;
+	line-height: 1000px;
+	text-align: center;
+	box-sizing: border-box;
+	background: beige;
+	
+}
+#gameBtnWrap{
+	position: absolute; top:50%; left:50%;
+	transform: translate(-50%, -50%);
+	width: 800px; height: 800px;
+}
+
+#gameBtnWrap ul{
+	display:flex;
+	justify-content: space-around; 
+	margin: 150px auto 0;
+}
+#gameBtnWrap ul li {
+			
+}
+.gameBtn {
+	margin: 0 auto;
+	width:300px; height: 500px;
+	border-radius: 2em;
+	font-weight: bold;
+}
+.ladderBtn{
+	background-image: url("../../img/game/ladderImg.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.cardBtn{
+	background-image: url("../../img/game/cardImg.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.hidden { display: none;}
+
+
+#gameWrap { margin: 0 auto; width: 900px; height: 700px;}
+
+.cardUl {
+	width: 700px; height: 630px;
+	margin: 55px auto; 
+	display: flex; 
+	flex-flow: row wrap; 
+	justify-content: center; 
+}
+li {list-style: none;}
+
+.cardDiv{
+	width: 200px; height: 300px; 
+ 	text-align: center; 	
+	display: table-cell;
+	vertical-align: middle;	
+}
+
+.cardDivStyle { 
+	background-image: url("../../img/game/frontCard.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.cardLiStyle {  margin: 5px 15px;}
+.disappearCard { display: none; }
+.pick { 
+	background-image: url("../../img/game/pickCard.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;}
+#submitWrap { 
+	width: 100%;
+}
+
+#submitForm { width: 100px; margin: 0 auto;}
+#submitBtn { 
+	position: absolute; bottom: 30px; right: 45px;	
+	width: 80px; height: 50px; 
+}
+
+.cardLi { width: 200px; height: 300px; position:relative;}
+.BackSideOfCard { 
+	position:absolute; top:0; left:0;
+	width: 100%; height: 100%;
+	background-image: url("../../img/game/backCard.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.choice { width: 130px; height: 65px; }
+
+@keyframes moving {
+	to{
+		stroke-dashoffset: 0;
+	}
+}
+
+
+.svg2Div {width: 840px; height: 700px; margin: 0 atuo; border: 1px solid #000;}
+.svgDiv {width: 840px; height: 700px; margin: 0 auto; border: 1px solid #000;}
+
+.ladderUl { display: flex; }
+.ladderLi { width: 130px; height: 65px;}

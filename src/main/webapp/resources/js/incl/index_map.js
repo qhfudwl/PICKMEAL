@@ -24,7 +24,7 @@ if (navigator.geolocation) {
 		geocoder.coord2Address(nowLng, nowLat, function(result, status) {
 			if (status === kakao.maps.services.Status.OK) {
 				nowAddress = result[0].address.address_name;
-				$("#memberPosition").text(nowAddress);
+				//$("#memberPosition").text(nowAddress);
 			}
 		});
 		
@@ -149,7 +149,10 @@ function displayStartMarker() {
 
 // 좌표를 인자로 넣어 식당 정보를 가져와 표시하는 함수
 // 이 함수를 발생시키면 된다.===============================================
-function displayRestaurantInfo(lat, lng) {
+function displayRestaurantInfo(lat, lng, restaurantName) {
+	console.log("hihihihihihihihihihihihihihihihihihihihihihi");
+	console.log("lat : " + lat);
+	console.log("lng : " + lng);
 	let latlng = new kakao.maps.LatLng(lat, lng);
 	// 마커 위치를 좌표 위치로 옮깁니다
     eMarker.setPosition(latlng);
@@ -164,18 +167,20 @@ function displayRestaurantInfo(lat, lng) {
 		
 			$.ajax({
 				url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
-				 + result[0].address.address_name + "&x=" + latlng.getLng() + "&y=" + latlng.getLat(),
+				 + restaurantName + "&x=" + latlng.getLng() + "&y=" + latlng.getLat(),
 				type: "get",
 				headers: {"Authorization" : "KakaoAK f3ae310b0340ac2069e5e0685938a62b"},
 				dataType: "json",
 				success: function(data){
 					$("#restaurantUrl").attr("src", data["documents"][0].place_url);
+					$("#weatherWrap").hide();
 				}
 			})
 	    }
 	};
 	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback);
 }
+
 
 // 보기 버튼 클릭 시 식당 정보 표시 section 커지기
 $("#open").click(function() {

@@ -76,6 +76,10 @@
     	document.coupon.submit();
     	self.close();
     }
+    function gogo(){
+    	window.opener.name = "parentPage";
+    	document.coupon.target = "parentPage";
+    }
     function test(){
     	$("#closeBBtn").click();
     }

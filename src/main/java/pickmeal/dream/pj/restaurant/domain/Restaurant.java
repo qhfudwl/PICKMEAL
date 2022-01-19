@@ -37,6 +37,7 @@ public class Restaurant {
 		return "Restaurant [id=" + id + " apiId=" + apiId + ", rType=" + rType + ", lat=" + lat + ", lng=" + lng + ", address=" + address
 				+ ", rName=" + rName + "]";
 	}
+
 	public boolean isRType() {
 		return rType;
 	}

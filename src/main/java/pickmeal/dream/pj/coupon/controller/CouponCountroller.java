@@ -67,6 +67,7 @@ public class CouponCountroller {
 		Restaurant restaurant = cs.findRestaurantById(9);
 		System.out.println(restaurant);
 		System.out.println(restaurant.isRType());
+
 		Member member = (Member) session.getAttribute("member");
 		/*레스토랑이 제휴 레스토랑인지 비교 하기*/
 		if(restaurant.isRType()== true) {
@@ -79,7 +80,7 @@ public class CouponCountroller {
 					if(cs.findCouponBymemberIdinTodayMax(member.getId())<=2) {
 						
 						/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
-						CouponCategory couponCategory = cs.findCouponCategoryTest();
+						CouponCategory couponCategory = cs.findCouponCategoryGo();
 						System.out.println("트루값 받고 여기 들어옴");
 						
 						/*쿠폰이 발급이 안된 경우 리턴값이 없을 경우 그냥 통과*/
@@ -102,7 +103,7 @@ public class CouponCountroller {
 					/*오늘 발급 받은적 없으면*/
 				}else {
 					/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
-					CouponCategory couponCategory = cs.findCouponCategoryTest();
+					CouponCategory couponCategory = cs.findCouponCategoryGo();
 					System.out.println("트루값 받고 여기 들어옴");
 					
 					/*쿠폰이 발급이 안된 경우 리턴값이 없을 경우 그냥 통과*/
@@ -121,13 +122,13 @@ public class CouponCountroller {
 			}
 			/*멤버가 아니라면*/
 			else {
-				CouponCategory couponCategory = cs.findCouponCategoryTest();
+				CouponCategory couponCategory = cs.findCouponCategoryGo();
 				/*쿠폰이 발급이 안되서 리턴값이 없을 경우 그냥 통과*/
 				System.out.println("트루값 받고 여기 들어옴");
 				if(couponCategory == null) {
 				System.out.println("왜? 없는쪽임 = " + couponCategory);
 				}else {
-				/*쿠폰이 발급이 되어 리턴값이 있을 경우는 세션에 저장 시켜준다.*/
+
 				session.setAttribute("couponCategory", couponCategory);
 				session.setAttribute("restaurant", restaurant);
 				System.out.println("멤버가없다용");
@@ -135,9 +136,7 @@ public class CouponCountroller {
 			}
 		}
 		/*제휴 식당이 아니라면*/
-		else{
-			System.out.println("쿠폰발급 불가식당");
-		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("coupon/index_couponCategory_generate");
 		return mav;
@@ -158,7 +157,6 @@ public class CouponCountroller {
 		
 		
 		ModelAndView mav = new ModelAndView();
-		System.out.println("나이제 값 리턴할꼐용");
 		mav.setViewName("coupon/coupon_generate_popup");
 		
 		return mav;
@@ -190,12 +188,12 @@ public class CouponCountroller {
 		
 		session.removeAttribute("couponCategory");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("coupon/index_couponCategory_generate");
+		mav.setViewName("index");
 		
 		return mav;
 		/*세션안에 세개중 하나가 없을 경우에는 자동 로그인기능만 할 수 있도록*/
 		}else {
-			System.out.println("세션에 3개중 뭐가 없음!");
+			System.out.println("세션에 3개중 뭐가 없1음!");
 		}
 		return null;
 	}

@@ -1,24 +1,31 @@
 package pickmeal.dream.pj.restaurant.controller;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.java.Log;
+import pickmeal.dream.pj.menu.service.MenuService;
 import pickmeal.dream.pj.message.service.MessageService;
 import pickmeal.dream.pj.restaurant.domain.RestaurantReference;
 import pickmeal.dream.pj.restaurant.domain.Review;
 import pickmeal.dream.pj.restaurant.service.RestaurantReferenceService;
 import pickmeal.dream.pj.restaurant.service.ReviewService;
+import pickmeal.dream.pj.weather.domain.Forecast;
+import pickmeal.dream.pj.weather.domain.MyLocation;
+import pickmeal.dream.pj.weather.domain.PickMealWeather;
+import pickmeal.dream.pj.weather.domain.Weather;
+import pickmeal.dream.pj.weather.service.WeatherService;
 
+@Log
 @Controller
 public class RestaurantController {
 	@Autowired
@@ -30,12 +37,22 @@ public class RestaurantController {
 	@Autowired
 	MessageService ms;
 	
+	@Autowired
+	WeatherService weatherService;
+	
+	@Autowired
+	MenuService menuService;
+	
 	/**
 	 * @author 김보령
 	 */
 	static final double EARTH = 6371000; // 단위 m
 	static final double RADIUS = (Math.PI / 180);
 	
+	/**
+	 * @author 김재익
+	 */
+	public int anonymousNumber = 0;
 	
 	/*
 	 *  메인화면 불러오기
@@ -44,18 +61,36 @@ public class RestaurantController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		
-		
 		//레스토랑 아이디 셋팅(임시)- 윤효심
 		long restaurantId =1;
 		
 		//포춘쿠키 메세지 셋팅 - 윤효심
-		String fortuneMessage = ms.getMessageByType('F');
+//		String fortuneMessage = ms.getMessageByType('F');
 		
 		ModelAndView mav = new ModelAndView();
 		//레스토랑 아이디 추가 - 윤효심 
 		mav.addObject("restaurantId",restaurantId);
 		//포춘메세지 추가 - 윤효심 
-		mav.addObject("fortuneMessage",fortuneMessage);
+//		mav.addObject("fortuneMessage",fortuneMessage);
+		
+		//날씨 - 김재익
+		MyLocation ml = new MyLocation("89", "90");
+		Weather weather = weatherService.getWeather(ml);
+		PickMealWeather wc = weatherService.getPickMealTypeWeather(weather);
+		Forecast forecast = weatherService.getForecast(ml);
+		mav.addObject("weather", wc);
+		mav.addObject("forecast", forecast);
+		
+		menuService.findMenuByWeather(wc);
+		
+		//익명채팅방 - 김재익
+		anonymousNumber++;
+		
+		log.info("==================================");
+		log.info("@RestaurantController, GET Chat / AN : " + anonymousNumber);
+		
+		mav.addObject("AnonymousNumber", anonymousNumber);
+		
 		//View 이름 설정
 		mav.setViewName("index");
 		return mav;

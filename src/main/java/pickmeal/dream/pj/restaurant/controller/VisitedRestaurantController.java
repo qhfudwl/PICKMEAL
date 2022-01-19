@@ -85,4 +85,27 @@ public class VisitedRestaurantController {
 		frs.addFavoriteRestaurant(f);
 		return ResponseEntity.ok(true);
 	}
+	
+	@PostMapping("/indexFavorite")
+	@ResponseBody
+	public ResponseEntity<?> indexFavorite(@RequestBody Map<String,String> map){
+		
+		String restaurantId = map.get("restaurantId");
+		long longRid = Long.valueOf(restaurantId);
+		Restaurant r = frs.findRestaurantById(longRid);
+		
+		String memberId =map.get("memberId");
+		long longMid = Long.valueOf(memberId);
+		Member m = ms.findMemberById(longMid);
+		
+		FavoriteRestaurant f = new FavoriteRestaurant();
+		f.setMember(m);
+		f.setRestaurant(r);
+		frs.addFavoriteRestaurant(f);
+		
+		if(frs.isFavoriteRestaurant(longMid, longRid)) {
+			return ResponseEntity.ok(true);
+		}
+		return ResponseEntity.ok(null); 
+	}
 }
