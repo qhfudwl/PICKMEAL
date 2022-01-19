@@ -40,6 +40,8 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/posting/**")
 		.addResourceLocations("/resources/img/posting/");
 		
+		//외부파일
+		
 	}
 	
 	

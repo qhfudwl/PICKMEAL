@@ -1,19 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
+<!-- 우편번호서비스 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef48a334aefa8d6e3f9c000a120f8532&libraries=services"></script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/posting/post_write.js" defer></script>
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/posting/post.css" />
 <title>게시글쓰기</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 <section id="totalPostContainer">
+		<input type="hidden" id="postType" value="${postType }"/>
         <h2 class="hidden">글쓰기</h2>
         <div id="rwPostContainer">
             <div id="rwPostTitleContainer">
@@ -21,20 +30,21 @@
                     <h3>공지사항 글쓰기</h3>
                 </div>
             </div>
-           
+           <form action="completeWritingPost" method="post" id="wPostForm">
             <div id="wPostContentContainer">
                 <div class="wPostSubTitleWrap wPostLineCommon">
                     <p class="wPostLeftSideSubTitle">제목</p>
                     <div class="wPostSubTitleInputWrap wPostComInputArea">
-                        <input type="text" class="wPostSubTitleConInput postInputTCom" placeholder="식당이름과 메뉴를 적어주시면 좋아요">
+                        <input type="text" name="title" class="wPostSubTitleConInput postInputTCom" placeholder="식당이름과 메뉴를 적어주시면 좋아요">
                     </div>
                 </div>
                 <div class="wPostContentWrap wPostLineCommon">
                     <p class="wPostLeftSideSubTitle">본문</p>
                     <div class="wPostContentInputWrap wPostComInputArea">
                         <div class="wPostContentInput postInputTCom" contentEditable="true" >
-
+                          
                         </div>
+                        <input type="hidden" name="content" id="wPostContentValue"/>
                     </div>
                 </div>
                 <div class="wPostImgWrap wPostLineCommon">
@@ -73,9 +83,9 @@
                                 <li>술집</li>
                             </ul>-->
                             <select class="wPostCateSelectBox postInputTCom" name="category">
-                                <option value="">식당</option>
-                                <option value="">카페</option>
-                                <option value="">술집</option>
+                                <option value="R">식당</option>
+                                <option value="C">카페</option>
+                                <option value="B">술집</option>
                             </select>
                         </div>
                     </div>
@@ -84,8 +94,8 @@
                     <p class="wPostLeftSideSubTitle">날짜/시간</p>
                     <div class="wPostDateTimeInputWrap wPostComInputArea">
                         <!-- datepicker-->
-                        <input type="date" class="wPostDateInput postInputTCom">
-                        <input type="time" class="wPostTimeInput postInputTCom">
+                        <input type="date" name="date" class="wPostDateInput postInputTCom">
+                        <input type="time" name="time" class="wPostTimeInput postInputTCom">
                     </div>
                 </div>
                 <div class="wPostMapWrap wPostLineCommon">
@@ -95,7 +105,7 @@
                             <a href="#" class="wPostMapSetAddressBtn postBtnCom postBtnComUnClick">주소 입력하기</a>
                             <a href="#" class="wPostMapCurrentPlaceBtn postBtnCom">현재 위치에서 찾기</a>
                         </div>
-                        <input type="text" class="wPostMapDetailAddressInput postInputTCom" readonly placeholder="상세주소가 입력됩니다.">
+                        <input type="text" id="wPostDetailAddress" name="address" class="wPostMapDetailAddressInput postInputTCom" readonly placeholder="상세주소가 입력됩니다.">
                         <div class="wPostMapArea postInputTCom">
                             <div id="wPostMap"></div>
                         </div>
@@ -109,7 +119,7 @@
                 </div>
 
             </div>
-		
+			</form>
         </div>
 	<form action="saveImgToNoticeBoard" method="post" enctype="multipart/form-data" id="noticeBoard">
 		<!-- 멀티파일 form으로 넘겼을 때 test -->

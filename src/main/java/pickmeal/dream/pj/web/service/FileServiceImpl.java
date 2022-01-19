@@ -2,6 +2,7 @@ package pickmeal.dream.pj.web.service;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class FileServiceImpl implements FileService{
 		}
 		
 		//파일 이름 설정
-		String imgNamePart = "n" +memberId +"_"+ getTodayDate();
+		String imgNamePart = "n" +memberId +"_"+ getTodayDateTime();
 
 		int i = 0;
 		for(MultipartFile mf : files) {
@@ -88,7 +89,18 @@ public class FileServiceImpl implements FileService{
 		// 현재 날짜 구하기
 		LocalDate now = LocalDate.now();
 		// 포맷 정의
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		// 포맷 적용
+		String formatedNow = now.format(formatter);
+		
+		return formatedNow;
+	}
+	
+	public String getTodayDateTime() {
+		// 현재 날짜,시간 구하기
+		LocalDateTime now = LocalDateTime.now();
+		// 포맷 정의
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		// 포맷 적용
 		String formatedNow = now.format(formatter);
 		
