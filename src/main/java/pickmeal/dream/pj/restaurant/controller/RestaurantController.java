@@ -65,7 +65,7 @@ public class RestaurantController {
 		long restaurantId =1;
 		
 		//포춘쿠키 메세지 셋팅 - 윤효심
-//		String fortuneMessage = ms.getMessageByType('F');
+		String fortuneMessage = ms.getMessageByType('F');
 		
 		ModelAndView mav = new ModelAndView();
 		//레스토랑 아이디 추가 - 윤효심 
