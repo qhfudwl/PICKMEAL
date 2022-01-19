@@ -19,7 +19,7 @@
 		 성공시 : 화면에 버튼 만들어주기
 		 실패시 : 화면에 버튼 숨겨서 없는 상대로 만들어주기-->
 <body>
-	<form method="get" id="couponPopupCreatebtn" action="">
+	<form method="get" id="couponPopupCreatebtn">
 		<!-- null 일 경우 true -->
 		<c:choose>
 			<c:when test="${empty couponCategory}">

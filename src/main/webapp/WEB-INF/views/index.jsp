@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +9,18 @@
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
 <!--  그래프 자료 - 윤효심-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <!--  가게 부가 정보 - 윤효심-->
 <link href="${pageContext.request.contextPath}/resources/css/incl/chart.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath}/resources/js/incl/chart.js" defer></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/incl/index_map_b.css" />
 
 <!-- 익명채팅방, 날씨 - 김재익 -->
 <link href="${pageContext.request.contextPath}/resources/css/weather/weather.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/chat/chat.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/incl/chart.js" defer></script>
+<!-- 현재시간(페이지 켠 순간만) - 김재익 -->
+<c:set var="today" value="<%=new java.util.Date()%>" />
+<c:set var="now"><fmt:formatDate value="${today}" pattern="HH" /></c:set>
 
 <!--  포춘쿠키 - 윤효심-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
@@ -24,7 +28,12 @@
 <!-- 김보령  -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=001358587c4d106ce5a3702588b8ce85&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/resources/js/incl/index_map.js" defer></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/incl/index_map_b.css" />
+<script src="${pageContext.request.contextPath}/resources/js/incl/index_map_SJW.js" defer></script>
+
+<!-- 정원식 -->
+<script src="${pageContext.request.contextPath}/resources/js/incl/menu_game_JWS.js" defer></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/incl/index_JWS.css" />
+
 
 
 <title>밥찡코</title>
@@ -32,20 +41,54 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/incl/header.jsp"/>
+	<%@ include file="/WEB-INF/views/incl/header.jsp"%>
 	<!-- 김보령 -->
 	<section id="content">
 	<h2 class="hidden">게임하기</h2>
 	<section id="mapWrap">
 		<h3 class="hidden">지도 표시</h3>
+		
+		
 		<div id="mapWindow">
-			<div id="buttonWrap">
+		
+		<!-- 정원식 메뉴게임 -->
+			<div id="menuGameButtonWrap">
+				<form name="menuGamePopup" method="GET">
+					<input class= "menusubmit" type="submit" value="메뉴골라주기" id="menuchoicebtn">
+				</form>
+			</div>
+			
+			<form id="gameDataForm" name="gameDataForm" method="GET">
+				<c:choose>
+					<c:when test="${not empty cntForRetry}">
+						<input type="hidden" id="cntForRetry" name="cntForRetry" value="${cntForRetry}">	
+						<span id="retryMsg" name="retryMsg">${retryMsg}</span>
+					</c:when>
+				</c:choose>
+			
+			 <!-- action="viewOrderRecordByMenu" id="periodForm" method="GET" -->
+				<div id="mapRadius">
+					<input type="radio" class="radius" name="radius" value="300">300m
+					<input type="radio" class="radius" name="radius" value="600">600m
+					<input type="radio" class="radius" name="radius" value="1000">1000m
+					 
+				</div>
+				<div id="resCategory">
+					<input type="radio" class="category" name="category" value="혼밥">혼밥
+					<input type="radio" class="category" name="category" value="카페">카페
+					<input type="radio" class="category" name="category" value="술집">술집
+					<input type="radio" class="category" name="category" value="밥집">밥집
+					
+					<input type="submit" class="gamePlayBtn" value="게임하기">
+				</div>
+			</form>
+			<!-- <div id="buttonWrap">
 				<button name="radius" class="radius" value="300">300m</button>
 				<button name="radius" class="radius" value="600">600m</button>
 				<button name="radius" class="radius" value="900">900m</button>
 				<button id="gameDone">게임끝</button>
-			</div>
-			<p id="memberPosition"></p>
+			</div> -->
+			
 			<div id="map"></div>
 		</div>
 	</section>
@@ -57,7 +100,12 @@
 		        <div id="weather">
 		            <c:choose>
 		        		<c:when test="${weather.sky eq 1 }">
-		            		<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		        			<c:if test="${now gt 6 && now lt 18}">
+			            		<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		        			</c:if>
+		        			<c:if test="${now gt 18 || now lt 6 }">
+			            		<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_moon_and_stars_64.png"/>
+		        			</c:if>
 		        		</c:when>
 		        		<c:when test="${weather.sky eq 2 }">
 		        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_cloud_64.png"/>
@@ -72,26 +120,36 @@
 		            <div class="temperatureWrap"><span class="temperature">${weather.temperature }</span><span class="symbol">&#8451;</span></div>
 		        </div>
 		        <div id="forecast">
-		            <div class="forecastItem">
-		                <span>오전 8시</span>
-		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
-		                <div class="temperatureWrap"><span class="temperature">2</span><span class="symbol">&#8451;</span></div>
-		            </div>
-		            <div class="forecastItem">
-		                <span>오후 12시</span>
-		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
-		                <div class="temperatureWrap"><span class="temperature">13</span><span class="symbol">&#8451;</span></div>
-		            </div>
-		            <div class="forecastItem">
-		                <span>오후 18시</span>
-		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_cloud_64.png"/>
-		                <div class="temperatureWrap"><span class="temperature">11</span><span class="symbol">&#8451;</span></div>
-		            </div>
-		            <div class="forecastItem">
-		                <span>오후 22시</span>
-		                <img src="${pageContext.request.contextPath}/resources/img/weather/icons8_rain.gif"/>
-		                <div class="temperatureWrap"><span class="temperature">3</span><span class="symbol">&#8451;</span></div>
-		            </div>
+		        	<c:forEach var="forecastItem" items="${forecast.pmwList}" varStatus="timeOrder" >
+		        		<div class="forecastItem">
+		        			<span>
+		        				<c:if test="${timeOrder.index eq 0 }">오전 8시</c:if>
+		        				<c:if test="${timeOrder.index eq 1 }">오후 12시</c:if>
+		        				<c:if test="${timeOrder.index eq 2 }">오후 18시</c:if>
+		        				<c:if test="${timeOrder.index eq 3 }">오후 22시</c:if>
+			                </span>
+			        		<c:if test="${forecastItem.sky eq 1 }">
+		        				<c:if test="${timeOrder.index gt 1 }"> <!-- 1보다 큰 = 오후18시 오후22시 -->
+		        					<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_moon_and_stars_64.png"/>
+		        				</c:if>
+		        				<c:if test="${timeOrder.index lt 2 }"> <!-- 2보다 작은 = 오전8시 오후12시 -->
+			            			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_sun.gif"/>
+		        				</c:if>
+			        		</c:if>
+			        		<c:if test="${forecastItem.sky eq 2 }">
+			        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_cloud_64.png"/>
+			        		</c:if>
+			        		<c:if test="${forecastItem.sky eq 3 }">
+			        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_rain.gif"/>
+			        		</c:if>
+			        		<c:if test="${forecastItem.sky eq 4 }">
+			        			<img src="${pageContext.request.contextPath}/resources/img/weather/icons8_snow_64.png"/>
+			        		</c:if>
+			                <div class="temperatureWrap">
+			                	<span class="temperature">${forecastItem.temperature }</span><span class="symbol">&#8451;</span>
+			                </div>
+		            	</div>
+		        	</c:forEach>
 		        </div>
 		        <div id="howAboutThis">
 		        	<c:choose>
@@ -129,10 +187,45 @@
 			<div id="restaurantWindow">
 				<iframe id="restaurantUrl"></iframe>
 				<button id="open" value="open">펼치기</button>
+				
+				<!-- 정원식 쿠폰 발급, 찜버튼 필요한 값 -->
+				<input type="hidden" id="defaultCNJ" value="undefined1"/>
+				<input type="hidden" id="couponIsempty" value=""/>
+				<input type="hidden" id="restaurantRId" name="restaurantIdJWS" value=""/>
+			    <input type="hidden" id="restaurantIsempty" value=""/>
+			    <input type="hidden" id="memberId" name="memberIdJWS" value="${member.getId()}"/>
+				<!-- 정원식 쿠폰 발급 -->
+				<form method="get" id="couponPopupCreatebtn">
+					<div id="couponGenerateWrap" onclick="document.forms['couponPopupCreatebtn'].submit();">
+			     		<p id="couponGenerateName">쿠폰</p>
+			      		<input type="submit" id="couponGenerate"/>
+			    	</div>
+			    </form>
+			    
+			    <!-- 정원식 찜식당 버튼 -->
+			    <form method="get" id="favoriteGo">
+			    	<div class="vrrighttop" id="jjimdiv" onclick="indexFrestaurant()">
+			            <input type="submit" id="jjimbtn"/>
+	            	</div>
+			    </form>
+			    
+				<!-- null 일 경우 true
+					<c:choose>
+						<c:when test="${empty couponCategory}">
+						
+						</c:when>
+						<c:otherwise>
+							<div id="couponGenerateWrap" onclick="document.forms['couponPopupCreatebtn'].submit();">
+			        			<p id="couponGenerateName">쿠폰</p>
+			        			<input type="submit" id="couponGenerate"/>
+			    			</div>
+			    		</c:otherwise>
+					</c:choose>
+				</form> -->
 			</div>
 		</div>
 		<!-- 식당차트정보 시작 - 윤효심 -->
-		<input type="hidden" name="restaurantId" value="${restaurantId }"
+		<input type="hidden" name="restaurantId" value="${restaurantId}"
 		id="restaurantId">
 		<div class="storeSubInfoWrap">
 			<div class="ageAndGenderGraphArea">

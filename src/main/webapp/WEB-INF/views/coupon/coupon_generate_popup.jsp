@@ -22,7 +22,7 @@
         <div id="couponWrap">
             <div id="couponInfoWrap">
                 <div id="couponPriceWrap">
-                	<p id="restaurantName"><span id="restaurantNameSpan">'${restaurant.rName}'</span> 쿠폰</p>
+                	<p id="restaurantName"><span id="restaurantNameSpan">'${restaurant.RName}'</span> 쿠폰</p>
                     <p id="couponPrice"><span id="couponPriceSpan">${couponCategory.couponName}</span></p>
                     <p id="orderPrice"><span id="limitPrice">${couponCategory.limitPrice}</span> 원 이상 주문시 사용가능</p>
                 </div>
@@ -75,6 +75,10 @@
     	document.coupon.action = "genericCoupon";
     	document.coupon.submit();
     	self.close();
+    }
+    function gogo(){
+    	window.opener.name = "parentPage";
+    	document.coupon.target = "parentPage";
     }
     function test(){
     	$("#closeBBtn").click();

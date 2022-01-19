@@ -89,26 +89,30 @@ public class SignInController {
 		// 업데이트 후 session 에 담아서 메인 화면으로 보낸다.
 		session.setAttribute("member", enterMember);
 		
-		/*쿠폰 서비스 추가*/
+		/*쿠폰 서비스 추가*/	
 		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
 		Member member2 = (Member) session.getAttribute("member");
 		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
 		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-		
-		
-		Coupon coupon = new Coupon();
-		coupon.setMember(member2);
-		coupon.setRestaurant(restaurant);
-		coupon.setCouponCategory(couponCategory);
-		cs.addCoupon(coupon);
-		
+		if(cs.findCouponByMemberIdinToday(member.getId())==1) {
+			if(cs.findCouponBymemberIdinTodayMax(member.getId())<=2) {
+				Coupon coupon = new Coupon();
+				coupon.setMember(member2);
+				coupon.setRestaurant(restaurant);
+				coupon.setCouponCategory(couponCategory);
+				cs.addCoupon(coupon);
+				}
+			}else {
+				Coupon coupon = new Coupon();
+				coupon.setMember(member2);
+				coupon.setRestaurant(restaurant);
+				coupon.setCouponCategory(couponCategory);
+				cs.addCoupon(coupon);
+			}
 		session.removeAttribute("couponCategory");
-		
+				}
 		mav.setViewName("redirect:/index");
+		log.info("들어오는지 확인");
 		return mav;
-		}else {
-			mav.setViewName("redirect:/index");
-			return mav;
-		}
 	}
 }

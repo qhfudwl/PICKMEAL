@@ -10,21 +10,21 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
-import pickmeal.dream.pj.menu.domain.Menu;
 import pickmeal.dream.pj.menu.repository.MenuDaoImpl;
-import pickmeal.dream.pj.weather.command.WeatherCommand;
+import pickmeal.dream.pj.weather.domain.Forecast;
 import pickmeal.dream.pj.weather.domain.MyLocation;
+import pickmeal.dream.pj.weather.domain.PickMealWeather;
 import pickmeal.dream.pj.weather.domain.Weather;
 
 /**
@@ -50,7 +50,7 @@ public class WeatherServiceImpl implements WeatherService {
 
 	private String Short_term_weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst";	// 초단기예보 : 매시간 30분 생성, 하늘상태
 	private String Short_term_live_weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst"; // 초단기실황 : 매시간 30분 생성, 기온, 강수형태
-	private String Short_term_forecase_weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"; // 단기예보 : 3시간단위 측정(02:00~23:00)
+	private String Short_term_forecast_weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"; // 단기예보 : 3시간단위 측정(02:00~23:00)
 	
 	private String service_key = "U5Gbgs6jQKOEWClQj8cmzxsDET3UIUEj4HUop%2Bz%2F2%2Fx2bN4gOFK54mAOshV7jEN3IeG%2FNT8tTjexU5OfyjY9Sg%3D%3D"; //API 일반키
 	
@@ -68,6 +68,7 @@ public class WeatherServiceImpl implements WeatherService {
 		
 		return getWeather(myLocation.getNx(), myLocation.getNy(), date, hour, minute);
 	}
+	
 	@Override
 	public Weather getWeather(String nx, String ny, String date, String hour, String minute) {
 		Weather weather = new Weather();
@@ -88,10 +89,11 @@ public class WeatherServiceImpl implements WeatherService {
 		}
 		return weather;
 	}
+	
 	@Override
-	public WeatherCommand getPickMealTypeWeather(Weather weather) {
+	public PickMealWeather getPickMealTypeWeather(Weather weather) {
 		log.info(weather.toString());
-		WeatherCommand wc = new WeatherCommand();
+		PickMealWeather wc = new PickMealWeather();
 		if(weather.getT1h() < 0) {
 			wc.setTemperature((int)Math.floor(weather.getT1h()));
 		} else {
@@ -115,23 +117,6 @@ public class WeatherServiceImpl implements WeatherService {
 			wc.setSky(1);
 		}
 		return wc;
-	}
-	
-	//메뉴서비스로 빼야할지도?
-	@Override
-	public void getMenuDependingOnTheWeather(WeatherCommand wc) {
-		int temperature;
-		if(wc.getTemperature() >= 25) {
-			temperature = 1;
-		}else if (wc.getTemperature() <= 10) {
-			temperature = 2;
-		}else {
-			temperature = 0;
-		}
-		
-		List<Menu> menuList = menudao.findMenuByWeather(temperature, wc.getSky());
-		Random rand = new Random();
-		wc.setMenuName(menuList.get(rand.nextInt(menuList.size())).getMenuName());
 	}
 	
 	/**
@@ -204,6 +189,118 @@ public class WeatherServiceImpl implements WeatherService {
 		}
 	}
 
+	/**
+	 * 단기예보 새벽2시부터 3시간단위로 갱신되지만 05시 기준 검색하고 8시 12시 18시 22시 예보를 가져온다.
+	 */
+	@Override
+	public Forecast getForecast(MyLocation ml) {
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		String date = now.format(formatter);
+		
+		LocalTime nowTime = LocalTime.now();
+		formatter = DateTimeFormatter.ofPattern("HH");
+		String hour = nowTime.format(formatter);
+		
+		Forecast forecast = new Forecast();
+		forecast.setPmwList(getForecast(Short_term_forecast_weather_url, date, hour, ml.getNx(), ml.getNy()));
+		
+		return forecast;
+	}
+	
+	private List<PickMealWeather> getForecast(String url, String date, String hour, String nx, String ny) {
+		int ch = Integer.parseInt(hour);
+		
+		if(ch < 5) {
+			//하루를 뺐을 때 월이 바뀌는 경우를 만들어야됨
+			date = Integer.toString(Integer.parseInt(date)-1);
+		}
+		
+		url = url + "?serviceKey=" + service_key
+				+ "&numOfRows=1000"
+				+ "&pageNo=1"
+				+ "&base_date=" + date
+				+ "&base_time=0500"
+				+ "&nx=" + nx	
+				+ "&ny=" + ny
+				+ "&dataType=JSON";
+		
+		String[] apiItemArray = getWeatherApiInfo(url);
+		
+		List<PickMealWeather> pmwList = new ArrayList<PickMealWeather>();
+		HashMap<String, String> categoryAndValue = new HashMap<String, String>();
+		String[] reqCodes = {"TMP", "SKY", "PTY"};
+		
+		int timeNumber = 8;
+		for(String item : apiItemArray) { //사용하는 라인 나누기 ex) 실행결과 -> [basedate:xxx], [category:xxx], [nx:xx]
+			if(item.indexOf(date) != -1) {
+				if(item.indexOf("0800") != -1) {
+					String[] itemPieces = item.split(",");
+					getCategoryAndValue(itemPieces, reqCodes, categoryAndValue);
+				} else if (item.indexOf("1200") != -1) {
+					if(timeNumber < 12) {
+						addPmw(pmwList, categoryAndValue);
+						timeNumber = 12;
+						categoryAndValue.clear();
+					}
+					String[] itemPieces = item.split(",");
+					getCategoryAndValue(itemPieces, reqCodes, categoryAndValue);
+					
+				} else if (item.indexOf("1800") != -1) {
+					if(timeNumber < 18) {
+						addPmw(pmwList, categoryAndValue);
+						timeNumber = 18;
+						categoryAndValue.clear();
+					}
+					String[] itemPieces = item.split(",");
+					getCategoryAndValue(itemPieces, reqCodes, categoryAndValue);
+				} else if (item.indexOf("2200") != -1) {
+					if(timeNumber < 22) {
+						addPmw(pmwList, categoryAndValue);
+						timeNumber = 22;
+						categoryAndValue.clear();
+					}
+					String[] itemPieces = item.split(",");
+					getCategoryAndValue(itemPieces, reqCodes, categoryAndValue);
+				}
+			}
+		}
+		addPmw(pmwList, categoryAndValue);
+		
+		return pmwList;
+	}
+	
+	private void addPmw(List<PickMealWeather> pmwList, HashMap<String, String> categoryAndValue) {
+		double tmp = -999;
+		int sky = -1;
+		int pty = -1;
+		
+		for(Entry<String, String> cav : categoryAndValue.entrySet()) {
+			log.info(cav.getKey() + " " + cav.getValue());
+			
+			if(cav.getKey().equals("TMP")) {
+				double tmpp = Double.parseDouble(cav.getValue());
+				if (tmpp < 0) {
+					tmp = Math.floor(tmpp);
+				}else {
+					tmp = Math.ceil(tmpp);
+				}
+			} else if(cav.getKey().equals("SKY")) {
+				sky = Integer.parseInt(cav.getValue());
+			} else if(cav.getKey().equals("PTY")) {
+				pty = Integer.parseInt(cav.getValue());
+			}
+			
+			if (sky > -1 && pty > -1 && tmp > -999) {
+				Weather w = new Weather(tmp, sky, pty);
+				pmwList.add(getPickMealTypeWeather(w));
+				tmp = -999;
+				sky = -1;
+				pty = -1;
+			}
+		}
+	}
+	
 	//시간변환때 url 시간 입력에 네자리가 들어가도록 변환해줘야한다 ex) 930 -> 0930
 	@Override
 	public String toStringHour(String hour, int calcNum) {
@@ -242,7 +339,6 @@ public class WeatherServiceImpl implements WeatherService {
 	        StringBuilder sb = new StringBuilder();
 	        String line;
 	        while ((line = rd.readLine()) != null) {
-//	        	System.out.println(line);
 	            sb.append(line);
 	        }
 
@@ -312,4 +408,5 @@ public class WeatherServiceImpl implements WeatherService {
             throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
         }
     }
+	
 }

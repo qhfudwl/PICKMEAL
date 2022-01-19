@@ -1,6 +1,5 @@
 package pickmeal.dream.pj.message.service;
 
-import java.util.List;
 
 import pickmeal.dream.pj.message.domain.Message;
 
@@ -14,4 +13,7 @@ public interface MessageService {
 	 * @author 윤효심
 	 */
 	public String getMessageByType(char type);
+	
+	public String bringFirstMsg();
+
 }

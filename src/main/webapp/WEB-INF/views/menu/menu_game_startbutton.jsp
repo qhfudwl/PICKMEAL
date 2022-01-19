@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<form action="menuGamePopup" method="GET">
+	<form name="menuGamePopup" method="GET">
 		<input class= "menusubmit" type="submit" value="메뉴골라주기" id="menuchoicebtn">
 	</form>
 	<script>
