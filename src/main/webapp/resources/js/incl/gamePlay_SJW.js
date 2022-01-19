@@ -279,7 +279,7 @@ $('.gameBtn').on('click', function(e){
 					sizeOfWidth = 840 / 3; // 240 = 가로줄의 폭
 				}
 				
-				sizeOfHeight = 600 / (numOfHorLines + 1);
+				sizeOfHeight = 500 / (numOfHorLines + 1);
 				console.log("세로 : " + data.ladder[0].length);
 				console.log("실질 가로줄 갯수 : " + numOfHorLines);
 				console.log(data);
@@ -296,6 +296,8 @@ $('.gameBtn').on('click', function(e){
 				
 				
  				makeLadder(data, sizeOfWidth, sizeOfHeight);
+				
+				//createDivForCover(); svg1 을 가리는 가리개.
 			
 				$("#gameWrap").append('<div class="svg2Div"></div>'); // 움직이는 Path svg 를 담기 위한 svgDiv 
 				//Collection<List<String>> values = setOfRoute.values();
@@ -322,7 +324,7 @@ $('.gameBtn').on('click', function(e){
 						data: resultRes,
 						// contentType 있으면 안된다고 했는데 언제 였지 객체를 보낼때였나.
 						//contentType: 'application/x-www-form-urlencoded; charset=euc-kr', 
-						success: function(){
+						success: function(data){
 							console.log("됐다.");
 							console.log(resultRes);
 							console.log(resultRes.lat, resultRes.lng);
@@ -331,6 +333,8 @@ $('.gameBtn').on('click', function(e){
 							// 식당 정보를 띄우기 위해서 결과 식당의 좌표를 부모 함수에 넣고 호출.
 							console.log("hihihihihihihihiihihihihihihi");
 							opener.parent.displayRestaurantInfo(resultRes.lat, resultRes.lng, resultRes.rname);
+							
+							functionn 
 						}
 					})
 				}
@@ -338,18 +342,38 @@ $('.gameBtn').on('click', function(e){
 			})
 			
 			var svg2 = document.createElementNS("http://www.w3.org/2000/svg",'svg');
-            svg2.setAttribute("width","840");
-            svg2.setAttribute("height","700");
+            svg2.setAttribute("width","850");
+            svg2.setAttribute("height","500");
             //svg2.style.border="1px solid black";
             svg2.setAttribute("id","svg2");
 			svg2.setAttribute("class", "ladderSvg2");
 			// 이 svg는 어케 할지 생각을 좀 해봐야 함.
 			console.log("test2");
 			
+			
+			let ladderBtnClickCnt = 0;
 			let ladderPick = 0;
-			$('.ladderLi').on('click', function(e){
+			$('.ladderLi').on('click', function(e){ // 사다리 버튼 클릭할 때. 
 				
-				$('.ladderSvg2').empty();				
+				
+				if($(this).children("button").prop("disabled")== true){
+					
+				}else {
+					ladderBtnClickCnt++;
+					$(this).children("button").attr("disabled", true);
+				}				
+				console.log(ladderBtnClickCnt);
+				
+				
+				$("#svg2 path").removeClass("routeAnimation");
+				$("#svg2 path").addClass("notAnimation"); // 애니메이션 적용 안되게 하려고 만든 클래스.
+				
+				$('.notAnimation').css('stroke-dasharray', 0).css('stroke-dashoffset', 0);
+				$('.notAnimation').css('animation', 'none');
+				$('.notAnimation').attr('stroke', 'grey'); 
+				
+				//$('.ladderSvg2').empty(); // 그전에 것들 그냥 지워버리는 것.				
+				
 				let setOfRoute = data.setOfRoute;
 				let setOfRouteVerSize = Object.keys(setOfRoute).length; 
 				let ladderIndex = $(".ladderUl li").index(this); // li의 크기를 버튼과 같게 해야 함.
@@ -373,7 +397,7 @@ $('.gameBtn').on('click', function(e){
 					}	
 				}
 				// 루트를 다 더해서 사다리 선택에 따른 루트 설정.
-				$(routePath).attr('fill', 'none').attr('stroke-width', 10).attr('stroke', 'red').attr('d', 'm'+ (ladderIndex * sizeOfWidth)+ ',0 '+ routeString);
+				$(routePath).attr('fill', 'none').attr('stroke-width', 10).attr('stroke', 'red').attr('d', 'm'+ ((ladderIndex * sizeOfWidth)+5)+ ',0 '+ routeString);
 				console.log(routeString); // 값들 잘 들어갔는지 경로 출력 값이랑 비교해볼 것. 
 				 
 				$('#gameWrap .svg2Div').append(svg2);
@@ -382,7 +406,7 @@ $('.gameBtn').on('click', function(e){
 				console.log(pathLength);
 				$('.ladderSvg2').append(routePath);
 				//$(routePath).attr('stroke-dasharray', pathLength).attr('stroke-dashoffset', pathLength);
-				$("#svg2 path").addClass("routeAnimation");
+				$("#svg2 path").not("#svg2 path.notAnimation").addClass("routeAnimation");
 				$('.routeAnimation').css('stroke-dasharray', pathLength).css('stroke-dashoffset', pathLength);
 				$('.routeAnimation').css('animation', 'moving 3s linear forwards')
 				
@@ -401,8 +425,19 @@ $('.gameBtn').on('click', function(e){
 				} else{ // O 일 경우.
 				console.log(" 당첨~~~ ");
 					if(ladderPick == 0){
-						let resultResOfLadder = data.resList[ladderIndex]; 
+						let resultResOfLadder = data.resList[ladderIndex];
 						// 결과로 보낼 레스토랑 하나를 저장해야 함
+						
+						setTimeout(function() { 
+							$(".svg2Div").hide();
+							$(".svgDiv").show();
+							//svg2를 안보이게 하고 svg2를 보여준다. 그리고 애니메이션은 이제 안되도록.?
+							$('.ladderLi').children("button").attr('disabled', true);
+							//$(this).addClass("ladderpick");
+							$(".ladderLi").eq(ladderIndex).children('button').addClass("ladderpick");
+							
+							
+						}, 4000) // 애니메이션 끝나고 1초 후에 바뀜 
 					
 						$.ajax({
 							url: getContextPath() + "/bringResResultOfGame",
@@ -496,10 +531,11 @@ function makeLadder(data, sizeOfWidth, sizeOfHeight){
 	
 	$("#gameWrap").append('<ul class="ladderUl"></ul>');
 	$("#gameWrap").append('<div class="svgDiv"></div>');
+	$("#gameWrap").append('<ul class="oxUl"></ul>');
 	
 	var svg = document.createElementNS("http://www.w3.org/2000/svg",'svg');
-            svg.setAttribute("width","840");
-            svg.setAttribute("height","700");
+            svg.setAttribute("width","850");
+            svg.setAttribute("height","500");
             //svg.style.border="1px solid black";
             svg.setAttribute("id","svg");
 			svg.setAttribute("class", "ladderSvg");	
@@ -523,11 +559,19 @@ function makeLadder(data, sizeOfWidth, sizeOfHeight){
 		for(let i=0; i<numOfVerLines; i++){
 			// 버튼을 만들어야 함. 사다리랑 경로에서 + 레스토랑까지 프론트로 보내야 할 수도 있다. 아니 보내야겠는걸.
 			console.log(data.resList[i].rname);
-			let choiceBtn = $('#gameWrap ul').append('<li class="ladderLi"><button class="choice" id="choice'+ i +'" value="'+ data.resList[i].rname +'" >' + data.resList[i].rname + '</button></li>');
+			let choiceBtn = $('#gameWrap .ladderUl').append('<li class="ladderLi"><button class="choice" id="choice'+ i +'" value="'+ data.resList[i].rname +'" >' + data.resList[i].rname + '</button></li>');
 			// 일단 버튼 생성 되는지 보고. 버튼의 위치는 다음에 잡자.
 			
+			console.log(ladder[ladder.length-1][i]);
+			if(ladder[ladder.length-1][i] == "O"){
+				let ansBtn = $('#gameWrap .oxUl').append('<li class="oxLi">O</li>');	
+			}else{ // XO
+				let ansBtn = $('#gameWrap .oxUl').append('<li class="oxLi">X</li>');	
+			}
+			
+			
 			let verPath = document.createElementNS("http://www.w3.org/2000/svg",'path');
-			$(verPath).attr('stroke-width', 5).attr('stroke', 'black').attr('d', 'm'+(i*sizeOfWidth)+',0 v600');
+			$(verPath).attr('stroke-width', 10).attr('stroke', 'black').attr('d', 'm'+((i*sizeOfWidth)+5)+',0 v600');
 				
 			$('.ladderSvg').append(verPath);	
 		}
@@ -535,19 +579,21 @@ function makeLadder(data, sizeOfWidth, sizeOfHeight){
 		// 가로줄 그리기.
 		for(let j=1; j<=numOfHorLines; j++){
 			posOfHorLine = ladder[j].indexOf("1");
-			let xPos = sizeOfWidth * posOfHorLine;
+			let xPos = sizeOfWidth * posOfHorLine+5;
 			
 			let horPath = document.createElementNS("http://www.w3.org/2000/svg",'path');
-			$(horPath).attr('stroke-width', 5).attr('stroke', 'black').attr('d', 'm'+ xPos +','+(j * sizeOfHeight) + ' h'+ sizeOfWidth+ '');
+			$(horPath).attr('stroke-width', 10).attr('stroke', 'black').attr('d', 'm'+ xPos +','+(j * sizeOfHeight) + ' h'+ sizeOfWidth+ '');
 			
 			$('.ladderSvg').append(horPath);
 		}
 		
-	//.attr('fill','none').attr('stroke-width',3).attr('stroke','rgb(255,0,255)').attr('d','M200,400 C550,400 550,200 '+a+','+b+'');
-		
-		
-	//makeRouteOfEachChoice(data, sizeOfWidth, sizeOfHeight);	
-		
+	
+	
+	
+	$(".svgDiv").hide();		
+}
+function createDivForCover(){
+	$("#gameWrap").prepend("<div class='coverDiv'></div>");
 }
 
 

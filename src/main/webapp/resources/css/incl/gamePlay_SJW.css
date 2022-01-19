@@ -47,7 +47,7 @@
 .hidden { display: none;}
 
 
-#gameWrap { margin: 0 auto; width: 900px; height: 700px;}
+#gameWrap {margin: 0 auto; width: 1050px; height: 700px;}
 
 .cardUl {
 	width: 700px; height: 630px;
@@ -99,7 +99,15 @@ li {list-style: none;}
 	background-repeat: no-repeat;
 }
 
-.choice { width: 130px; height: 65px; }
+.choice { 
+	width: 130px; height: 60px;
+	padding: 2px 2px;
+	background-color: transparent;
+	border:0;
+	font-size: 1.1em;
+	margin: 0 auto;
+	text-align: center;
+}
 
 @keyframes moving {
 	to{
@@ -107,9 +115,26 @@ li {list-style: none;}
 	}
 }
 
+.coverDiv { 
+	width: 900px; height: 440px; border: 1px solid #000;
+	positon: absolute; top: 105px; left: 74px;
+}
 
-.svg2Div {width: 840px; height: 700px; margin: 0 atuo; border: 1px solid #000;}
-.svgDiv {width: 840px; height: 700px; margin: 0 auto; border: 1px solid #000;}
+.svgDiv {width: 850px; height: 500px; margin: 0 auto;}
 
-.ladderUl { display: flex; }
-.ladderLi { width: 130px; height: 65px;}
+.svg2Div {
+	width: 850px; height: 500px; 
+	position: absolute;
+	top: 110px; left: 100px;
+	}
+
+.ladderUl { display: flex; width: 1050px; margin-top: 50px;}
+.ladderLi { width: 130px; height: 60px; margin: 0 40px;}
+.ladderpick { 
+	border:1px solid #000;
+	box-sizing: border-box;
+	color: black;
+}
+
+.oxUl{ display: flex; width: 1050px; position:absolute; top: 610px;}
+.oxLi{ width: 130px; height: 60px; margin: 0 40px; text-align: center; line-height: 60px; }

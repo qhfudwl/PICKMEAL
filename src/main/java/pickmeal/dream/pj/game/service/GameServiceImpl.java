@@ -176,7 +176,6 @@ public class GameServiceImpl implements GameService{
 			j = tempNum; // 이렇게 하면 안되나?
 			setOfRoute.put(j, sList);
 		}
-		
 		 // 컨트롤러에서 맵 객체를 생성하여 인자로 넣는거면 void로 해도 됨.
 	}
 	
