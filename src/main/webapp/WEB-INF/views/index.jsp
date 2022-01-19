@@ -8,15 +8,15 @@
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
 <!--  그래프 자료 - 윤효심-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <!--  가게 부가 정보 - 윤효심-->
 <link href="${pageContext.request.contextPath}/resources/css/incl/chart.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/incl/index_map_b.css" />
+<script src="${pageContext.request.contextPath}/resources/js/incl/chart.js" defer></script>
 
 <!-- 익명채팅방, 날씨 - 김재익 -->
 <link href="${pageContext.request.contextPath}/resources/css/weather/weather.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/chat/chat.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/incl/chart.js" defer></script>
 
 <!--  포춘쿠키 - 윤효심-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
@@ -24,7 +24,7 @@
 <!-- 김보령  -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=001358587c4d106ce5a3702588b8ce85&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/resources/js/incl/index_map.js" defer></script>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/incl/index_map_b.css" />
 
 
 <title>밥찡코</title>

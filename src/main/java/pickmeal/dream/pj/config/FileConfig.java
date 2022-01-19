@@ -32,9 +32,16 @@ public class FileConfig {
 	}
 	
 	//공지사항 게시판 관련 파일
+	@Bean
+	public String uploadNoticeBoardPath() {
+		return imgPropertyConfig.getString("file.uploadNoticeBoardPath");
+	}
 	
 	
 	//식당리뷰 게시판 관련 파일
-	
+	@Bean
+	public String uploadReviewBoardPath() {
+		return imgPropertyConfig.getString("file.uploadReviewBoardPath");
+	}
 	
 }

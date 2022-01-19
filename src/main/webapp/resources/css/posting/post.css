@@ -7,7 +7,7 @@
 }
 
 #rwPostContainer, #postListContainer {
-	width: 60%;
+	width: 70%;
 	min-height: 100vh;
 	margin: 0 auto;
 	padding: 82px 96px 50px;
@@ -132,17 +132,19 @@
 */
 /* 글본문 - 영역 */
 .wPostContentWrap {
-	height: 245px;
+	height: 545px;
 }
 
 .wPostContentInput {
-	padding-left: 15px;
+	padding: 15px;
 	box-sizing: border-box;
 	padding-top: 15px;
-	height: 245px;
+	height: 545px;
 	overflow-y:scroll;
 }
-
+.wPostContentInput img{
+	width:100%;
+}
 /*
 
     사진첨부
@@ -233,6 +235,7 @@ input[type="file"] {
 	display: block;
 	width: 12px;
 	height: 12px;
+	margin-right:20px;
 }
 
 /*

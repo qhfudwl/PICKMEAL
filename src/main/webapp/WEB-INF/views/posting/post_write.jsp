@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/posting/post_write.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/posting/post.css" />
 <title>게시글쓰기</title>
@@ -94,7 +95,7 @@
                             <a href="#" class="wPostMapSetAddressBtn postBtnCom postBtnComUnClick">주소 입력하기</a>
                             <a href="#" class="wPostMapCurrentPlaceBtn postBtnCom">현재 위치에서 찾기</a>
                         </div>
-                        <input type="text" class="wPostMapDetailAddressInput postInputTCom" readonly>
+                        <input type="text" class="wPostMapDetailAddressInput postInputTCom" readonly placeholder="상세주소가 입력됩니다.">
                         <div class="wPostMapArea postInputTCom">
                             <div id="wPostMap"></div>
                         </div>
@@ -110,7 +111,17 @@
             </div>
 		
         </div>
+	<form action="saveImgToNoticeBoard" method="post" enctype="multipart/form-data" id="noticeBoard">
+		<!-- 멀티파일 form으로 넘겼을 때 test -->
+		<!-- 
+		<label for="multifileInput">하이</label>
+		  <input multiple="multiple"  type="file" name="picFile" required="required" id="multifileInput">
+		  --> 
+	</form>
+	<form action="saveImgToReviewBoard" method="post" enctype="multipart/form-data" id="reviewBoard">
+	</form>
 
+	
     </section>
 </body>
 </html>

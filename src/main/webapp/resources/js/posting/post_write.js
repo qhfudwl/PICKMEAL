@@ -12,8 +12,8 @@ console.log('post_write in')
 			
 		- 제약사항
 			1) 파일은 10개까지
-			2) jpg, png, gif만 가능
-			3) 중복된 파일은 올릴 수 없다
+			2) jpg, jpeg, png, gif만 가능
+			3) 중복된 파일 허용 한다
 		
 		- 설명
 			1) input type file을 불러온다(멀티파일)
@@ -26,12 +26,25 @@ console.log('post_write in')
 				readOnly라 수정삭제도 불가능하다
 				그래서 따로 가공한 형태의 fileList를 ajax로 보내줘야하는데 
 			3) 따로 만든 fileList를 보내주기 위하여 fileBuffer를 만든다
+			
+		- fileBuffer의 역할
+			1) 파일의 갯수 count
+			2) 중복된 파일 허용
+			3) 파일 추가/삭제 가능하도록 
 				
  */
 
 
 let fileBuffer= [];
 let fileBufferIndex =0;
+
+//정적 이미지 파일들 경로 지정
+let wPostAttachedImgIconSrc="posting/attached_picture.png";
+let wPostattachedImgDelIconSrc="posting/close.png";
+let wPostattachedImgDelOnclickIconSrc="posting/close_onclick.png";
+//본문에 들어가는 클래스 이름 지정
+let wPostImgName = "imgList"
+
 //파일 첨부하면
 $('#multiFileInput').change(function() {
 	
@@ -40,7 +53,7 @@ $('#multiFileInput').change(function() {
 	//총 file 갯수
 	let totalFileCnt = target[0].files.length + fileBuffer.length;
 	console.log('총 파일 갯수는 ?'+totalFileCnt);
-	
+
 	//제약사항 - 파일 10개까지 등록
 	if(totalFileCnt>10){
 		alert('파일은 최대 10개까지 등록가능합니다');
@@ -57,6 +70,33 @@ $('#multiFileInput').change(function() {
 	        resetFileToPwrite();
 	        return false;
 	     }
+		
+		let imgList_html='';
+		let content_html='';
+		
+		//파일 첨부 리스트에 보여주기
+		imgList_html += '<li>';
+		imgList_html += '<img src="'+wPostAttachedImgIconSrc+'" class="wPostAttachImgIcon" alt="이미지파일 아이콘">';
+		imgList_html += '<p class="wPostAttachImgTitle">';
+		imgList_html += fileName;
+		imgList_html += '<span>("'+file.size+'")</span></p>';
+		imgList_html += '<img src="'+wPostattachedImgDelIconSrc+'" data-imgindex="'+fileBufferIndex+'"';
+		imgList_html += 'class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">';
+		imgList_html += '</li>'; 
+		console.log('fileBuffer Counter'+index);
+		$('.wPostAttachedImgList').append(imgList_html);
+		
+		//글 본문에 사진 넣어주기
+		//class Name에 index 값을 부여한
+		content_html += '<br>';
+		content_html += '<img src="'+URL.createObjectURL(file)+'" alt="'+fileName+'" class="'+wPostImgName+fileBufferIndex+'">';
+		content_html += '<br><br>';
+		$('.wPostContentInput').append(content_html);
+		
+		//고유한 class name을 주기위한 값 추가
+		fileBufferIndex++;
+
+
 	});
 	
 	
@@ -65,10 +105,8 @@ $('#multiFileInput').change(function() {
 	Array.prototype.push.apply(fileBuffer, target[0].files);
 	
 	
-	//첨부파일 리스트에 추가해주기
-	addAttachedImgList(fileBuffer);
-	
-
+	//file리셋을 해줘야 이미지 중복을 허용한다
+	//resetFileToPwrite();
 });
 
 //현재 파일첨부한거 초기화
@@ -76,12 +114,6 @@ function resetFileToPwrite(){
 	$('#multiFileInput').val("");
 }
 
-//정적 이미지 파일들 경로 지정
-let wPostAttachedImgIconSrc="posting/attached_picture.png";
-let wPostattachedImgDelIconSrc="posting/close.png";
-let wPostattachedImgDelOnclickIconSrc="posting/close_onclick.png";
-//본문에 들어가는 클래스 이름 지정
-let wPostImgName = "imgList"
 
 
 /*
@@ -92,40 +124,7 @@ let wPostImgName = "imgList"
 		- 위 둘에, 고유의 className과 data 값을 부여한다 (삭제위해)
 
 */
-function addAttachedImgList(fileBuffer){
-	//기존 DOM에있는 파일리스트를 전부 지워준다
-	$('.wPostAttachedImgList li').remove();
-	
-	
-	$.each(fileBuffer, function(index, file){
-		let imgList_html='';
-		let content_html='';
-		const fileName = file.name;
-		
-		//파일 첨부 리스트에 보여주기
-		imgList_html += '<li>';
-		imgList_html += '<img src="'+wPostAttachedImgIconSrc+'" class="wPostAttachImgIcon" alt="이미지파일 아이콘">';
-		imgList_html += '<p class="wPostAttachImgTitle">';
-		imgList_html += fileName;
-		imgList_html += '<span>("'+file.size+'")</span></p>';
-		imgList_html += '<img src="'+wPostattachedImgDelIconSrc+'" data="removeImgIndex" value="'+fileBufferIndex+'"';
-		imgList_html += 'class="wPostAttachImgDelIcon" alt="이미지파일 삭제아이콘">';
-		imgList_html += '</li>'; 
-		console.log('fileBuffer Counter'+index);
-		$('.wPostAttachedImgList').append(imgList_html);
-		
-		//글 본문에 사진 넣어주기
-		//class Name에 index 값을 부여한
-		content_html += '<br>';
-		content_html += '<img src="'+URL.createObjectURL(file)+'" alt="'+fileName+'"class="'+wPostImgName+fileBufferIndex+'">';
-		content_html += '<br>';
-		$('.wPostContentInput').append(content_html);
-		
-		//고유한 class name을 주기위한 값 추가
-		fileBufferIndex++;
-		
-	 });
-}
+
 
 /*
 	
@@ -151,6 +150,7 @@ $(document).on("mouseover", ".wPostAttachedImgList li", function() {
 	$(this).addClass('wPostHoverImg');
 	//삭제버튼 효과주기
 	$(this).find($('.wPostAttachImgDelIcon')).attr('src',wPostattachedImgDelOnclickIconSrc);
+	
 })
 $(document).on("mouseleave", ".wPostAttachedImgList li", function() {
 	//효과 지우기
@@ -159,22 +159,7 @@ $(document).on("mouseleave", ".wPostAttachedImgList li", function() {
 	$(this).find($('.wPostAttachImgDelIcon')).attr('src',wPostattachedImgDelIconSrc);
 })
 
-$(document).on("click", ".wPostAttachedImgList li", function() {
-	// 사실상 이미지 리스트들 onclick 해서 해줄게 없어서 없애기!
-	/*
-	if($(this).hasClass('wPostSelectedImg')){
-		//효과 지우기
-		$('.wPostAttachedImgList li').removeClass('wPostSelectedImg');
-	}
-	else{
-		//다른 리스트 선택된 효과 지우기
-		$('.wPostAttachedImgList li').removeClass('wPostSelectedImg');
-		//지금 선택된 리스트 선택 효과 주기
-		$(this).addClass('wPostSelectedImg');
-	}
-	*/
-	
-})
+
 
 /**
 
@@ -187,19 +172,125 @@ $(document).on("click", ".wPostAttachedImgList li", function() {
 			imgList+파일추가할 때 index 번호로 주었는데, 이러면 새로운 파일을 추가할 때 index번호가 
 			추가되서 img classname이 중복이 된다.
 			
-		문제점 해결  - data, value
-			1) className이 중복되지 않게 만들어주고, 이 className을
+		문제점 해결  - tag내 data속성
+			1) 글작성폼 이미지에 className이 중복되지 않게 만들어주고, 이 className을
 			파일리스트에서도 추가해줘서 해당 리스트가 클릭될 때 리스트가 가진 data값을 불러주면
-			data의 value 값으로 글작성폼div 안에 이미지 클래스를찾을 수 있다
+			data의 값으로 글작성폼div 안에 이미지 className을 찾을 수 있다
 
  */
 $(document).on('click','.wPostAttachImgDelIcon',function(){
-	let removeImgIndex  = $(this).parent().index();
+	let removeImgIndex  = $(this).data('imgindex');
+	console.log("removeImgIndex is "+removeImgIndex);
+	
+	//fileBuffer에서 삭제
+	let rmFileBufferIndex = $(this).parent().index();
+	fileBuffer.splice(rmFileBufferIndex,1);//index에서 1개 값지운다 뜻
+	
+	console.log('rmFileBufferIndex'+rmFileBufferIndex);
+	console.log('fileBuffer is'+fileBuffer);
+	
+	
 	
 	//파일첨부리스트에서 삭제
+	$(this).parent().remove();
+
+
+
+	//글작성div에서 삭제
+	let rmImgName = wPostImgName + removeImgIndex;
+	$('.wPostContentInput').find($('.'+rmImgName)).remove();
 	
+	
+	const target = $('#multiFileInput');
+    console.log(fileBuffer);
+    console.log(target[0].files);
+
 
 })
+
+/**
+
+		파일 데이터 전송
+			1) 파일을 서버에 올려서 외부파일로 저장한다
+			2) 본문에 들어가 있는 img의 임시 src를 외부파일 경로로 바꿔준다
+			
+			1-1) 
+ */
+
+/*
+
+		1. 파일을 서버에 올려서 외부파일로 저장하기
+			1) 기존의 file tag의 fileList 형태와 내가 만든 fileBuffer는 데이터 형식이 다르기 때문에
+			fileBuffer를 fileList에 맞게 가공해야한다 ★★★★★
+			
+			2) fileList는 기존의 ajax 데이터로 보내는게 아니라
+			ajax-form을 이용해 인코딩타입이 multipart로 보내야한다
+			
+			3) return으로 외부파일 경로 리스트를 받는다
+*/
+
+
+
+$(document).on('click','.wPostSubmitBtn',function(){
+	sendFileToSave("noticeBoard");
+
+});
+
+function sendFileToSave(board_name){
+	//let file = $('#multifileInput')[0].files;
+				let file= fileBuffer;
+                $('#'+board_name).ajaxForm({
+                    contentType : false,
+                    processData: false,
+                    enctype: "multipart/form-data",
+                    dataType : "POST",
+                    dataType : 'json',
+
+                    beforeSubmit: function(data, form, option) {
+                        var fileSize = file.length;
+                        if (fileSize>0){
+                            for(var i=0; i<fileSize; i++){
+                                var obj = {
+                                        name : "files",
+                                        value : file[i],
+                                        type : "file"
+                                };
+                                data.push(obj);
+                            }    
+                        }
+                        console.log('beforeSubmit');
+                        console.log('data');
+						console.log(data);
+
+                    },
+					//일반으로 보냈을 때랑 값비교
+					/*beforeSubmit: function(data, form, option) {
+					    console.log('beforeSubmit');
+					    console.log('data');
+						console.log(data);
+					        },
+					*/
+
+                    success: function(data) {
+                     console.log(data);
+                    },
+                 
+                });
+            
+				$('#'+board_name).submit();
+				
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
