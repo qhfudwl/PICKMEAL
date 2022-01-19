@@ -71,7 +71,7 @@ public class RestaurantController {
 		//레스토랑 아이디 추가 - 윤효심 
 		mav.addObject("restaurantId",restaurantId);
 		//포춘메세지 추가 - 윤효심 
-//		mav.addObject("fortuneMessage",fortuneMessage);
+		mav.addObject("fortuneMessage",fortuneMessage);
 		
 		//날씨 - 김재익
 		MyLocation ml = new MyLocation("89", "90");
