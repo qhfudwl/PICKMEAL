@@ -47,7 +47,7 @@ $('.gamePlayBtn').on('click', function(e){
 	let popupY = (document.body.offsetHeight / 2) - (popupHeight / 2);
 	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 	
-	window.open("openGamePopUp", "게임하기", "width=1000, height = 1000, top=" + popupY + ", left=" + popupX + ""); //선언과 초기화 동시에 해도 됨
+	window.open("openGamePopUp", "게임하기", "width=1050, height = 1000, top=" + popupY + ", left=" + popupX + ""); //선언과 초기화 동시에 해도 됨
 	//popUp.document.getElement("") = document.getElementById();
 	
 	
