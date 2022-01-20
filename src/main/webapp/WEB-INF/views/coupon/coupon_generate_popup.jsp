@@ -22,6 +22,9 @@
         <div id="couponWrap">
             <div id="couponInfoWrap">
                 <div id="couponPriceWrap">
+                	<input type="hidden" value="${member.id}" id="memberIdWS" name="memberIdWS">
+                	<input type="hidden" value="${restaurant.id}" id="restaurantWS" name="restaurantWS">
+                	<input type="hidden" value="${couponCategory.id}" id="couponCategoryWS" name="restaurantWS"">
                 	<p id="restaurantName"><span id="restaurantNameSpan">'${restaurant.RName}'</span> 쿠폰</p>
                     <p id="couponPrice"><span id="couponPriceSpan">${couponCategory.couponName}</span></p>
                     <p id="orderPrice"><span id="limitPrice">${couponCategory.limitPrice}</span> 원 이상 주문시 사용가능</p>
@@ -51,10 +54,8 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <form name="coupon" action="genericCoupon" method="GET">
-                    <button id="successBtn" onclick="getCoupon()">발급 받기</button>
+                    <button id="successBtn" onclick="indexPopupCoupon()">발급 받기</button>
                     <input type="hidden" id=closeBtn onclick="goClose()">
-                </form>
             </c:otherwise>
         </c:choose>
     </section>
@@ -69,19 +70,52 @@
     function goClose(){
     	self.close();
     }
-    function getCoupon(){
-    	window.opener.name = "parentPage";
-    	document.coupon.target = "parentPage";
-    	document.coupon.action = "genericCoupon";
-    	document.coupon.submit();
-    	self.close();
-    }
-    function gogo(){
-    	window.opener.name = "parentPage";
-    	document.coupon.target = "parentPage";
-    }
     function test(){
     	$("#closeBBtn").click();
+    }
+    
+    /*
+    $("#successBtn").click.function(e){
+    	e.preventDefault();
+    	var memberId = $("input[name='memberIdWS']").val();
+    	var restaurantId = $("input[name='restaurantIdWS']").val();
+    	var couponCategoryId = $("input[name='couponCategoryIdWS']").val();
+    	
+    	$.ajax({
+    		url : "http://localhost:8080/pickmeal/genericJincoupon",
+    		type : "post",
+    		data : JSON.stringify,
+    		contentType:'application/json; charset=utf-8',
+    		success: function(data){
+    			console.log("여기 들어오냐?구요");
+    			opener.parent.setCafterIsempty();
+    			opener.parent.removeGenerisCoupon();
+    			
+    			self.close();
+    			}
+    	})
+
+    }
+    */
+    
+    function indexPopupCoupon(){
+    	var memberId = $("input[name='memberIdWS']").val();
+    	var restaurantId = $("input[name='restaurantIdWS']").val();
+    	var couponCategoryId = $("input[name='couponCategoryIdWS']").val();
+    	console.log("왜 안됨??");
+    	$.ajax({
+    		url : "http://localhost:8080/pickmeal/genericJincoupon",
+    		type : "post",
+    		data : JSON.stringify,
+    		contentType:'application/json; charset=utf-8',
+    		success: function(){
+    			//console.log("여기 들어오냐?구요");
+    			opener.parent.setCafterIsempty();
+    			opener.parent.removeGenerisCoupon();
+    			
+    			self.close();
+    			}
+    	})
     }
     </script>
 </body>

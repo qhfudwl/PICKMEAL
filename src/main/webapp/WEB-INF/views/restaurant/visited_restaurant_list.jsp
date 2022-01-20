@@ -34,32 +34,40 @@
         section{width: 70%; height: 800px; background-color: aqua; margin: 0 auto;}
         #divName{width: 100%; height: 30px; font-size: 35px; line-height: 40px;}
         /*왼쪽*/
-        #leftdiv{width: 40%; height: 750px; background-color: chocolate; margin-top: 20px; float: left;}
+        #leftdiv{width: 400px; height: 750px; background-color: chocolate; margin-top: 20px; float: left; overflow:scroll;}
         #leftdiv h3{margin-top: 10px; font-size: 30px; line-height: 35px;}
         
         /*왼쪽 메인 div*/
-        .vrdiv{margin-left: 30px; margin-top: 30px; width: 300px; height: 150px; background-color: cornflowerblue;}
+        .vrdiv{margin-left: 40px; margin-top: 30px; width: 300px; height: 170px; background-color: cornflowerblue;}
         /*왼쪽 중 식당정보*/
-        .vrmain{position: relative; width: 200px; height: 150px; background-color: crimson; float: left;}
+        .vrmain{position: relative; width: 300px; height: 130px; background-color: crimson; float: left;}
         .mainInlabel{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
         
-        /*왼쪽 중 위*/
-        .vrrighttop{position: relative; width: 100px; height: 75px; background-color: darkblue; float: left;}
+        /*버튼 Wrap*/
+        .buttonWrap{width: 300px;height: 40px; background-color: gold; float: left;}
+        
+        /*찜버튼*/
+        .favoritebuttonWrap{position: relative; width: 100px; height: 40px; background-color: darkblue; float: left; text-align: center; line-height: 40px; overflow: hidden;}
         .favoriteInlabel{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
         
-        /*왼쪽 중 아래*/
-        .vrrightbottom{position: relative; width: 100px; height: 75px; background-color: darkcyan; float: left;}
+        /*리뷰버튼*/
+        .reviewbuttonWrap{position: relative; width: 100px; height: 40px; background-color: darkcyan; float: left; text-align: center; line-height: 40px; overflow: hidden;}
         .reviewInlabel{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
-
+        
+        /*삭제버튼*/
+        .removebuttonWrap{position: relative; width: 100px; height: 40px; background-color: gold; float: left; text-align: center; line-height: 40px; overflow: hidden;}
+        .removebuttonWrap:hover{background-color: white;}
+        .removeInlabel{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+        
         /*오른쪽 화면*/
-        #rightdiv{width: 60%; height: 750px; background-color: green; margin-top: 20px; float: left;}
+        #rightdiv{width: 790px; height: 750px; background-color: green; margin-top: 20px; margin-left:30px; float: left;}
         #rightdiv h3{margin-top: 10px; font-size: 30px; line-height: 35px;}
         /*리뷰하기 내부*/
         #Reviewcheck{width: 100%; height: 525px; background-color: greenyellow;}
         #reviewRName{margin-top: 20px; text-align: center; width: 100%; height: 50px;}
         /*리뷰 한개 한개*/
         .checkboxWrap{position: relative; margin : 0 auto; width: 300px; margin-top: 10px; height: 50px; 
-                background-color: honeydew; margin-left: 40px; margin-top: 30px; float: left; background-color: beige;}
+                background-color: honeydew; margin-left: 65px; margin-top: 30px; float: left; background-color: beige;}
         /*리뷰 이모티콘*/
         .reviewImg{height: 40px; width: 40px; margin-top: 5px; margin-left: 10px;}
         /*체크박스*/
@@ -77,34 +85,41 @@
             <h3 id="divName">누구님 방문리스트</h3>
             <div id="leftdiv">
                 <h3>내가 간 식당</h3>
-                <form action="">
+                <form action="" method="post">
                 	<c:forEach var="vrlist" items="${vrlist}" varStatus="status">
-	                    <div class="vrdiv">
+	                    <div class="vrdiv" id="vrdivs${vrlist.getId()}">
 	                        <div class="vrmain">
 	                            <input id="restaurantNameis${vrlist.getId()}" type="text" class="vrName" value="${vrlist.getRestaurant().getRName()}" disabled/>
 	                            <input type="text" class="vrRegDate" value="${vrlist.getRegDate()}" disabled/>
 	                            <input type="radio" id="mainlabel${vrlist.getId()}" class="vrRadio" name="vrmainradio"  value="${vrlist.getId()}">
 	                            <label id="mainInlabel${vrlist.getId()}" for="mainlabel${vrlist.getId()}" class="mainInlabel"></label>
 	                        </div>
-	                        <div class="vrrighttop" id="jjimdiv${vrlist.getId()}">
-		                        <c:choose>
-		                        	<c:when test="${flist.get(status.index) eq 'false'}">
-			                        	<input type="hidden" value="${flist.get(status.index)}">
-			                            <input type="text" class="JJimbutton" value="찜하기" disabled/>
-			                            <input type="radio" id="favoritelabel${vrlist.getId()}" class="vrfavoriteradio" name="vrfavoriteradio" value="${vrlist.getId()}" onclick="jjimrestaurant(this)">
-			                            <label id="favoriteInlabel${vrlist.getId()}" for="favoritelabel${vrlist.getId()}" class="favoriteInlabel"></label>
-		                        	</c:when>
-		                        </c:choose>
-	                        </div>
-	                        <div class="vrrightbottom" id="reviewdiv${vrlist.getId()}">
-	                        	<c:choose>
-	                        		<c:when test="${vrlist.isReview() eq 'false'}">
-	                        			<input type="hidden" id="restaurantrealid${vrlist.getId()}"value="${vrlist.getRestaurant().getId()}"/>
-		                            	<input type="text" class="리뷰하기" value="리뷰하기" disabled/>
-		                            	<input type="radio" id="reviewlabel${vrlist.getId()}" class="reviewBtn" name="vrreviewradio" value="${vrlist.getId()}" onclick="reviewClick(this)">
-		                            	<label id="reviewInlabel${vrlist.getId()}" for="reviewlabel${vrlist.getId()}" class="reviewInlabel"></label>
-	                            	</c:when>
-	                            </c:choose>
+	                        <div class="buttonWrap">
+		                        <div class="favoritebuttonWrap" id="jjimdiv${vrlist.getId()}">
+			                        <c:choose>
+			                        	<c:when test="${flist.get(status.index) eq 'false'}">
+				                        	<input type="hidden" value="${flist.get(status.index)}">
+				                            <input type="text" class="gofavorite" value="찜하기" disabled/>
+				                            <input type="radio" id="favoritelabel${vrlist.getId()}" class="vrfavoriteradio" name="vrfavoriteradio" value="${vrlist.getId()}" onclick="jjimrestaurant(this)">
+				                            <label id="favoriteInlabel${vrlist.getId()}" for="favoritelabel${vrlist.getId()}" class="favoriteInlabel"></label>
+			                        	</c:when>
+			                        </c:choose>
+		                        </div>
+		                        <div class="reviewbuttonWrap" id="reviewdiv${vrlist.getId()}">
+		                        	<c:choose>
+		                        		<c:when test="${vrlist.isReview() eq 'false'}">
+		                        			<input type="hidden" id="restaurantrealid${vrlist.getId()}"value="${vrlist.getRestaurant().getId()}"/>
+			                            	<input type="text" class="goreview" value="리뷰하기" disabled/>
+			                            	<input type="radio" id="reviewlabel${vrlist.getId()}" class="reviewBtn" name="vrreviewradio" value="${vrlist.getId()}" onclick="reviewClick(this)">
+			                            	<label id="reviewInlabel${vrlist.getId()}" for="reviewlabel${vrlist.getId()}" class="reviewInlabel"></label>
+		                            	</c:when>
+		                            </c:choose>
+		                        </div>
+		                        <div class="removebuttonWrap" id="removediv${vrlist.getId()}">
+			                        <input type="text" class="goremove" value="삭제하기" disabled/>
+			                        <input type="radio" id="removelabel${vrlist.getId()}" class="reviewBtn" name="removeradio" value="${vrlist.getId()}" onclick="removeClick(this)">
+			                    	<label id="removeInlabel${vrlist.getId()}" for="removelabel${vrlist.getId()}" class="removeInlabel"></label>
+		                        </div>
 	                        </div>
 	                    </div>
                     </c:forEach>

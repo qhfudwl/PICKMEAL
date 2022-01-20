@@ -35,4 +35,9 @@ public class VisitedRestaurantServiceImpl implements VisitedRestaurantService{
 		return vrd.findVisitedRestaurantById(id);
 	}
 
+	@Override
+	public void removeVisitiedRestaurantById(long id) {
+		vrd.removeVisitedRestaurantById(id);
+	}
+
 }

@@ -426,7 +426,7 @@ $('.gameBtn').on('click', function(e){
 							data: resultResOfLadder,
 							// contentType 있으면 안된다고 했는데 언제 였지 객체를 보낼때였나.
 							//contentType: 'application/x-www-form-urlencoded; charset=euc-kr', 
-							success: function(){
+							success: function(data){
 								//console.log("됐다.");
 								//console.log(resultResOfLadder);
 								//console.log(resultResOfLadder.lat, resultResOfLadder.lng);

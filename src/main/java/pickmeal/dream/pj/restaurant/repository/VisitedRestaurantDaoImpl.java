@@ -15,8 +15,7 @@ public class VisitedRestaurantDaoImpl implements VisitedRestaurantDao{
 	JdbcTemplate jt;
 	@Override
 	public List<VisitedRestaurant> findAllVisitedRestaurantByMemberId(long memberId) {
-		String sql = "SELECT id, memberId, restaurantId, Review, regDate FROM VisitedRestaurant WHERE memberId = ?";
-		
+		String sql = "SELECT id, memberId, restaurantId, Review, regDate FROM VisitedRestaurant WHERE memberId = ? ORDER BY regDate DESC";
 		return jt.query(sql, new VisitedRestaurantRowMapper(),memberId);
 	}
 
@@ -30,7 +29,7 @@ public class VisitedRestaurantDaoImpl implements VisitedRestaurantDao{
 
 	@Override
 	public VisitedRestaurant findVisitedRestaurantById(long id) {
-		String sql = "SELECT id, memberId, restaurantId, Review, regDate FROM VisitedRestaurant WHERE id = ?";
+		String sql = "SELECT id, memberId, restaurantId, Review, regDate FROM VisitedRestaurant WHERE id = ? ";
 		
 		return jt.queryForObject(sql, new VisitedRestaurantRowMapper(), id);
 	}
@@ -40,6 +39,21 @@ public class VisitedRestaurantDaoImpl implements VisitedRestaurantDao{
 		String sql = "UPDATE VisitedRestaurant SET Review = true WHERE id = ?;";
 		jt.update(sql,id);
 		
+	}
+
+	@Override
+	public void removeVisitedRestaurantById(long id) {
+		String sql = "DELETE FROM VisitedRestaurant WHERE id = ?";
+		
+		jt.update(sql,id);
+		
+	}
+
+	@Override
+	public boolean isVisitedRestaurantById(long id) {
+		String sql = "SELECT EXISTS (SELECT id FROM FavoriteRestaurant WHERE id = ?)";
+		
+		return jt.queryForObject(sql, boolean.class,id);
 	}
 	
 	

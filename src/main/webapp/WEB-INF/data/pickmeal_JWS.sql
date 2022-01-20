@@ -172,11 +172,15 @@ CREATE TABLE VisitedRestaurant(
 	FOREIGN KEY (memberId) REFERENCES Member (id),								#아래 쭉 포링키
 	FOREIGN KEY (restaurantId) REFERENCES Restaurant (id)
 )
-INSERT INTO VisitedRestaurant(memberId, restaurantId) VALUES(4,10);
-INSERT INTO VisitedRestaurant(memberId, restaurantId, Review) VALUES(4,10,true);
+INSERT INTO VisitedRestaurant(memberId, restaurantId, Review) VALUES(4,111,true);
+INSERT INTO VisitedRestaurant(memberId, restaurantId, Review) VALUES(4,112,false);
+SELECT EXISTS (SELECT id FROM VisitedRestaurant WHERE id = 2);
 UPDATE VisitedRestaurant SET Review = true WHERE id = 1;
+DELETE FROM VisitedRestaurant WHERE id = 10;
 SELECT * FROM VisitedRestaurant;
 DROP TABLE VisitedRestaurant;
+SELECT id, memberId, restaurantId, Review, regDate FROM VisitedRestaurant WHERE memberId = 4 ORDER BY regDate DESC;
+
 
 CREATE TABLE RestaurantPreference (
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,

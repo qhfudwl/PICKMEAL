@@ -32,12 +32,8 @@ $("#menuchoicebtn").click(function(e){
     }
 
 /* 쿠폰발급 클릭시 쿠폰발급 시작*/
-$('#couponGenerateWrap').click(function(e){
-        	e.preventDefault();
-            $('#couponGenerate').click();
-        })
         
-        $("#couponGenerate").click(function(e){
+        $("#couponGenerateWrap").click(function(e){
 		e.preventDefault();
 		popupCoupon("couponPopupCreate");
 		})
@@ -77,6 +73,11 @@ function setrestaurantId(name){
 	document.getElementById("restaurantRId").value = name;
 }
 
+function setCafterIsempty(){
+	document.getElementById("restaurantIsempty").value = "undefined1";
+	console.log("새로운 값 세팅"+document.getElementById("restaurantIsempty").value);
+}
+
 function couponAndFavoriteShow(){
 	//console.log("함수돌릴 때 쿠폰 값"+$("#couponIsempty").val());
 	//console.log($("#restaurantIsempty").val());
@@ -101,6 +102,10 @@ function couponAndFavoriteShow(){
 		$("#couponGenerateWrap").show();
 	}
 
+}
+
+function removeGenerisCoupon(){
+	$("#couponGenerateWrap").remove();
 }
 
 function indexFrestaurant(){

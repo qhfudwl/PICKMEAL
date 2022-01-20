@@ -16,4 +16,6 @@ public interface ReviewDao {
 	 * @return
 	 */
 	public Review getReview(long restaurantId);
+	
+	public void setReview(Review r);
 }
