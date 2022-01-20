@@ -104,9 +104,9 @@
 	width: 180px;
 	height: 48px;
 	line-height: 48px;
-	background: #ed7672;
+	background: #ffecec;
 	text-align: center;
-	color: #fff;
+	color: #ed7672;
 	font-weight: 600;
 	font-size: 0.9em;
 }
@@ -114,6 +114,14 @@
 .postBtnComUnClick {
 	background: #ffecec;
 	color: #ed7672;
+}
+.postBtnComHover{
+	background: #ed7672;
+	color: #fff;
+}
+.wPostMapSetAddressBtn:hover, .wPostMapCurrentPlaceBtn:hover{
+	background: #ed7672;
+	color: #fff;
 }
 
 /*

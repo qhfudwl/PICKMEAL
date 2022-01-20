@@ -102,7 +102,7 @@
                     <p class="wPostLeftSideSubTitle">장소</p>
                     <div class="wPostMapInputWrap wPostComInputArea">
                         <div class="wPostMapBtnWrap">
-                            <a href="#" class="wPostMapSetAddressBtn postBtnCom postBtnComUnClick">주소 입력하기</a>
+                            <a href="#" class="wPostMapSetAddressBtn postBtnCom">주소 입력하기</a>
                             <a href="#" class="wPostMapCurrentPlaceBtn postBtnCom">현재 위치에서 찾기</a>
                         </div>
                         <input type="text" id="wPostDetailAddress" name="address" class="wPostMapDetailAddressInput postInputTCom" readonly placeholder="상세주소가 입력됩니다.">

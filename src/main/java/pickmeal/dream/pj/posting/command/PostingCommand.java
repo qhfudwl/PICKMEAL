@@ -16,10 +16,10 @@ import pickmeal.dream.pj.member.domain.Member;
 public class PostingCommand {
 	private Member member;
 	private String address;
-	private String category;//
-	private String title;//
-	private String content;	//
-	private String date;//
-	private String time;//
+	private String category;
+	private String title;
+	private String content;	
+	private String date;
+	private String time;
 	
 }
