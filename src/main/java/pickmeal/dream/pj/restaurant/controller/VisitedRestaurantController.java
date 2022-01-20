@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,7 +51,7 @@ public class VisitedRestaurantController {
 	VisitedRestaurantDao vrd;
 	
 	@Autowired
-	ReviewService reviewS;
+	ReviewService reviewService;
 	
 	
 	/**
@@ -155,19 +156,56 @@ public class VisitedRestaurantController {
 		}
 	}
 	
+	
+	/**
+	 * 리뷰하기
+	 * @param rc
+	 * @param session
+	 * @param visitedRestaurantId
+	 * @return
+	 */
 	@PostMapping("/reviewSeccess")
-	public ModelAndView writeReview(ReviewCommand r) {
-		Review re = new Review();
-		List<ReviewItem> itemlist = new ArrayList<ReviewItem>();
-		int i = re.getReviewItem().get(0).getReviewCount();
-		int j = i + r.getBathroom();
-		itemlist = re.getReviewItem();
-		itemlist.get(0).getReviewCount();
+	public ModelAndView writeReview(ReviewCommand rc, HttpSession session, @RequestParam("visitedRestaurantId") long visitedRestaurantId ) {
+		List<VisitedRestaurant> vrlist = new ArrayList<VisitedRestaurant>();
+		Member member = (Member) session.getAttribute("member");
+		reviewService.setReview(rc);
+		vrd.writeVisitedRestaurantReviewById(visitedRestaurantId);
+		/*멤버가 없으면 로그인 화면으로 이동*/
+		if(member == null) {
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("memberCommand", new MemberCommand());
+			mav.setViewName("member/sign_in");
+			return mav;
+		}
+		/*멤버가 있으면 동작*/
+		else {
+		List<Boolean> flist = new ArrayList<Boolean>();	
+		vrlist = vrs.findAllVisitedRestaurantByMemberId(member.getId());
+		for(VisitedRestaurant v : vrlist) {
+			Restaurant restaurant = frs.findRestaurantById(v.getRestaurant().getId());
+			boolean f = frs.isFavoriteRestaurant(member.getId(), v.getRestaurant().getId());
+			v.setRestaurant(restaurant);
+			
+			flist.add(f);
+			
+		}
+		ModelAndView mav = new ModelAndView();
+			mav.addObject("vrlist",vrlist);
+			mav.addObject("flist",flist);
+			mav.setViewName("restaurant/visited_restaurant_list");
+			return mav;
+		}
+		
+	}	
 		
 		
 		
-		
-		return null;
-	}
+
+	/*Review re = new Review();
+	List<ReviewItem> itemlist = new ArrayList<ReviewItem>();
+	int i = re.getReviewItem().get(0).getReviewCount();
+	int j = i + r.getBathroom();
+	itemlist = re.getReviewItem();
+	itemlist.get(0).getReviewCount();*/
 	
 }

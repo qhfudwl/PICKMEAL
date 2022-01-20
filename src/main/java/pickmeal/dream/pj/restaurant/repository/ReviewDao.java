@@ -18,4 +18,8 @@ public interface ReviewDao {
 	public Review getReview(long restaurantId);
 	
 	public void setReview(Review r);
+	
+	public boolean isReviewByRestaurantId(long restaurantId);
+	
+	public void addReview(Review r);
 }

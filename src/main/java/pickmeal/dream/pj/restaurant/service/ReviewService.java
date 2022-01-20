@@ -16,5 +16,5 @@ public interface ReviewService {
 	 */
 	public Review getReview(long restaurantId);
 	
-	public void setReview(ReviewCommand r);
+	public void setReview(ReviewCommand rc);
 }

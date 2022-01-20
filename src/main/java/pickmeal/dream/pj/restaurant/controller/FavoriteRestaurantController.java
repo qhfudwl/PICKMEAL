@@ -65,11 +65,12 @@ public class FavoriteRestaurantController {
 		
 		return ResponseEntity.ok(true);
 	}
-	
+	/*
 	@PostMapping("/addFavoriteRestaurant")
 	@ResponseBody
 	public ResponseEntity<?> addFavoriteRestaurant(){
+		
 		return null;
 	}
-	
+	*/
 }

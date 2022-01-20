@@ -13,6 +13,7 @@ function reviewClick(){
 	console.log("레스토랑 명 : " + restaurantName);
 	$("#reviewRName").val(restaurantName+" 식당리뷰!");
 	$("#submititem").val(restaurantTableId);
+	$("#visitedRestaurantId").val(reviewradio);
 	
 }
 
@@ -49,3 +50,24 @@ function removeClick(){
 		}
 	});
 }
+
+//체크박스 5개 까지만 고르고 값 변경 해주기 완료
+$(document).ready(function() {
+	$("input:checkbox").on('click', function(){
+		let count = $("input:checked[type='checkbox']").length;
+		
+		if(count>5){
+			$(this).prop("checked",false);
+			alert("5개 까지만 선택 할 수 있습니다.");
+		}else{
+			if ( $(this).prop('checked') ){
+				$(this).val(1);
+	 		}else{
+				$(this).val(0);
+			}
+		}
+		
+	}); 
+});
+
+

@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class ReviewCommand {
 
-	private long retaurantId;
+	private long restaurantId;
 	private int bathroom;
 	private int kind;
 	private int specialDay;
@@ -21,10 +21,14 @@ public class ReviewCommand {
 	private int interior;
 	private int count;
 	
-	public ReviewCommand(long retaurantId, int bathroom, int kind, int specialDay, int clean, int parking,
+	public ReviewCommand() {
+		
+	}
+	
+	public ReviewCommand(long restaurantId, int bathroom, int kind, int specialDay, int clean, int parking,
 			int goodgroup, int alone, int big, int interior, int count) {
 		super();
-		this.retaurantId = retaurantId;
+		this.restaurantId = restaurantId;
 		this.bathroom = bathroom;
 		this.kind = kind;
 		this.specialDay = specialDay;
@@ -35,5 +39,20 @@ public class ReviewCommand {
 		this.big = big;
 		this.interior = interior;
 		this.count = count;
+	}
+
+	public ReviewCommand(long restaurantId, int bathroom, int kind, int specialDay, int clean, int parking,
+			int goodgroup, int alone, int big, int interior) {
+		super();
+		this.restaurantId = restaurantId;
+		this.bathroom = bathroom;
+		this.kind = kind;
+		this.specialDay = specialDay;
+		this.clean = clean;
+		this.parking = parking;
+		this.goodgroup = goodgroup;
+		this.alone = alone;
+		this.big = big;
+		this.interior = interior;
 	}
 }
