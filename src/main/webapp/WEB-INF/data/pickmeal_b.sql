@@ -207,8 +207,7 @@ VALUES(40,1,"저랑 드시면 밥을 더 드실 수 있습니당.");
 
 CREATE TABLE NoticePosting (									# 식당 추천 게시판
 	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,				# SQL 아이디
-	memberId		BIGINT			NOT NULL,								# 사용자 아이디
-	restaurantId	BIGINT			NOT NULL,								# 식당 아이디
+	memberId		BIGINT			NOT NULL,								# 사용자 아이디							# 식당 아이디
 	title			VARCHAR(100)	NOT NULL,								# 제목
 	content			MEDIUMTEXT		NOT NULL,								# 내용				# 좋아요 수
 	views			INT				NOT NULL	DEFAULT 0,					# 조회 수

@@ -368,6 +368,7 @@ function locationLoadSuccess(pos) {
 	//kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		searchDetailAddrFromCoords(currentPos, function(result, status) {
 			console.log('result & status')
+			console.log(currentPos)
     	    console.log(result)
 			console.log(status)
 		if (status === kakao.maps.services.Status.OK) {

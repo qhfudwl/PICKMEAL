@@ -16,7 +16,7 @@ import pickmeal.dream.pj.restaurant.domain.Restaurant;
 @ToString
 public class TogetherEatingPosting extends Posting{
 	
-	private Date time;
+	private Date mealTime;
 	private boolean recruitment;
 	private boolean mealChk;
 	
@@ -24,10 +24,12 @@ public class TogetherEatingPosting extends Posting{
 		
 	}
 	
-	public TogetherEatingPosting(long id, Member member, Restaurant restaurant, char category, String title, String content, int commentsNumber, int likes, int views, Date regDate, Date time, boolean recruitment, boolean mealChk) {
+	public TogetherEatingPosting(long id, Member member, Restaurant restaurant, char category, String title, String content, int commentsNumber, int likes, int views, Date regDate, Date mealTime, boolean recruitment, boolean mealChk) {
 		super(id, member, restaurant, category, title, content,commentsNumber, likes, views, regDate);
-		this.time = time;
+		this.mealTime = mealTime;
 		this.recruitment = recruitment;
 		this.mealChk = mealChk;
 	}
+	
+	
 }

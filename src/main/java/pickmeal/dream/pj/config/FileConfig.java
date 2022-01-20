@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = "pickmeal.dream.pj")
 public class FileConfig {
-
+	
 	@Autowired
 	PropertiesConfiguration imgPropertyConfig;
 	

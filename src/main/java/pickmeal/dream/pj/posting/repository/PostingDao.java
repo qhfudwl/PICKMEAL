@@ -28,7 +28,7 @@ public interface PostingDao {
 	 * @param posting
 	 * @return
 	 */
-	public Posting deletePosting(Posting posting);
+	public void deletePosting(Posting posting);
 	
 	/**
 	 * 카테고리별 포스팅 불러오기
