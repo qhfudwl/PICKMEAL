@@ -22,17 +22,18 @@ class PostingDaoTest {
 	private PostingDao pd;
 	
 	@Test
+	@Commit
 	void test() {
-		/*Posting posting= new Posting();
+		Posting posting= new Posting();
 		posting.setMember(new Member(1));
 		posting.setRestaurant(new Restaurant(1));
 		posting.setCategory('R');
-		posting.setTitle("this is title");
-		posting.setContent("this is content");
-		posting.setLikes(10);
-		posting.setViews(20);
+		posting.setTitle("this is title2");
+		posting.setContent("this is content2");
+		posting.setLikes(100);
+		posting.setViews(200);
 		
-		pd.addPosting(posting);*/
+		pd.addPosting(posting);
 	}
 
 }

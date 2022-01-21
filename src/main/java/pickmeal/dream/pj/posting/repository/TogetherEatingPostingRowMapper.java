@@ -2,6 +2,7 @@ package pickmeal.dream.pj.posting.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -26,8 +27,8 @@ public class TogetherEatingPostingRowMapper implements RowMapper<Posting>{
 		//tep.setCommentsNumber(rs.getInt(rowNum));
 		tep.setLikes(rs.getInt("likes"));
 		tep.setViews(rs.getInt("views"));
-		tep.setRegDate(rs.getDate("regDate"));
-		tep.setMealTime(rs.getDate("mealTime"));
+		tep.setRegDate(new Date(rs.getTimestamp("regDate").getTime()));
+		tep.setMealTime(new Date(rs.getTimestamp("mealTime").getTime()));
 		tep.setRecruitment(rs.getBoolean("recruitment"));
 		tep.setMealChk(rs.getBoolean("mealChk"));
 		Posting posting = tep;

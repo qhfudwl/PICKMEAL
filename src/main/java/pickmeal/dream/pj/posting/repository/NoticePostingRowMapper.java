@@ -2,6 +2,8 @@ package pickmeal.dream.pj.posting.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,7 +22,7 @@ public class NoticePostingRowMapper implements RowMapper<Posting>{
 		posting.setTitle(rs.getString("title"));
 		posting.setContent(rs.getString("content"));
 		posting.setViews(rs.getInt("views"));
-		posting.setRegDate(rs.getDate("regDate"));
+		posting.setRegDate(new Date(rs.getTimestamp("regDate").getTime()));
 		return posting;
 	}
 

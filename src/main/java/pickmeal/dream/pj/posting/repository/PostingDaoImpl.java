@@ -40,11 +40,18 @@ public class PostingDaoImpl implements PostingDao {
 	@Override
 	public void updatePosting(Posting posting) {
 		if (posting.getCategory() == 'N') {
-
+			String sql ="UPDATE NoticePosting SET title=?, content=?, views=?"
+					+" WHERE id=?";
+			jt.update(sql, posting.getTitle(), posting.getContent(), posting.getViews(), posting.getId());
 		} else if (posting.getCategory() == 'R') {
-
+			String sql ="UPDATE RecommendRestaurantPosting SET restaurantId=?, title=?, content=?, likes=?, views=?"
+					+" WHERE id=?";
+			jt.update(sql, posting.getRestaurant().getId(), posting.getTitle(), posting.getContent(), posting.getLikes(), posting.getViews(), posting.getId());
 		} else {
-
+			TogetherEatingPosting tep = (TogetherEatingPosting) posting;
+			String sql ="UPDATE TogetherEatingPosting SET restaurantId=?, title=?, content=?, likes=?, views=?, mealTime=?, recruitment=?, mealChk=?"
+					+" WHERE id=?";
+			jt.update(sql, tep.getRestaurant().getId(), tep.getTitle(), tep.getContent(), tep.getLikes(), tep.getViews(), tep.getMealTime(), tep.isRecruitment(), tep.isMealChk(), tep.getId());
 		}
 
 	}
@@ -52,11 +59,15 @@ public class PostingDaoImpl implements PostingDao {
 	@Override
 	public void deletePosting(Posting posting) {
 		if (posting.getCategory() == 'N') {
-
+			String sql = "DELETE FROM NoticePosting WHERE id=?";
+			jt.update(sql, posting.getId());
 		} else if (posting.getCategory() == 'R') {
-
+			String sql = "DELETE FROM RecommendRestaurantPosting WHERE id=?";
+			jt.update(sql, posting.getId());
 		} else {
-
+			TogetherEatingPosting tep = (TogetherEatingPosting) posting;
+			String sql = "DELETE FROM TogetherEatingPosting WHERE id=?";
+			jt.update(sql, tep.getId());
 		}
 
 	}
@@ -64,16 +75,16 @@ public class PostingDaoImpl implements PostingDao {
 	@Override
 	public List<Posting> findAllPostingsByCategory(char category) {
 		if (category == 'N') {
-			String sql ="SELECT id, memberId, title, content, views, redDate "
+			String sql ="SELECT id, memberId, title, content, views, regDate "
 					+" FROM NoticePosting";
 			return jt.query(sql, new NoticePostingRowMapper());
 			
 		} else if (category == 'R') {
-			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, redDate "
+			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, regDate "
 					+" FROM RecommendRestaurantPosting";
 			return jt.query(sql, new RecommendRestaurantPostingRowMapper());
 		} else {
-			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, mealTime, recruitment, mealChk, redDate "
+			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, mealTime, recruitment, mealChk, regDate "
 					+" FROM TogetherEatingPosting";
 			return jt.query(sql, new TogetherEatingPostingRowMapper());
 		}

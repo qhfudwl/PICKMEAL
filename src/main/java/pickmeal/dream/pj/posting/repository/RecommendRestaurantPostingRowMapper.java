@@ -2,6 +2,7 @@ package pickmeal.dream.pj.posting.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -25,7 +26,7 @@ public class RecommendRestaurantPostingRowMapper implements RowMapper<Posting>{
 		//posting.setCommentsNumber(rs.getInt(rowNum));
 		posting.setLikes(rs.getInt("likes"));
 		posting.setViews(rs.getInt("views"));
-		posting.setRegDate(rs.getDate("regDate"));
+		posting.setRegDate(new Date(rs.getTimestamp("regDate").getTime()));
 		return posting;
 	}
 
