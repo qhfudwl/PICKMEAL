@@ -25,11 +25,23 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
+		/*
+		 * 
+		 * 게시판 파일 업로드 매핑
+		 * 
+		 * 
+		 */
 		//window일 때
 		registry.addResourceHandler(imgPropertyConfig.getString("file.mappingPath"))
 				.addResourceLocations(imgPropertyConfig.getString("file.locationPathFromWindow"));
-		//WebMvcConfigurer.super.addResourceHandlers(registry);
+		
+		
+		//posting관련 이미지 
+		registry.addResourceHandler("/posting/**")
+		.addResourceLocations("/resources/img/posting/");
+		
+		//외부파일
+		
 	}
 	
 	
