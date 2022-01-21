@@ -162,6 +162,7 @@ DROP TABLE FavoriteRestaurant;
 INSERT INTO FavoriteRestaurant(memberId, restaurantId) VALUES(4,9);
 SELECT EXISTS (SELECT id FROM FavoriteRestaurant WHERE memberId = 4 and restaurantId = 1); #없으면 0 #있으면 1
 SELECT * FROM FavoriteRestaurant;
+SELECT id, memberId, restaurantId FROM FavoriteRestaurant WHERE memberId = 4 ORDER BY id DESC;
 
 CREATE TABLE VisitedRestaurant(
 	id				BIGINT			PRIMARY KEY AUTO_INCREMENT,
