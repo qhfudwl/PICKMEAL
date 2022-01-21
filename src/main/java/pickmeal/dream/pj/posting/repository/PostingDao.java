@@ -31,20 +31,20 @@ public interface PostingDao {
 	public void deletePosting(Posting posting);
 	
 	/**
-	 * 카테고리별 포스팅 불러오기
+	 * 카테고리별 게시물 갯수 불러오기
 	 * @param category
 	 * @return
 	 */
-	public List<Posting> findAllPostingsByCategory(char category);
+	public int getPostingCountByCategory(char category);
 	
 	/**
-	 * 특정 인덱스로부터 특정 갯수의 포스팅들을 불러오기
-	 * 		- 게시판 목록을 위해서
-	 * @param id
+	 * 카테고리별 포스팅 불러오기
+	 * 		- 게시판 목록에서만 불러올 것
+	 * 		- 1페이지당 12개 게시물 불러오기
+	 * @param category
 	 * @return
 	 */
-	public List<Posting> findPostingsByLastIndex(Posting posting);
-	
+	public List<Posting> findPostingsPerPageByCategory(char category, int pageStart, int pageEnd);
 	
 	
 	

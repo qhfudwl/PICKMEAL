@@ -71,37 +71,58 @@ public class PostingDaoImpl implements PostingDao {
 		}
 
 	}
-
+	
+	
 	@Override
-	public List<Posting> findAllPostingsByCategory(char category) {
+	public int getPostingCountByCategory(char category) {
+		if (category == 'N') {
+			String sql = "SELECT COUNT(id) as NoticeCnt FROM NoticePosting";
+			return jt.queryForObject(sql, Integer.class);
+		} else if (category == 'R') {
+			String sql = "SELECT COUNT(id) as RecommendRestaurantCnt FROM RecommendRestaurantPosting";
+			return jt.queryForObject(sql, Integer.class);
+		} else {
+			String sql = "SELECT COUNT(id) as TogetherEatingCnt FROM TogetherEatingPosting";
+			return jt.queryForObject(sql, Integer.class);
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * 	각 게시판의 게시물을 id별로 내림차순으로 정렬 후, 
+	 * 	LIMIT를 사용해 pageStart 부터 pageReadCnt만큼 불러온다
+	 *  (ex. pageStart = 시작 행(0부터시작), pageReadCnt = 불러올 갯수 ) 
+	 * 
+	 */
+	@Override
+	public List<Posting> findPostingsPerPageByCategory(char category, int pageStart, int pageReadCnt) {
 		if (category == 'N') {
 			String sql ="SELECT id, memberId, title, content, views, regDate "
-					+" FROM NoticePosting";
-			return jt.query(sql, new NoticePostingRowMapper());
+					+" FROM NoticePosting"
+					+" ORDER BY id DESC "
+					+" LIMIT ?,?";
+			return jt.query(sql, new NoticePostingRowMapper(),pageStart,pageReadCnt);
 			
 		} else if (category == 'R') {
 			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, regDate "
-					+" FROM RecommendRestaurantPosting";
-			return jt.query(sql, new RecommendRestaurantPostingRowMapper());
+					+" FROM RecommendRestaurantPosting"
+					+" ORDER BY id DESC "
+					+" LIMIT ?,?";
+			return jt.query(sql, new RecommendRestaurantPostingRowMapper(),pageStart,pageReadCnt);
 		} else {
 			String sql ="SELECT id, memberId, restaurantId, title, content, likes, views, mealTime, recruitment, mealChk, regDate "
-					+" FROM TogetherEatingPosting";
-			return jt.query(sql, new TogetherEatingPostingRowMapper());
+					+" FROM TogetherEatingPosting"
+					+" ORDER BY id DESC "
+					+" LIMIT ?,?";
+			return jt.query(sql, new TogetherEatingPostingRowMapper(),pageStart,pageReadCnt);
 		}
 
 	}
 
-	@Override
-	public List<Posting> findPostingsByLastIndex(Posting posting) {
-		if (posting.getCategory() == 'N') {
+	
 
-		} else if (posting.getCategory() == 'R') {
-
-		} else {
-
-		}
-		return null;
-	}
+	
 	
 	
 }

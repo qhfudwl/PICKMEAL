@@ -27,6 +27,9 @@ import pickmeal.dream.pj.restaurant.domain.Restaurant;
 @Controller
 @Log
 public class WritingPostController {
+	@Autowired
+	PostingService ps;
+	
 	
 	/**
 	 * 글쓰기 폼으로 이동
@@ -37,11 +40,7 @@ public class WritingPostController {
 	 * @param request
 	 * @return
 	 */
-	
-	@Autowired
-	PostingService ps;
-	
-	
+
 	@GetMapping("/post_write")
 	public ModelAndView writingPostMain(@RequestParam String type) {
 			
