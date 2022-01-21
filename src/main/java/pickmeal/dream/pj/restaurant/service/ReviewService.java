@@ -1,5 +1,6 @@
 package pickmeal.dream.pj.restaurant.service;
 
+import pickmeal.dream.pj.restaurant.command.ReviewCommand;
 import pickmeal.dream.pj.restaurant.domain.Review;
 /**
  * 
@@ -14,4 +15,6 @@ public interface ReviewService {
 	 * @return
 	 */
 	public Review getReview(long restaurantId);
+	
+	public void setReview(ReviewCommand rc);
 }

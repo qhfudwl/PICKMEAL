@@ -25,7 +25,7 @@ public class FavoriteRestaurantDaoImpl implements FavoriteRestaurantDao{
 	@Override
 	public List<FavoriteRestaurant> findFavoriteRestaurantBymemberId(long memberId) {
 		
-		String sql = "SELECT id, memberId, restaurantId FROM FavoriteRestaurant WHERE memberId = ?";
+		String sql = "SELECT id, memberId, restaurantId FROM FavoriteRestaurant WHERE memberId = ? ORDER BY id DESC";
 		
 		
 		return jt.query(sql, new FavoriteRestaurantRowMapper(), memberId);

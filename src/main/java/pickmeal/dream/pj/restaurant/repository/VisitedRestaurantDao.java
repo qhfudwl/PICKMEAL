@@ -13,4 +13,8 @@ public interface VisitedRestaurantDao {
 	VisitedRestaurant findVisitedRestaurantById(long id);
 	
 	void writeVisitedRestaurantReviewById(long id);
+	
+	void removeVisitedRestaurantById(long id);
+	
+	boolean isVisitedRestaurantById(long id);
 }

@@ -1,4 +1,4 @@
-var nowLat, nowLng, map, geocoder, ps, nowAddress, infowindow, 
+var map, geocoder, ps, nowAddress, infowindow, 
 	locPosition;
 let arrLength;
 let ranNum;
@@ -48,8 +48,12 @@ let finalArr = [];
 
 	var keyword = document.getElementById('keyword').value;
 	var radius = document.getElementById('hRadius').value;
-	nowLat = document.getElementById('nowLat').value; 
-	nowLng = document.getElementById('nowLng').value;
+	let nowLat = document.getElementById('nowLat').value; 
+	let nowLng = document.getElementById('nowLng').value;
+	console.log(nowLat);
+	console.log(nowLng);
+	console.log(keyword);
+	console.log(radius);
 	
 	if(keyword == "밥집"){
 		for(var j=0; j< categoryArr.length; j++){
@@ -119,6 +123,8 @@ function searchResList(radius, keyword, lat, lng){
 	console.log(radius);		
 	console.log(lat);
 	console.log(lng);
+	console.log(radius);
+	console.log(keyword);
 	$.ajax({
 		url: "https://dapi.kakao.com/v2/local/search/keyword.json?query="
 		 + keyword + "&x=" + lng + "&y=" + lat + "&radius=" + radius,
@@ -452,7 +458,7 @@ $('.gameBtn').on('click', function(e){
 							data: resultResOfLadder,
 							// contentType 있으면 안된다고 했는데 언제 였지 객체를 보낼때였나.
 							//contentType: 'application/x-www-form-urlencoded; charset=euc-kr', 
-							success: function(){
+							success: function(data){
 								console.log("됐다.");
 								console.log(resultResOfLadder);
 								console.log(resultResOfLadder.lat, resultResOfLadder.lng);
@@ -954,6 +960,3 @@ function displayMarker(locPosition, message) {
     infowindow.open(map, marker);
 }
 */
-
-
-

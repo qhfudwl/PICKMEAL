@@ -71,7 +71,7 @@ public class CouponServiceImpl implements CouponService {
 		int coupongenerate = coupon.nextInt(100000);
 		
 		/*발생확률 성공시*/
-		if(coupongenerate <=50000) {
+		if(coupongenerate <=99999) {
 			char couponType;
 			System.out.println("쿠폰발생 시켜주기");
 			/* 쿠폰 타입 랜덤으로 정해주기 */

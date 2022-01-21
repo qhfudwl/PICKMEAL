@@ -1,21 +1,32 @@
 package pickmeal.dream.pj.coupon.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.CDATASection;
 
 import com.google.protobuf.Empty;
 
 import pickmeal.dream.pj.coupon.domain.Coupon;
 import pickmeal.dream.pj.coupon.domain.CouponCategory;
+import pickmeal.dream.pj.coupon.repository.CouponDao;
 import pickmeal.dream.pj.coupon.service.CouponService;
 import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
+import pickmeal.dream.pj.restaurant.service.FavoriteRestaurantSerivce;
 
 @Controller
 public class CouponCountroller {
@@ -24,6 +35,10 @@ public class CouponCountroller {
 	CouponService cs;
 	@Resource(name="memberService")
 	MemberService ms;
+	@Autowired
+	FavoriteRestaurantSerivce frs;
+	@Autowired
+	CouponDao cd;
 	/**
 	 * 쿠폰발생 시점(게임하고 식당 띄워줄 때) 이거 안써용 
 	 * @return
@@ -157,45 +172,36 @@ public class CouponCountroller {
 		
 		
 		ModelAndView mav = new ModelAndView();
+		
 		mav.setViewName("coupon/coupon_generate_popup");
 		
 		return mav;
 	}
-	/**
-	 * 팝업창 -> 쿠폰발급 버튼선택으로 쿠폰번호 발행시
-	 * 쿠폰 발행
-	 */
-	@GetMapping("genericCoupon")
-	public ModelAndView GenericCoupon(HttpSession session) {
-		//System.out.println(session.getAttribute("member"));
-		//System.out.println(session.getAttribute("restaurant"));
-		//System.out.println(session.getAttribute("couponCategory"));
-		/*세션안에 멤버, 레스토랑, 쿠폰카테고리가 있는지 확인 후*/
-		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
-			//System.out.println("세션에 3개 다 있음");
-		Member member = (Member) session.getAttribute("member");
-		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-		//System.out.println("들어가나요??");
-		//System.out.println("있나요?" + session.getAttribute("couponCategory"));
+	
+	
+	@PostMapping("/genericJincoupon")
+	@ResponseBody
+	public ResponseEntity<?> genericJinCoupon(HttpSession session){
+		boolean b;
 		
+		Member member = (Member)session.getAttribute("member");
+		Restaurant restaurant = (Restaurant)session.getAttribute("restaurant");
+		CouponCategory couponCategory = (CouponCategory)session.getAttribute("couponCategory");
 		
 		Coupon coupon = new Coupon();
 		coupon.setMember(member);
 		coupon.setRestaurant(restaurant);
 		coupon.setCouponCategory(couponCategory);
 		cs.addCoupon(coupon);
-		
-		session.removeAttribute("couponCategory");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("index");
-		
-		return mav;
-		/*세션안에 세개중 하나가 없을 경우에는 자동 로그인기능만 할 수 있도록*/
-		}else {
-			System.out.println("세션에 3개중 뭐가 없1음!");
-		}
-		return null;
+		System.out.println("쿠폰은 어떤가요~!"+coupon);
+		if(cd.isCouponByCouponNumber(coupon.getCouponNumber()))
+			b = true;
+		else
+			b = false;
+		System.out.println(b+" 리턴 할게요!");
+		return ResponseEntity.ok(b);
 	}
+	
+	
 	
 }

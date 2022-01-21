@@ -21,4 +21,39 @@ public class ReviewDaoImpl implements ReviewDao{
 				+" WHERE restaurantId=?";
 		return jt.queryForObject(sql, new ReviewRowMapper(), restaurantId );
 	}
+
+	@Override
+	public void setReview(Review r) {
+		String sql = "UPDATE Review SET bathroom = ?, kind = ?, specialDay = ?, clean = ?,"
+				+ " parking = ?, goodgroup = ?, alone = ?, big = ?,interior = ?, userCount = ? WHERE restaurantId = ?";
+		
+		jt.update(sql,r.getReviewItem().get(0).getReviewCount(), r.getReviewItem().get(1).getReviewCount(),
+				r.getReviewItem().get(2).getReviewCount(), r.getReviewItem().get(3).getReviewCount(),
+				r.getReviewItem().get(4).getReviewCount(), r.getReviewItem().get(5).getReviewCount(),
+				r.getReviewItem().get(6).getReviewCount(), r.getReviewItem().get(7).getReviewCount(),
+				r.getReviewItem().get(8).getReviewCount(), r.getUserCount(), r.getRestaurantId());
+		
+	}
+	
+	/**
+	 * 레스토랑 유무 체크
+	 */
+	@Override
+	public boolean isReviewByRestaurantId(long restaurantId) {
+		String sql = "SELECT EXISTS (SELECT id FROM Review WHERE restaurantId = ?)";
+		return jt.queryForObject(sql, Boolean.class,restaurantId);
+	}
+
+	@Override
+	public void addReview(Review r) {
+		String sql = "INSERT INTO Review(restaurantId, bathroom, kind, specialDay, clean, parking, goodgroup, alone, big, interior, usercount)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		jt.update(sql,r.getRestaurantId(), r.getReviewItem().get(0).getReviewCount(),
+				r.getReviewItem().get(1).getReviewCount(), r.getReviewItem().get(2).getReviewCount(),
+				r.getReviewItem().get(3).getReviewCount(), r.getReviewItem().get(4).getReviewCount(),
+				r.getReviewItem().get(5).getReviewCount(), r.getReviewItem().get(6).getReviewCount(),
+				r.getReviewItem().get(7).getReviewCount(), r.getReviewItem().get(8).getReviewCount(),
+				r.getUserCount());
+		
+	}
 }

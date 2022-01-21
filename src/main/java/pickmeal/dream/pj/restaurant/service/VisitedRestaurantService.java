@@ -11,4 +11,6 @@ public interface VisitedRestaurantService {
 	List<VisitedRestaurant> findAllVisitedRestaurantByMemberId(long memberId);
 	
 	VisitedRestaurant findVisitedRestaurantById(long id);
+	
+	void removeVisitiedRestaurantById(long id);
 }
