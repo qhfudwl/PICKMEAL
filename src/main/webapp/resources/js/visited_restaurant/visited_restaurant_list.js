@@ -62,8 +62,13 @@ $(document).ready(function() {
 		}else{
 			if ( $(this).prop('checked') ){
 				$(this).val(1);
+				$(this).next().next().css('color','red');
+				$(this).parent().css({'backgroundColor' : '#f5f5f5', 'border' : '3px solid ##f23f3f'});
 	 		}else{
 				$(this).val(0);
+				$(this).css('border','0px');
+				$(this).next().next().css('color','black');
+				$(this).parent().css({'backgroundColor' : 'white', 'border' : '0px'});
 			}
 		}
 		
