@@ -44,14 +44,15 @@
           	<p>우리는 칭구칭구 밥칭구~ 혼자라도 2인세트 먹을 수 있지!</p>
           </c:if>
         </div>
-
-        <div class="postListTitleBtnWrap">
-          <ul>
-            <li><a href="#" class="postListTitleBtnOn">식당</a></li>
-            <li><a href="#">카페</a></li>
-            <li><a href="#">술집</a></li>
-          </ul>
-        </div>
+		<c:if test="${fn:contains(postType,'R') || fn:contains(postType,'E')}">
+	        <div class="postListTitleBtnWrap">
+	          <ul>
+	            <li><a href="#" class="postListTitleBtnOn">식당</a></li>
+	            <li><a href="#">카페</a></li>
+	            <li><a href="#">술집</a></li>
+	          </ul>
+	        </div>
+        </c:if>
       </div>
       <div id="postListContentContainer">
         <table class="postListContentTable">
@@ -64,14 +65,16 @@
           </tr>
           <tr>
             <td>
-              <ul class="postListContentTitleTagsWrap">
-                <li>
-                  <p>모집중</p>
-                  <div class="postListConTagTogetherIng"></div>
-                </li>
-                <li>대구 광역시 중구 중안로</li>
-                <li>01/02 13:00</li>
-              </ul>
+              <c:if test="${fn:contains(postType,'E') }">
+	              <ul class="postListContentTitleTagsWrap">
+	                <li>
+	                  <p>모집중</p>
+	                  <div class="postListConTagTogetherIng"></div>
+	                </li>
+	                <li>대구 광역시 중구 중안로</li>
+	                <li>01/02 13:00</li>
+	              </ul>
+              </c:if>
               <p class="postListContentTitle">화무비도에서 같이 쟁반짜장 먹으실 칭구칭구 구해요~! 1분 </p>
             </td>
             <td>나는뉸뉸</td>
