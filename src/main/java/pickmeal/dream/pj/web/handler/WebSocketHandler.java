@@ -24,8 +24,6 @@ import pickmeal.dream.pj.web.util.Validator;
 @RequiredArgsConstructor
 public class WebSocketHandler extends TextWebSocketHandler {
 
-	private List<WebSocketSession> sesisonList = new ArrayList<WebSocketSession>();
-	private List<Member> loginMemberList = new ArrayList<Member>();
 	private Map<String, WebSocketSession> loginMemberMap = new HashMap<String, WebSocketSession>();
 	
 	@Autowired
@@ -38,16 +36,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
 		log.info("#WebSocketHandler, afterConnectionEstablished");
-		Map<String, Object> map = session.getAttributes();
+		Map<String, Object> map = session.getAttributes(); // 현재 접속한 사용자의 session scope 을 반환
 		Member member = (Member)map.get("member"); 
 		
-		// 로그인 화면에서 한번 넣는다.
-		if (!loginMemberList.contains(member)) { // 이미 로그인한 사용자의 경우 넣지 않는다.
-			sesisonList.add(session); // 현재 웹소켓 세션 리스트
-			loginMemberList.add(member); // 현재 맴버 리스트 (로그인 한 사용자를 구분한다.)
-			log.info("멤버 이름 : " + member.getNickName());
-		}
-		loginMemberMap.put(member.getEmail(), session); // 채팅 시 바로 이메일을 사용해서 뽑아내기 위함
+		loginMemberMap.put(member.getNickName(), session); // 채팅 시 바로 닉네임을 사용해서 뽑아내기 위함
 		
 	}
 	
@@ -73,9 +65,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				session.sendMessage(new TextMessage("댓글 작성자 로그인 중"));
 				String msg = writer.getNickName() + "와 채팅이 시작되었습니다."
 						+ "<br>채팅에 참석을 원한다면 아래의 채팅 바로가기 버튼을 눌러주세요."
-						+ "<br>참석을 원하지 않을 시 창을 닫아주세요."
-						+ "//" + commenter.getEmail()
-						+ "//" + writer.getEmail();
+						+ "<br>참석을 원하지 않을 시 창을 닫아주세요.//" + writer.getId() + "//" + writer.getNickName()
+						+ "//" + commenter.getId() + "//" + commenter.getNickName();
+				// commenter의 session scope 에 writer 랑 commenter 를 넣어준다.
+				
 				commenterS.sendMessage(new TextMessage(msg));
 				
 			}
@@ -85,24 +78,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String name = line.substring(0, line.indexOf(":")); // 보낸 사람 닉네임
 		String message = line.substring(line.indexOf(":")+1); // 내용
 		
-		log.info(message);
 		
 		// 채팅 거절 시
 		if (message.contains("님은 시간이 부족하네요ㅠㅠ")) {
 			WebSocketSession writerS = loginMemberMap.get(name);
-			writerS.sendMessage(new TextMessage(message));
+			writerS.sendMessage(new TextMessage(name + ":" + message));
 			return;
 		}
 		// 채팅 수락 시
 		if (message.contains("님이 입장했습니다.")) {
-			WebSocketSession writerS = loginMemberMap.get(writer.getEmail());
-			writerS.sendMessage(new TextMessage(message));
+			WebSocketSession writerS = loginMemberMap.get(writer.getNickName());
+			writerS.sendMessage(new TextMessage(name + ":" + message));
 			return;
 		}
 		
 		// 작성자와 댓글을 적은 사람에게만 보낸다.
 		for (String email : loginMemberMap.keySet()) {
-			if (email.equals(writer.getEmail()) || email.equals(commenter.getEmail())) {
+			if (email.equals(writer.getNickName()) || email.equals(commenter.getNickName())) {
 				WebSocketSession s = loginMemberMap.get(email);
 				s.sendMessage(new TextMessage(name + ":" + message));
 			}
@@ -111,7 +103,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		Map<String, Object> map = session.getAttributes();
+		// session scope 에 저장해 둔 writer와 commenter 도 삭제
+		map.remove("writer");
+		map.remove("commenter");
 		
+		Member member = (Member)map.get("member");
+		loginMemberMap.remove(member.getNickName());
 		log.info("#WebSocketHandler, afterConnectionClosed");
 	}
 }

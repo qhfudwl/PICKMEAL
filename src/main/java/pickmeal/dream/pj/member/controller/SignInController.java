@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
@@ -43,6 +44,14 @@ public class SignInController {
 		return mav;
 	}
 	
+	@GetMapping("/member/signOutMember")
+	public String signOutMember(HttpSession session) {
+		session.removeAttribute("member");
+		session.removeAttribute("writer");
+		session.removeAttribute("commenter");
+		return "redirect:/index";
+	}
+	
 	@PostMapping("/member/signInMember")
 	public ModelAndView signInMember(@ModelAttribute MemberCommand memberCommand
 			, @RequestParam("chkBtn") String chkBtn, HttpSession session) {
@@ -74,6 +83,8 @@ public class SignInController {
 		// 유효성 검사를 마친 후 사용자 정보 업데이트 필요
 		member = ms.signInMember(member);
 		
+		// 알람을 받을 거라는 체크
+		session.setAttribute("chatCount", "true");
 		
 		// 필요한 정보만 setting
 		Member enterMember = new Member();
@@ -92,24 +103,21 @@ public class SignInController {
 		
 		/*쿠폰 서비스 추가*/
 		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
-		Member member2 = (Member) session.getAttribute("member");
-		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-		
-		
-		Coupon coupon = new Coupon();
-		coupon.setMember(member2);
-		coupon.setRestaurant(restaurant);
-		coupon.setCouponCategory(couponCategory);
-		cs.addCoupon(coupon);
-		
-		session.removeAttribute("couponCategory");
-		
+			Member member2 = (Member) session.getAttribute("member");
+			Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+			CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
+			
+			
+			Coupon coupon = new Coupon();
+			coupon.setMember(member2);
+			coupon.setRestaurant(restaurant);
+			coupon.setCouponCategory(couponCategory);
+			cs.addCoupon(coupon);
+			
+			session.removeAttribute("couponCategory");
+		}
 		mav.setViewName("redirect:/index");
 		return mav;
-		}else {
-			mav.setViewName("redirect:/index");
-			return mav;
-		}
+	
 	}
 }

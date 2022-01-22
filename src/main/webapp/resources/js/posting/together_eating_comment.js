@@ -21,17 +21,16 @@ function displayUpdate(a) {
 // 댓글 쓰기
 let allCmtNum = Number($("#allCmtNum").val()); // 총 댓글 수
 let allPageNum = Number($("#allPageNum").val()); // 모든 페이지 개수
-$("#writeOk").click(function(e) {
-	e.preventDefault();
+function writeComment() {
 	let formData = $("form[name=writeCmtForm]").serialize(); // 폼 데이터
 	let memberId = $("input[name=memberId]").val(); // 로그인한 유저 아이디
 	let postMemberId = $("input[name=post_memberId]").val(); // 글쓴이 아이디
 	let postId = $("input[name=postId]").val(); // 게시물 아이디
 	let postCategory = $("input[name=category]").val(); // 게시물 카테고리
-	let pageNum = $("button[name=pageNum]").val(); // 현재 페이지 넘버
+	let cpageNum = $("button[name=cpageNum]").val(); // 현재 페이지 넘버
 	let commentWrapNum = $(".commentWrap").length; // 현재 표시된 댓글 수
 	let viewPageNum = $("#viewPageNum").val(); // 표시해야할 댓글 목록 수
-	let pageNumber = $(".pageNum").length; // 버튼의 개수
+	let cpageNumber = $(".cpageNum").length; // 버튼의 개수
 	
 // 마지막 페이지가 아니라면 추가하면 안된다.
 // 만일 현재 페이지에 댓글이 댓글 목록 수만큼 있다면 추가하면 안된다.
@@ -42,7 +41,7 @@ $("#writeOk").click(function(e) {
 		type: "post",
 		data: formData,
 		success: function(data) {
-			if (pageNum <= allPageNum && commentWrapNum < viewPageNum) {
+			if (cpageNum <= allPageNum && commentWrapNum < viewPageNum) {
 				if (data != "empty") {
 					let moreHtml;
 					let chatHtml;
@@ -57,8 +56,8 @@ $("#writeOk").click(function(e) {
 						moreHtml = "";
 					}
 																					//  && postMemberId != data.member.id
-					if (postMemberId == memberId && memberId != 0 && postCategory == 'E') {
-						chatHtml = '<button type="submit" class="chat" onclick="goChat(this)" value="' + data.member.email + '">채팅하기</button>';
+					if (postMemberId == memberId && memberId != 0 && postCategory == 'E' && postMemberId != data[i].member.id) {
+						chatHtml = '<button type="submit" class="chat" onclick="goChat(this)" value="' + data.member.id + '">채팅하기</button>';
 					} else {
 						chatHtml = "";
 					}
@@ -90,24 +89,25 @@ $("#writeOk").click(function(e) {
 				console.log("버튼 새로 만들기 모든 페이지 수 : " + allPageNum)
 				let addPageNum = ++allPageNum;
 				$("#pageWrap").append(
-					'<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="pageNum" class="pageNum pageNum' + addPageNum +  
+					'<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="cpageNum" class="cpageNum cpageNum' + addPageNum +  
 					'" value="' + addPageNum + '">' + addPageNum + '</button>'
 				)
 				movePageNumber("plus");
-				if (pageNumber != 0 && pageNumber % 10 == 0) {
+				if (cpageNumber != 0 && cpageNumber % 10 == 0) {
 					$("#rightPage").show();
 				}
 			}
 			allCmtNum++;
-			console.log("현재 댓글 수 : " + allCmtNum)
-			console.log("모든 페이지 수 : " + allPageNum)
 			
 			$("#writeCmt").val("");
-		},
-		error: function() {
-			console.log("error")
 		}
 	})
+}
+
+$("#writeCmt").keyup(function(key){
+	if(key.keyCode == 13) {
+		writeComment();
+	}
 })
 
 // 수정하기 열기
@@ -160,7 +160,7 @@ function deleteComment(a) {
 	let category = $("input[name=category]").val();
 	let postId = $("input[name=postId]").val();
 	let memberId = $("#cmtMemberId" + id).val();	
-	let pageNumber = $(".pageNum").length; // 버튼의 개수
+	let cpageNumber = $(".cpageNum").length; // 버튼의 개수
 	let json = {"id": id, "category": category, "postId": postId, "memberId": memberId};
 	$.ajax({
 		url: "deleteComment",
@@ -174,20 +174,20 @@ function deleteComment(a) {
 				console.log("현재 댓글 수 : " + allCmtNum)
 				let viewCmt = $(".commentWrap").length; // 현재 화면에 보이는 댓글 수
 				if (viewCmt == 0) {
-					$(".pageNum:last-of-type").remove();
+					$(".cpageNum:last-of-type").remove();
 					if (clickPageBtn == 1) { // 현재 페이지가 1이면
-						$(".pageNum:first-of-type").trigger("click");
-					} else if (clickPageBtn == (Number($(".pageNum:last-of-type").val())+1)) { // 현재 페이지가 마지막 페이지이면
-						$(".pageNum:last-of-type").trigger("click");
+						$(".cpageNum:first-of-type").trigger("click");
+					} else if (clickPageBtn == (Number($(".cpageNum:last-of-type").val())+1)) { // 현재 페이지가 마지막 페이지이면
+						$(".cpageNum:last-of-type").trigger("click");
 						allPageNum--;
 					} else {
-						$(".pageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
+						$(".cpageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
 					}
-					if (pageNumber != 1 && pageNumber % 10 == 1) {
+					if (cpageNumber != 1 && cpageNumber % 10 == 1) {
 						$("#leftPage").trigger("click");
 					}
 				} else {
-					$(".pageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
+					$(".cpageNum:nth-of-type( " + clickPageBtn + ")").trigger("click");
 				}
 				
 				movePageNumber("minus");
@@ -198,15 +198,14 @@ function deleteComment(a) {
 
 // 페이지 로드 시 항상 댓글의 첫번 째 페이지가 들어온다.
 // 하지만 사용자가 직접 번호를 적었을 때도 불러올 수 있어야가힉 때문에 
-// url의 pageNum 을 받아서 해당 버튼으로 갈 수 있도록 해야한다
+// url의 cpageNum 을 받아서 해당 버튼으로 갈 수 있도록 해야한다
 window.addEventListener("load", function() {
-	let pageNum = $("#pageNum").val() // 현재 페이지 번호를 받아서 
-	let pageNumber = $(".pageNum").length; // 버튼의 개수
-	console.log(pageNum)
+	let cpageNum = $("#cpageNum").val() // 현재 페이지 번호를 받아서 
+	let cpageNumber = $(".cpageNum").length; // 버튼의 개수
 	
-	$(".pageNum" + pageNum).trigger("click");
-	if (pageNum > 10 && pageNumber > 10) {
-		for (let i=0; i<(Math.floor(pageNum / 10.0)); i++) {
+	$(".cpageNum" + cpageNum).trigger("click");
+	if (cpageNum > 10 && cpageNumber > 10) {
+		for (let i=0; i<(Math.floor(cpageNum / 10.0)); i++) {
 			$("#rightPage").trigger("click");
 		}
 	}
@@ -214,7 +213,7 @@ window.addEventListener("load", function() {
 
 // 버튼 누를 시 해당 버튼이 on 되도록 한다.
 function changePageNumBtnColor(a) {
-	$(".pageNum").css({"text-decoration": "none", "color":"#000"});
+	$(".cpageNum").css({"text-decoration": "none", "color":"#000"});
 	$(a).css({"text-decoration": "underline", "color":"#f23f3f"});
 }
 
@@ -223,8 +222,8 @@ function changePageNumBtnColor(a) {
 // 버튼 누를 시 화면 전환이 되듯이 ajax로 다음 행부터 DB에서 가져오기
 function moveCommentPage(a) {
 	//let i = 0;
-	let pageNum = $(a).val(); // 현재 페이지 넘버
-	clickPageBtn = pageNum;
+	let cpageNum = $(a).val(); // 현재 페이지 넘버
+	clickPageBtn = cpageNum;
 	let category = $("input[name=category]").val(); // 게시물 카테고리
 	let memberId = $("input[name=memberId]").val(); // 현재 로그인 아이디
 	let postId = $("input[name=postId]").val(); // 현재 게시글 아이디
@@ -237,7 +236,7 @@ function moveCommentPage(a) {
 	// 문서 높이 - 윈도우 높이를 하면 현재 스크롤의 마지막 위치값이 나온다.
 	//let lastScroll = documentH - wHeight;
 	// 마지막 위치값에서 - 50 위치값이 되면 새롭게 불러와야한다.
-	let json = {"postId": postId, "category": category, "pageNum":pageNum};
+	let json = {"postId": postId, "category": category, "cpageNum":cpageNum};
 	//if (state == 0 && i == 0) {
 		//state = 1;
 			$.ajax({
@@ -260,8 +259,8 @@ function moveCommentPage(a) {
 						moreHtml = "";
 					}
 																					//  && postMemberId != data[i].member.id
-					if (postMemberId == memberId && memberId != 0 && category == 'E') {
-						chatHtml = '<button type="button" class="chat"  onclick="goChat(this)" value="' + data[i].member.email + '">채팅하기</button>';
+					if (postMemberId == memberId && memberId != 0 && category == 'E' && postMemberId != data[i].member.id) {
+						chatHtml = '<button type="button" class="chat"  onclick="goChat(this)" value="' + data[i].member.id + '">채팅하기</button>';
 					} else {
 						chatHtml = "";
 					}
@@ -301,7 +300,7 @@ function moveCommentPage(a) {
 }
 
 // 페이지 버튼들
-let btnW = $(".pageNum:first-of-type").outerWidth(); // 버튼 너비
+let btnW = $(".cpageNum:first-of-type").outerWidth(); // 버튼 너비
 let move = 0;
 movePageNumber("normal");
 // < 버튼
@@ -326,12 +325,11 @@ $("#writeOk").click(function() {
 })
 
 function movePageNumber(dir) {
-	let pageNumber = $(".pageNum").length; // 버튼의 개수
-	let allBtnW = btnW * pageNumber; // 현재 모든 버튼의 너비
+	let cpageNumber = $(".cpageNum").length; // 버튼의 개수
+	let allBtnW = btnW * cpageNumber; // 현재 모든 버튼의 너비
 	// move 는 moveNumber 보다 커져서는 안된다.
-	console.log("버튼 개수 : " + pageNumber)
-	let moveNumber = Math.floor(pageNumber / 10.0); // 이동해야하는 횟수
-	if (pageNumber > 10 && pageNumber % 10.0 == 0) { // 만일 페이지 수가 딱 떨어진다면 -1 해준다
+	let moveNumber = Math.floor(cpageNumber / 10.0); // 이동해야하는 횟수
+	if (cpageNumber > 10 && cpageNumber % 10.0 == 0) { // 만일 페이지 수가 딱 떨어진다면 -1 해준다
 		moveNumber--;
 	}
 	$("#pageWrap").css({"width":allBtnW + "px"})
@@ -359,7 +357,7 @@ function movePageNumber(dir) {
 		move = moveNumber;
 	}
 	// 페이지 개수가 10 이하이면 모두 숨김
-	if(pageNumber <= 10) {
+	if(cpageNumber <= 10) {
 		$("#rightPage").hide();
 		$("#lastPage").hide();
 		$("#leftPage").hide();
@@ -387,7 +385,7 @@ function movePageNumber(dir) {
 			$("#lastPage").hide();
 		}
 	}
-	let wrapW = pageNumber % 10;
+	let wrapW = cpageNumber % 10;
 	console.log("moveNumber : " + moveNumber)
 	console.log("move : " + move)
 	if (wrapW != 0 && move == moveNumber) {
@@ -398,7 +396,7 @@ function movePageNumber(dir) {
 }
 
 
-if($(".pageNum").length <= 10) {
+if($(".cpageNum").length <= 10) {
 	$("#rightPage").hide();
 	$("#lastPage").hide();
 	$("#leftPage").hide();
@@ -412,12 +410,13 @@ if($(".pageNum").length <= 10) {
 
 // 채팅하기 (이메일 넣어주기)
 function goChat(a) {
-	let writer = $("input[name=post_memberId]").data("writer");
+	// let writer = $("input[name=post_memberId]").data("writer");
+	let writer = $("input[name=post_memberId]").val();
 	let commenter = $(a).val();
 	
 	let viewCmtForm = document.viewCmtForm;
-	viewCmtForm.action = "goChat";
-	viewCmtForm.method = "post";
+	viewCmtForm.action = getContextPath() + "/chat/chatListByComment";
+	viewCmtForm.method = "get";
 	//viewCmtForm.target = "_blank";
 	
 	let input1 = document.createElement("input");

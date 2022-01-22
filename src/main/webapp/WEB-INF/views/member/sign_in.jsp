@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>밥찡코</title>
 <%@ include file="/WEB-INF/views/incl/link.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/sign_in.css" />
+<script src="${pageContext.request.contextPath}/resources/js/member/sign_in.js" defer></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>

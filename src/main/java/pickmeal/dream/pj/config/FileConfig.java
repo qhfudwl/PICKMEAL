@@ -35,6 +35,4 @@ public class FileConfig {
 	
 	
 	//식당리뷰 게시판 관련 파일
-	
-	
 }

@@ -1,11 +1,12 @@
 @charset "UTF-8";
 #chatAlarmWrap {
 	position: fixed; bottom: 10px; right: 10px; display: none;
+	z-index: 5000;
 }
 #chatShowHide {
-	background-color: #f5f5f5; padding: 20px;
+	background-color: #f5f5f5; padding: 20px; border-radius: 20px;
 	position: relative; width: 300px; text-align: center;
-	border: 3px solid #808080; border-right: 0; border-left: 0;
+	/* border: 3px solid #808080; border-right: 0; border-left: 0; */
 }
 #chatAlarmWrap h4 {
 	color: #f23f3f; font-size: 20px; font-family: 'DungGeunMo';
