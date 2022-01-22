@@ -117,7 +117,7 @@ public class ChatServiceImpl implements ChatService {
 		if (os.contains("win")) {
 			rootPath = "C:/";
 		} else if (os.contains("mac")) { // 이 아래 부분 수정 좀 해주세욤
-			rootPath = "~/";
+			rootPath = "/Users/";
 		} else if (os.contains("uix")) {
 			rootPath = "~/";
 		} else if (os.contains("linux")) {
