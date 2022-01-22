@@ -44,6 +44,7 @@
           	<p>우리는 칭구칭구 밥칭구~ 혼자라도 2인세트 먹을 수 있지!</p>
           </c:if>
         </div>
+
         <div class="postListTitleBtnWrap">
           <ul>
             <li><a href="#" class="postListTitleBtnOn">식당</a></li>
