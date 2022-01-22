@@ -26,8 +26,10 @@
 	let pageName = urlArr[urlArr.length - 1];
 	let sockChat = null;
 	
-	sockChat = new SockJS("<c:url value="/oneChatting"/>");
-	sockChat.onmessage = onMessage;
+	if (check != "") {
+		sockChat = new SockJS("<c:url value="/oneChatting"/>");
+		sockChat.onmessage = onMessage;
+	}
 	
 
 	function closeChatAlarm() {
