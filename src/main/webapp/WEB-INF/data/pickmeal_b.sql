@@ -10,6 +10,9 @@ CREATE TABLE Member (															# 사용자
 	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP		# 회원가입 날짜
 );
 
+INSERT INTO Member(memberType,email,passwd,nickName,birth,gender,profileImgPath)
+VALUES("M","god@naver.com","1234","godgod","19901201","F","temp");
+
 CREATE TABLE FoodPowerPoint (													# 식력 포인트
 	id			BIGINT		PRIMARY KEY	AUTO_INCREMENT,							# SQL 아이디
 	memberId	BIGINT		NOT NULL,											# 사용자 아이디
@@ -200,6 +203,7 @@ SELECT * FROM TogetherEatingComment;
 INSERT INTO TogetherEatingComment(memberId,postId,content)
 VALUES(40,1,"저랑 드시면 밥을 더 드실 수 있습니당.");
 
+<<<<<<< HEAD
 drop table chat
 
 CREATE TABLE Chat(
@@ -223,3 +227,20 @@ delete from chat
 select id, writerId, commenterId, filePath, regDate from chat where writerId=1 or commenterId=1
 
 select id, writerId, commenterId, filePath, regDate from chat where (writerId=1 or commenterId=1) and id > 4 limit 5
+=======
+
+
+CREATE TABLE NoticePosting (									# 식당 추천 게시판
+	id				BIGINT			PRIMARY KEY	AUTO_INCREMENT,				# SQL 아이디
+	memberId		BIGINT			NOT NULL,								# 사용자 아이디							# 식당 아이디
+	title			VARCHAR(100)	NOT NULL,								# 제목
+	content			MEDIUMTEXT		NOT NULL,								# 내용				# 좋아요 수
+	views			INT				NOT NULL	DEFAULT 0,					# 조회 수
+	regDate			TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,	# 글 등록 날짜
+	CONSTRAINT		NoticePosting_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id) ON DELETE CASCADE
+	
+);
+DROP TABLE NoticePosting;
+SELECT * FROM NoticePosting;
+
+>>>>>>> branch 'developer' of https://github.com/akapulin/PICKMEAL.git

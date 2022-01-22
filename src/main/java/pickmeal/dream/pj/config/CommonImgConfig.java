@@ -21,7 +21,7 @@ public class CommonImgConfig {
 	@Bean
 	public PropertiesConfiguration imgPropertyConfig(ServletContext scontext) {
 		PropertiesConfiguration propertyConfig;
-		scontext.getRealPath("/WEB-INF/config/imgpath.properties");
+		//scontext.getRealPath("/WEB-INF/config/imgpath.properties");
 		propertyConfig = new PropertiesConfiguration();
 		try {
 			propertyConfig.load(new File(scontext.getRealPath("/WEB-INF/config/imgpath.properties")));

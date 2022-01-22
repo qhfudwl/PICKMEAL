@@ -195,8 +195,13 @@
 			    <input type="hidden" id="restaurantIsempty" value=""/>
 			    <input type="hidden" id="memberId" name="memberIdJWS" value="${member.getId()}"/>
 				<!-- 정원식 쿠폰 발급 -->
+<<<<<<< HEAD
 				<form method="get" id="couponPopupCreatebtn">
 					<div id="couponGenerateWrap" onclick="document.forms['couponPopupCreatebtn'].submit();">
+=======
+				<form method="get" name="couponPopupCreate">
+					<div id="couponGenerateWrap" >
+>>>>>>> branch 'developer' of https://github.com/akapulin/PICKMEAL.git
 			     		<p id="couponGenerateName">쿠폰</p>
 			      		<input type="submit" id="couponGenerate"/>
 			    	</div>

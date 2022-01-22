@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+#couponGenerateWrap {
+	width: 45px; height: 45px; outline: none; border: 0;  font-weight: bold;
+	background-color: #f23f3f; color: #fff; border-radius: 45px; cursor: pointer;
+	position: absolute; right: 80px; top: 0px; transition-duration: 0.3s; text-align: center;
+	line-height: 45px; display: none;
+}
+
+#couponGenerate{display: none;}
+
+
+#jjimdiv{width: 25px; height: 25px; outline: none; border: 0;  font-weight: bold;
+	background-color: #f23f3f; color: #fff; cursor: pointer;
+	position: absolute; right: 28px; top: 11px; transition-duration: 0.3s; text-align: center;
+	line-height: 50px; transform: rotate(45deg); display: none;
+}
+
+#jjimdiv::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: -50%;
+    border-radius: 50%;
+    background: #f23f3f;;
+    z-index: 49;
+  }
+ 
+#jjimdiv::after {
+    content: "";
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right:0px;
+    top:-50%;
+    border-radius: 50%;
+    background: #f23f3f;;
+    z-index: 49;
+  }
+
+#jjimbtn{display:none;}
+
+#hideAon{width: 55px; height: 45px; outline: none; border: 0;  font-weight: bold;
+	background-color: red; color: #000; border-radius: 45px; cursor: pointer;
+	position: absolute; right: 100px; top: -20px; transition-duration: 0.3s; text-align: center;
+	line-height: 45px;}

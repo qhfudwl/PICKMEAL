@@ -96,28 +96,16 @@ public class SignInController {
 		enterMember.setMannerTemperature(member.getMannerTemperature());
 		enterMember.setProfileImgPath(member.getProfileImgPath());
 		
-		log.info(enterMember.toString());
 
 		// 업데이트 후 session 에 담아서 메인 화면으로 보낸다.
 		session.setAttribute("member", enterMember);
 		
-		/*쿠폰 서비스 추가*/
-		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
-			Member member2 = (Member) session.getAttribute("member");
-			Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-			CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-			
-			
-			Coupon coupon = new Coupon();
-			coupon.setMember(member2);
-			coupon.setRestaurant(restaurant);
-			coupon.setCouponCategory(couponCategory);
-			cs.addCoupon(coupon);
-			
-			session.removeAttribute("couponCategory");
-		}
+		/*쿠폰 서비스 추가*/	
+
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		mav.setViewName("redirect:/index");
 		return mav;
-	
 	}
 }

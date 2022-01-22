@@ -33,4 +33,9 @@ public class ReviewItem implements Comparable<ReviewItem> {
 		return 0;
 
 	}
+
+	public ReviewItem(int reviewCount) {
+		super();
+		this.reviewCount = reviewCount;
+	}
 }

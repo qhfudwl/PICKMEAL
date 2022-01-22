@@ -27,12 +27,15 @@ import java.util.HashMap;
 	import com.mysql.cj.xdevapi.JsonArray;
 
 	import lombok.extern.java.Log;
-	import pickmeal.dream.pj.game.service.GameService;
+import pickmeal.dream.pj.coupon.domain.CouponCategory;
+import pickmeal.dream.pj.coupon.service.CouponService;
+import pickmeal.dream.pj.game.service.GameService;
 	import pickmeal.dream.pj.member.domain.Member;
 	import pickmeal.dream.pj.message.service.MessageService;
 	import pickmeal.dream.pj.restaurant.command.RestaurantCommand;
 	import pickmeal.dream.pj.restaurant.domain.Restaurant;
-	import pickmeal.dream.pj.restaurant.service.RestaurantCheckService;
+import pickmeal.dream.pj.restaurant.service.FavoriteRestaurantSerivce;
+import pickmeal.dream.pj.restaurant.service.RestaurantCheckService;
 	import pickmeal.dream.pj.web.controller.MapController_SJW;
 	import pickmeal.dream.pj.web.util.Validator;
 
@@ -56,6 +59,13 @@ public class GameController {
 	
 	@Autowired
 	Validator validator;
+	
+	/*쿠폰 서비스 추가 - 정원식*/
+	@Autowired
+	CouponService cs;
+	/*찜 버튼 추가 -정원식*/
+	@Autowired
+	FavoriteRestaurantSerivce frs;
 	
 	@GetMapping("/openGamePopUp")
 	public String openGamePopUp() {
@@ -208,7 +218,121 @@ public class GameController {
 			gs.insertLastGameRecord(member.getId(), restaurant.getId());
 		}
 		session.setAttribute("restaurant", restaurant);
-		
+		HashMap<String,String> map = new HashMap<String, String>();
+		map.put("rid", Long.toString(restaurant.getId()));
+		/**
+		 * 정원식
+		 * 쿠폰 발급 유무 추가
+		 */
+		if(restaurant.isRType()== true) {
+			
+			/*멤버라면?*/
+			if(member !=null) {
+				/*오늘 받은 쿠폰개수 확인 해주기*/
+				if(cs.findCouponByMemberIdinToday(member.getId())==1) {
+					if(cs.findCouponBymemberIdinTodayMax(member.getId())<=2) {
+						
+						/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
+						CouponCategory couponCategory = cs.findCouponCategoryGo();
+						System.out.println("제휴식당 들어옴");
+						
+						/*쿠폰이 발급이 안된 경우 리턴값이 없을 경우 그냥 통과*/
+						if(couponCategory == null) {
+						System.out.println("2~3회 쿠폰미발급");
+							if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+								return ResponseEntity.ok(null);
+							}else {
+								map.put("restaurant", "restaurant");
+								return ResponseEntity.ok(map); 
+							}
+						}
+						/*쿠폰이 발급 된 경우*/
+						else{
+							/*쿠폰이 발급이 되어 리턴값이 있을 경우는 세션에 저장 레스토랑, 쿠폰카테고리.*/
+							session.setAttribute("couponCategory", couponCategory);
+							System.out.println("2~3번째 쿠폰발급 완료");
+							/*리턴할 쿠폰, 찜식당 버튼을 위한 전달*/
+							map.put("couponCategory", "couponCategory");
+							if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+								return ResponseEntity.ok(map);
+							}else {
+								map.put("restaurant", "restaurant");
+								return ResponseEntity.ok(map); 
+							}
+						}
+					}
+					/*오늘받은 쿠폰이 3개인 경우 그냥 통과*/
+					else {
+						System.out.println("3개 다 채워서 못받음");
+						if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+							return ResponseEntity.ok(null);
+						}else {
+							map.put("restaurant", "restaurant");
+							return ResponseEntity.ok(map); 
+						}						
+					}
+					/*오늘 발급 받은적 없으면*/
+				}else {
+					/*제휴 레스토랑이면 메소드 돌려서 쿠폰나오면 발급 해주기*/
+					CouponCategory couponCategory = cs.findCouponCategoryGo();
+					System.out.println("제휴식당 들어옴");
+					
+					/*쿠폰이 발급이 안된 경우 리턴값이 없을 경우 그냥 통과*/
+					if(couponCategory == null) {
+						System.out.println("첫번째 쿠폰 미발급");
+						if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+							return ResponseEntity.ok(null);
+						}else {
+							map.put("restaurant", "restaurant");
+							return ResponseEntity.ok(map); 
+						}
+					}
+					/*쿠폰이 발급 된 경우*/
+					else{
+						/*쿠폰이 발급이 되어 리턴값이 있을 경우는 세션에 저장 레스토랑, 쿠폰카테고리.*/
+						session.setAttribute("couponCategory", couponCategory);
+						System.out.println("첫번째 쿠폰 발급");
+						
+						/*리턴할 쿠폰, 찜식당 버튼을 위한 전달*/
+						map.put("couponCategory", "couponCategory");
+						if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+							return ResponseEntity.ok(map);
+						}else {
+							map.put("restaurant", "restaurant");
+							return ResponseEntity.ok(map); 
+						}
+					}
+				}
+			}
+			/*제휴식당이면서, 멤버가 아니라면*/
+			else {
+				CouponCategory couponCategory = cs.findCouponCategoryGo();
+				/*쿠폰이 발급이 안되서 리턴값이 없을 경우 그냥 통과*/
+				if(couponCategory == null) {
+					System.out.println("멤버아니고 발급 안됨.");
+				}else {
+
+				session.setAttribute("couponCategory", couponCategory);
+					System.out.println("멤버아니고 발급 됨.");
+					map.put("couponCategory", "couponCategory");
+					return ResponseEntity.ok(map);
+					
+					
+				}
+			}
+		}
+		/*제휴 없는 식당은 그냥 통과*/
+		else {
+			System.out.println("제휴식당 아님");
+			if(member !=null) {
+				if(frs.isFavoriteRestaurant(member.getId(), restaurant.getId())) {
+					return ResponseEntity.ok(null);
+				}else {
+					map.put("restaurant", "restaurant");
+					return ResponseEntity.ok(map); 
+				}	
+			}	
+		}
 		return ResponseEntity.ok(null);
 	}	
 //		왜 모델앤뷰로 안되냐고!!!!!!!!!!!

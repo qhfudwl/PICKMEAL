@@ -18,6 +18,10 @@ public class Restaurant {
 	public Restaurant() {
 		
 	}
+	
+	public Restaurant(long id){
+		this.id = id;
+	}
 	public Restaurant(long id,long apiId, boolean rType, double lat, double lng, String address, String rName) {
 		super();
 		this.id = id;
@@ -33,7 +37,7 @@ public class Restaurant {
 		return "Restaurant [id=" + id + " apiId=" + apiId + ", rType=" + rType + ", lat=" + lat + ", lng=" + lng + ", address=" + address
 				+ ", rName=" + rName + "]";
 	}
-	
+
 	public boolean isRType() {
 		return rType;
 	}
