@@ -1,18 +1,11 @@
 package pickmeal.dream.pj.posting.controller;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.posting.domain.Posting;
 import pickmeal.dream.pj.posting.domain.TogetherEatingPosting;
@@ -99,7 +92,7 @@ public class ListPostController {
 	
 	/*
 	 * 
-	 * 
+	 * 다중매핑으로 한개의 함수로 사용하는건 좋았으나...
 	 * 이슈2)  
 	 * 		어떻게든 지저분하게 URI를 만들고 싶지 않다.
 	 * 		그러나 무슨 게시판인지 type설정해줘야했다.

@@ -1,9 +1,5 @@
 package pickmeal.dream.pj.posting.util;
 
-import java.net.http.HttpRequest;
-
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -72,5 +68,7 @@ public class Criteria {
 			this.type = 'E';	//togher
 		}
 	}
+
+
 
 }

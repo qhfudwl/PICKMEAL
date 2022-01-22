@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 
@@ -10,17 +10,39 @@
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/js/posting/post_list.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/posting/post.css" />
-<title>게시판</title>
+<!-- 
+	java char type은  jstl eq로 비교시 에러남!!
+	fn:contain로 비교할 것	
+ -->
+ <c:set var="postType" value="${pageMaker.criteria.type }"/>
+<c:choose>
+	<c:when test="${fn:contains(postType,'N')}"><title>밥찡코 - 공지사항</title></c:when>
+	<c:when test="${fn:contains(postType,'R')}"><title>밥찡코 - 식당추천</title></c:when>
+	<c:when test="${fn:contains(postType,'E')}"><title>밥찡코 - 밥친구</title></c:when>
+	<c:otherwise><title>밥찡코</title></c:otherwise>
+</c:choose>
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
  <section id="totalPostContainer">
     <h2 class="hidden">게시판목록</h2>
+    <c:if test="${not empty postType }">
     <div id="postListContainer">
       <div id="postListTitleContainer">
         <div class="postListTitleWrap">
-          <h3>공지사항</h3>
-          <p>읽어주시면 밥찡코를 더 잘 활용할 수 있어요</p>
+          <c:if test="${fn:contains(postType,'N')}">
+          	<h3>공지사항</h3>
+          	<p>읽어주시면 밥찡코를 더 잘 활용할 수 있어요</p>
+          </c:if>
+          <c:if test="${fn:contains(postType,'R')}">
+          	<h3>식당추천</h3>
+          	<p>나만 알고 있는 찐 맛집을 추천해주세요!</p>
+          </c:if>
+          <c:if test="${fn:contains(postType,'E')}">
+          	<h3>밥친구</h3>
+          	<p>우리는 칭구칭구 밥칭구~ 혼자라도 2인세트 먹을 수 있지!</p>
+          </c:if>
         </div>
         <div class="postListTitleBtnWrap">
           <ul>
@@ -119,7 +141,7 @@
         </div>
       </div>
     </div>
-
+	</c:if>
   </section>
 </body>
 </html>

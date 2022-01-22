@@ -9,11 +9,6 @@
 			<li><a href="${pageContext.request.contextPath}/posting/notice">공지사항</a></li>
 			<li><a href="${pageContext.request.contextPath}/posting/recommend">식당추천</a></li>
 			<li><a href="${pageContext.request.contextPath}/posting/together">밥친구</a></li>
-			<!--  
-            <form name="indexView" action="${pageContext.request.contextPath}/posting/viewTogetherEatingComment" method="get">
-            	<button type="submit" name="pageNum" value="1">밥친구</button>
-            	밥친구
-            </form>-->
 		</ul>
 	</nav>
 	<nav id="snb">
