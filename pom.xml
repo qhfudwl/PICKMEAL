@@ -222,6 +222,22 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- 2022.01.19 김보령 추가 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-messaging -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		    <version>5.3.14</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.integration/spring-integration-stomp -->
+		<dependency>
+		    <groupId>org.springframework.integration</groupId>
+		    <artifactId>spring-integration-stomp</artifactId>
+		    <version>5.3.9.RELEASE</version>
+		</dependency>
+		<!-- 2022.01.19 김보령 추가 -->
+		
 		<!--  configuration -->
 		<dependency>
 			<groupId>commons-configuration</groupId>

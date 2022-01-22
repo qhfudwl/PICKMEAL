@@ -1,3 +1,6 @@
+let infoChk = false;
+let infoChkArr = [0, 0, 0, 0, 0, 0];
+
 $("#signUpBtn").click(function(e) {
 	// 성별 체크했는지
 	let gender = $("input[name=gender]:checked").val();
@@ -32,9 +35,6 @@ $("#signUpBtn").click(function(e) {
 	}
 })
 
-let infoChk = false;
-let infoChkArr = [0, 0, 0, 0, 0, 0];
-
 $("#email").focus(function() {
 	$("#email").keyup(function() {
 		let email = $(this).val();
@@ -47,6 +47,17 @@ $("#nickName").focus(function() {
 	$("#nickName").keyup(function() {
 		let nickName = $(this).val();
 		let errMsg = $(this).next();
+		let pattern = new RegExp("^[A-Za-z0-9ㄱ-ㅎ가-힣]*$"); // 대문자, 소문자, 숫자, 한글만 가능
+		if (pattern.test(nickName)) { // 닉네임이 패턴에 맞는다면
+			errMsg.text("");
+			infoChk = true;
+			infoChkArr[3] = 1;
+		} else {
+			errMsg.text("닉네임은 대문자, 소문자, 숫자, 한글만 허용합니다.");
+			infoChk = false;
+			infoChkArr[3] = 0;
+			return;
+		}
 		checkSignUpInfo(nickName, "nickName", errMsg);
 	})
 })

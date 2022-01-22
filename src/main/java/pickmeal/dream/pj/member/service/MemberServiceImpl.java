@@ -65,7 +65,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member findMemberByMemberEmail(String email) {
-		return md.findMemberByMemberEmail(email);
+		Member member = md.findMemberByMemberEmail(email);
+		return mas.doSettingMemberInfo(member);
 	}
 
 	@Override
@@ -101,7 +102,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member findMemberById(long id) {
-		return md.findMemberById(id);
+		Member member = md.findMemberById(id);
+		return mas.doSettingMemberInfo(member);
 	}
 
 	@Override

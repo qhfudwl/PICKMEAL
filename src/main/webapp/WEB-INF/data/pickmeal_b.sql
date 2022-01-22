@@ -203,6 +203,31 @@ SELECT * FROM TogetherEatingComment;
 INSERT INTO TogetherEatingComment(memberId,postId,content)
 VALUES(40,1,"저랑 드시면 밥을 더 드실 수 있습니당.");
 
+<<<<<<< HEAD
+drop table chat
+
+CREATE TABLE Chat(
+	id			BIGINT			PRIMARY KEY	AUTO_INCREMENT,
+	writerId	BIGINT			NOT NULL,
+	commenterId	BIGINT			NOT NULL,
+	memberId	BIGINT			NOT NULL,
+	regDate		TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT	Chat_writerId_FK	FOREIGN KEY(writerId)	REFERENCES Member(id) ON DELETE CASCADE,
+	CONSTRAINT	Chat_commenterId_FK	FOREIGN KEY(commenterId)	REFERENCES Member(id) ON DELETE CASCADE,
+	CONSTRAINT	Chat_memberId_FK	FOREIGN KEY(memberId)	REFERENCES Member(id) ON DELETE CASCADE
+)
+select * from Chat;
+
+select id, writerId, commenterId, regDate FROM Chat WHERE DATE_SUB(DATE(NOW()), INTERVAL 30 DAY) > DATE(regDate)
+DELETE FROM Chat WHERE DATE_SUB(DATE(NOW()), INTERVAL 30 DAY) > DATE(regDate)
+
+
+delete from chat
+
+select id, writerId, commenterId, filePath, regDate from chat where writerId=1 or commenterId=1
+
+select id, writerId, commenterId, filePath, regDate from chat where (writerId=1 or commenterId=1) and id > 4 limit 5
+=======
 
 
 CREATE TABLE NoticePosting (									# 식당 추천 게시판
@@ -218,3 +243,4 @@ CREATE TABLE NoticePosting (									# 식당 추천 게시판
 DROP TABLE NoticePosting;
 SELECT * FROM NoticePosting;
 
+>>>>>>> branch 'developer' of https://github.com/akapulin/PICKMEAL.git

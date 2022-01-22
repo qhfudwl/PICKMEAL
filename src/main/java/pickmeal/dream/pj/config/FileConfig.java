@@ -37,8 +37,7 @@ public class FileConfig {
 		return imgPropertyConfig.getString("file.uploadNoticeBoardPath");
 	}
 	
-	
-	//식당리뷰 게시판 관련 파일
+	//리뷰 게시판 관련 파일
 	@Bean
 	public String uploadReviewBoardPath() {
 		return imgPropertyConfig.getString("file.uploadReviewBoardPath");

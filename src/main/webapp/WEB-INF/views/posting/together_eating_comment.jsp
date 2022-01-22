@@ -15,7 +15,7 @@
 <jsp:include page="/WEB-INF/views/incl/header.jsp"/>
 	<section id="commentsWrap">
 		<h2 class="hidden">댓글</h2>
-		<form name="viewCmtForm">
+		<form name="viewCmtForm" id="viewCmtForm">
 			<c:forEach var="c" items="${comments}">
 				<div class="commentWrap" id="commentWrap${c.id}">
 					<img alt="${c.member.nickName}님의 프로필 이미지" src="${pageContext.request.contextPath}${c.member.profileImgPath}">
@@ -47,7 +47,9 @@
 						<c:if test="${member.id eq posting.member.id}">
 							<c:if test="${not empty member}">
 								<c:if test="${posting.category eq 'E'.charAt(0) }">
-									<button type="submit" class="chat" value="${c.member.id}">채팅하기</button>
+									<c:if test="${posting.member.id ne c.member.id}">
+										<button type="button" class="chat" onclick="goChat(this)" value="${c.member.id}">채팅하기</button>
+									</c:if>
 								</c:if>
 							</c:if>
 						</c:if>
@@ -58,14 +60,14 @@
 		<input type="hidden" value="${viewPageNum}" id="viewPageNum" />
 		<input type="hidden" value="${allPageNum}" id="allPageNum"/>
 		<input type="hidden" value="${allCmtNum}" id="allCmtNum"/>
-		<input type="hidden" value="${pageNum}" id="pageNum"/>
+		<input type="hidden" value="${cpageNum}" id="cpageNum"/>
 		<section id="cmtBtnWrap">
 			<button type="button" id="firstPage">&lt;&lt;</button>
 			<button type="button" id="leftPage">&lt;</button>
 			<div id="cmtPageNumWrap">
 				<div id="pageWrap">
 					<c:forEach begin="1" end="${allPageNum}" varStatus="status">
-						<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="pageNum" class="pageNum pageNum${status.count}" value="${status.count}">${status.count}</button>
+						<button onclick="changePageNumBtnColor(this); moveCommentPage(this)" type="button" name="cpageNum" class="cpageNum cpageNum${status.count}" value="${status.count}">${status.count}</button>
 					</c:forEach>
 				</div>
 			</div>
@@ -75,14 +77,14 @@
 		<form:form name="writeCmtForm" modelAttribute="commentCommand">
 			<input type="hidden" name="memberId" value="${member.id}"/>
 			<input type="hidden" name="postId" value="${posting.id}"/>
-			<input type="hidden" name="post_memberId" value="${posting.member.id}"/>
+			<input type="hidden" name="post_memberId" data-writer="${posting.member.email}" value="${posting.member.id}"/>
 			<input type="hidden" name="category" value="${posting.category}"/>
 			<c:if test="${not empty member }">
 				<section id="writeCommentWrap">
 					<h3 class="hidden">댓글 작성란</h3>
 					<p id="writerNickName">${member.nickName}</p>
 					<textarea id="writeCmt" name="content" rows="4" cols="50" placeholder="댓글을 등록해주세요."></textarea>
-					<input type="button" name="update" value="등록" id="writeOk" />
+					<input type="button" name="update" onclick="writeComment();" value="등록" id="writeOk" />
 				</section>
 			</c:if>
 		</form:form>

@@ -2,6 +2,7 @@ package pickmeal.dream.pj.web.util;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
@@ -22,6 +23,12 @@ public class PresentTime {
 		return nowTime; 
 	}
 	
-	
+	// Date 타입 현재 날짜
+	public Date bringPresentTimeTypeDate() {
+		LocalDate now = LocalDate.now();
+		Date nowTime = Date.valueOf(now);
+		
+		return nowTime; 
+	}
 	
 }

@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<header>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<header> 
 	<form action="index" method="get" class="logoWrap"><h1 class="logo">밥찡코</h1></form>
 	<nav id="gnb">
 		<h2 class="hidden">게시판메뉴</h2>
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/posting/notice">공지사항</a></li>
-			<li><a href="${pageContext.request.contextPath}/posting/recommend">식당추천</a></li>
-			<li><a href="${pageContext.request.contextPath}/posting/together">밥친구</a></li>
-		</ul>
+         <li><a href="${pageContext.request.contextPath}/posting/notice">공지사항</a></li>
+         <li><a href="${pageContext.request.contextPath}/posting/recommend">식당추천</a></li>
+         <!--  -->
+         <li><a href="${pageContext.request.contextPath}/posting/together">밥친구</a></li>
+      </ul>
 	</nav>
 	<nav id="snb">
 		<h2 class="hidden">유저메뉴</h2>
@@ -23,7 +24,7 @@
 					</div>
 					<div class="profileAreaWrap navAlarmTextCom">
 						<ul class="profileArea">
-							<li><form action="" method="">로그아웃</form></li>
+							<li><a href="${pageContext.request.contextPath}/member/signOutMember">로그아웃</a></li>
 							<li><form action="" method="">마이페이지</form></li>
 							<li><a href="${pageContext.request.contextPath}/member/myPage">마이페이지</a></li>
 						</ul>
@@ -51,8 +52,10 @@
 				</li>
 				<li>
 					<div class="chatIconWrap comIconWrap">
-						<img src="/pickmeal/resources/img/header/chat_alarm.png"
-							alt="알림아이콘" class="chatImg comIconImg">
+						<a href="${pageContext.request.contextPath}/chat/chatListByIcon">
+							<img src="/pickmeal/resources/img/header/chat_alarm.png"
+								alt="알림아이콘" class="chatImg comIconImg">
+						</a>
 						<div class="chatAlarmMark comIconMark">1</div>
 					</div>
 				</li>
@@ -81,3 +84,4 @@
 		</c:if>
 	</nav>
 </header>
+<%@ include file="/WEB-INF/views/chat/chat_alarm.jsp"%>

@@ -195,8 +195,13 @@
 			    <input type="hidden" id="restaurantIsempty" value=""/>
 			    <input type="hidden" id="memberId" name="memberIdJWS" value="${member.getId()}"/>
 				<!-- 정원식 쿠폰 발급 -->
+<<<<<<< HEAD
+				<form method="get" id="couponPopupCreatebtn">
+					<div id="couponGenerateWrap" onclick="document.forms['couponPopupCreatebtn'].submit();">
+=======
 				<form method="get" name="couponPopupCreate">
 					<div id="couponGenerateWrap" >
+>>>>>>> branch 'developer' of https://github.com/akapulin/PICKMEAL.git
 			     		<p id="couponGenerateName">쿠폰</p>
 			      		<input type="submit" id="couponGenerate"/>
 			    	</div>
@@ -306,18 +311,15 @@ $('#write_msg').on("keyup", function(key) {
 		$('#msgArea').scrollTop($('#msgArea').prop('scrollHeight'));
 	}
 });
-
 //전송 버튼 누르는 이벤트
 $("#button_send").on("click", function(e) {
 	sendMessage();
 	$('#write_msg').val('')
 });
-
 var sock = new SockJS("<c:url value="/chatting"/>");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 sock.onopen = onOpen;
-
 function sendMessage() {	
 	var msg = $("#write_msg").val();
 	console.log("msg : " + msg);
@@ -328,11 +330,9 @@ function sendMessage() {
 	msg = '익명${AnonymousNumber}:' + msg;
 	sock.send(msg);
 }
-
 var defaultScrollHeight = $('#msgArea').prop('scrollHeight');
 //서버에서 메시지를 받았을 때
 function onMessage(msg) {
-
 	var data = msg.data;
 	var sessionId = null; //데이터를 보낸 사람
 	var message = null;
@@ -387,11 +387,9 @@ function onMessage(msg) {
 		}
 	}
 }
-
 Date.prototype.nowMinute = function() {
 	return this.getMinutes() < 10 ? "0" + this.getMinutes() : this.getMinutes();
 };
-
 Date.prototype.nowHour = function() {
 	var nh = this.getHours();
 	var hour = nh < 12 ? "오전 " : "오후 ";
@@ -406,12 +404,10 @@ Date.prototype.nowHour = function() {
 	
 	return hour;
 };
-
 //현재 스크롤위치가 하단 근처라면 true
 function nowScroll(scroll) {
 	return (scroll < defaultScrollHeight+230)
 };
-
 //채팅창에 들어왔을 때
 function onOpen(evt) {
 	var user = '익명${AnonymousNumber}';
@@ -419,7 +415,6 @@ function onOpen(evt) {
 	
 	$("#msgWrap").append(str);
 }
-
 //채팅창에서 나갔을 때
 function onClose(evt) {
 	var user = '익명${AnonymousNumber}';
@@ -427,25 +422,21 @@ function onClose(evt) {
 	
 	$("#msgWrap").append(str);
 }
-
 $('#button_send').on('mouseenter', function() {
 	$('#button_send').css({
 	    backgroundColor: '#f7e5e5'
 	})
 });
-
 $('#button_send').on('mouseleave', function() {
 	$('#button_send').css({
 	    backgroundColor: '#ffecec'
 	})
 });
-
 $('#button_send').on('mousedown', function() {
 	$('#button_send').css({
 	    backgroundColor: '#eedddd'
 	})
 });
-
 $('#button_send').on('mouseup', function() {
 	$('#button_send').css({
 	    backgroundColor: '#f7e5e5'

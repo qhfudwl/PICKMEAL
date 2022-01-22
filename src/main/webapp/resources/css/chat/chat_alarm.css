@@ -1,0 +1,34 @@
+@charset "UTF-8";
+#chatAlarmWrap {
+	position: fixed; bottom: 10px; right: 10px; display: none;
+	z-index: 5000;
+}
+#chatShowHide {
+	background-color: #f5f5f5; padding: 20px; border-radius: 20px;
+	position: relative; width: 300px; text-align: center;
+	/* border: 3px solid #808080; border-right: 0; border-left: 0; */
+}
+#chatAlarmWrap h4 {
+	color: #f23f3f; font-size: 20px; font-family: 'DungGeunMo';
+}
+#chatOff {
+	position: absolute; top: 10px; right: 10px; font-size: 20px;
+	outline: none; border: 0; background-color: #f5f5f5;
+	cursor: pointer; font-family: 'DungGeunMo';
+	transition-duration: 0.1s;
+}
+#chatOff:hover {
+	color: #f23f3f;
+}
+#chatMessageWrap {
+	padding: 20px 0 0 0;
+}
+#rcvMessage {
+	font-size: 14px; font-weight: bold; text-align: left;
+	margin-bottom: 15px;
+}
+#goChatting {
+	outline: none; border: 0; background-color: #f23f3f; color: #fff;
+	font-size: 16px; font-family: 'DungGeunMo';
+	padding: 10px 15px;
+}

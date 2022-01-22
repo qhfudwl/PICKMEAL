@@ -1,5 +1,6 @@
 package pickmeal.dream.pj.member.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
@@ -19,6 +21,7 @@ import pickmeal.dream.pj.member.domain.Member;
 import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.member.util.PasswordDecoding;
 import pickmeal.dream.pj.restaurant.domain.Restaurant;
+import pickmeal.dream.pj.web.handler.WebSocketHandler;
 
 @Controller
 @Log
@@ -41,6 +44,14 @@ public class SignInController {
 		return mav;
 	}
 	
+	@GetMapping("/member/signOutMember")
+	public String signOutMember(HttpSession session) {
+		session.removeAttribute("member");
+		session.removeAttribute("writer");
+		session.removeAttribute("commenter");
+		return "redirect:/index";
+	}
+	
 	@PostMapping("/member/signInMember")
 	public ModelAndView signInMember(@ModelAttribute MemberCommand memberCommand
 			, @RequestParam("chkBtn") String chkBtn, HttpSession session) {
@@ -56,7 +67,6 @@ public class SignInController {
 		} else { // 해당 아이디가 있을 경우
 			member = ms.findMemberByMemberEmail(memberCommand.getEmail());
 			member = pd.convertPassword(member);
-			log.info(member.getPasswd());
 			if (!memberCommand.getPasswd().equals(member.getPasswd())) { // 비밀번호 불일치 시
 				chkInfo = false;
 			}
@@ -73,6 +83,8 @@ public class SignInController {
 		// 유효성 검사를 마친 후 사용자 정보 업데이트 필요
 		member = ms.signInMember(member);
 		
+		// 알람을 받을 거라는 체크
+		session.setAttribute("chatCount", "true");
 		
 		// 필요한 정보만 setting
 		Member enterMember = new Member();
@@ -84,35 +96,16 @@ public class SignInController {
 		enterMember.setMannerTemperature(member.getMannerTemperature());
 		enterMember.setProfileImgPath(member.getProfileImgPath());
 		
-		log.info(enterMember.toString());
 
 		// 업데이트 후 session 에 담아서 메인 화면으로 보낸다.
 		session.setAttribute("member", enterMember);
 		
 		/*쿠폰 서비스 추가*/	
-		if(!(session.getAttribute("member") == null) && !(session.getAttribute("restaurant") == null) && !(session.getAttribute("couponCategory") == null)) {
-		Member member2 = (Member) session.getAttribute("member");
-		Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
-		CouponCategory couponCategory = (CouponCategory) session.getAttribute("couponCategory");
-		if(cs.findCouponByMemberIdinToday(member.getId())==1) {
-			if(cs.findCouponBymemberIdinTodayMax(member.getId())<=2) {
-				Coupon coupon = new Coupon();
-				coupon.setMember(member2);
-				coupon.setRestaurant(restaurant);
-				coupon.setCouponCategory(couponCategory);
-				cs.addCoupon(coupon);
-				}
-			}else {
-				Coupon coupon = new Coupon();
-				coupon.setMember(member2);
-				coupon.setRestaurant(restaurant);
-				coupon.setCouponCategory(couponCategory);
-				cs.addCoupon(coupon);
-			}
-		session.removeAttribute("couponCategory");
-				}
+
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+		log.info("정원식 쿠폰 다시 추가 필요 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		mav.setViewName("redirect:/index");
-		log.info("들어오는지 확인");
 		return mav;
 	}
 }

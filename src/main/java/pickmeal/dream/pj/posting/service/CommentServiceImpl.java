@@ -131,6 +131,7 @@ public class CommentServiceImpl implements CommentService {
 		Member enterMember = new Member();
 		// 필요한 정보만 셋팅한다.
 		enterMember.setId(member.getId()); // id 필수!
+		enterMember.setEmail(member.getEmail());
 		enterMember.setFoodPowerPoint(member.getFoodPowerPoint()); // 식력 포인트를 받아서
 		enterMember.makeProfileImgPath(); // 프로필 이미지를 셋팅해준다.
 		enterMember.setMannerTemperature(member.getMannerTemperature()); // 신뢰 온도 셋팅

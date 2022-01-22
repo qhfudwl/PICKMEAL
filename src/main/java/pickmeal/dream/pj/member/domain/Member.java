@@ -6,6 +6,7 @@ import static pickmeal.dream.pj.web.constant.SavingPointConstants.*;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,8 +17,8 @@ import pickmeal.dream.pj.web.constant.SavingPointConstants;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Member {
 	private long id;
 	private char memberType;

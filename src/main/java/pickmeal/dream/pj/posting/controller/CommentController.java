@@ -1,5 +1,7 @@
 package pickmeal.dream.pj.posting.controller;
 
+import static pickmeal.dream.pj.web.constant.Constants.COMMENT_LIST;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.member.domain.Member;
+import pickmeal.dream.pj.member.service.MemberService;
 import pickmeal.dream.pj.posting.command.CommentCommand;
 import pickmeal.dream.pj.posting.domain.Comment;
 import pickmeal.dream.pj.posting.domain.Posting;
 import pickmeal.dream.pj.posting.service.CommentService;
 import pickmeal.dream.pj.web.util.Validator;
-
-import static pickmeal.dream.pj.web.constant.Constants.*;
 
 @Controller
 @Log
@@ -29,14 +30,17 @@ public class CommentController {
 	CommentService cs;
 	
 	@Autowired
+	MemberService ms;
+	
+	@Autowired
 	Validator v;
 	
 	@GetMapping("/posting/viewTogetherEatingComment")
-	public ModelAndView viewTogetherEatingComment(@RequestParam("pageNum") int pageNum) {
+	public ModelAndView viewTogetherEatingComment(@RequestParam("cpageNum") int cpageNum) {
 		ModelAndView mav = new ModelAndView();
 		log.info("category 테스트로 넣어놓은 것 반드시 삭제할 것★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		// 항상 pageNum은 1이 default 이다.
-		List<Comment> comments = cs.findCommentsByPostId(1, 'E', pageNum); // 게시물 댓글 1페이지
+		List<Comment> comments = cs.findCommentsByPostId(1, 'E', cpageNum); // 게시물 댓글 1페이지
 		int allCmtNum = cs.countCommentByPostId(1, 'E'); // 해당 게시글의 총 댓글 수
 		// double 형으로 캐스팅을 한 후에 나누기를 해줘야 소수점이 제대로 나온다
 		int allPageNum = (int)Math.ceil((double)allCmtNum / COMMENT_LIST.getNum()); // 페이지 개수 구하기
@@ -45,17 +49,26 @@ public class CommentController {
 //			log.info(c.toString());
 //		}
 		
-		if (pageNum > allPageNum) { // 만일 사용자가 url 에 더 큰 값을 적는다면 가장 큰 페이지로 가도록 한다
-			pageNum = allPageNum;
+		if (cpageNum > allPageNum) { // 만일 사용자가 url 에 더 큰 값을 적는다면 가장 큰 페이지로 가도록 한다
+			cpageNum = allPageNum;
 		}
-		log.info(String.valueOf(pageNum));
+		log.info(String.valueOf(cpageNum));
+		
+		
+//		여기서부터
 		Posting posting = new Posting(1, 'E');
-		posting.setMember(new Member(39));
+		Member writer = ms.findMemberById(1);
+		Member enterWriter = new Member();
+		enterWriter.setId(writer.getId());
+		enterWriter.setEmail(writer.getEmail());
+		posting.setMember(enterWriter);
+//		여기까지 삭제해야한다
+		
 		mav.addObject("posting", posting);
 		mav.addObject("comments", comments);
 		mav.addObject("allPageNum", allPageNum);
 		mav.addObject("allCmtNum", allCmtNum);
-		mav.addObject("pageNum", pageNum);
+		mav.addObject("cpageNum", cpageNum);
 		mav.addObject("viewPageNum", COMMENT_LIST.getNum());
 		mav.setViewName("posting/together_eating_comment");
 		return mav;
@@ -77,7 +90,7 @@ public class CommentController {
 		comment = cs.addComment(comment);
 //		log.info(comment.toString());
 		log.info("category 테스트로 넣어놓은 것 반드시 삭제할 것");
-		comment.getPosting().setCategory('R'); // test 값이다 (나중에 반드시 삭제하자!!)
+		comment.getPosting().setCategory('E'); // test 값이다 (나중에 반드시 삭제하자!!)
 
 		return ResponseEntity.ok(comment);
 	}
@@ -124,11 +137,11 @@ public class CommentController {
 	// ajax 로 불러오기
 	@GetMapping("/posting/changeCommentPage")
 	public ResponseEntity<?> changeCommentPage(@RequestParam("postId") long postId,
-			@RequestParam("category") char category, @RequestParam("pageNum") int pageNum) {
+			@RequestParam("category") char category, @RequestParam("cpageNum") int cpageNum) {
 		// 총 페이지 개수
 		int allPageNum = cs.countCommentByPostId(postId, category);
 		// 15개씩 변경
-		List<Comment> comments = cs.findCommentsByPostId(postId, category, pageNum);
+		List<Comment> comments = cs.findCommentsByPostId(postId, category, cpageNum);
 //		log.info("실행");
 		return ResponseEntity.ok(comments);
 	}
