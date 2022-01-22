@@ -110,7 +110,7 @@ public class CommentDaoImpl implements CommentDao {
 			tableName = "RecommendRestaurantComment";
 		} else if (category == 'E') {
 			tableName = "TogetherEatingComment";
-		}
+		} 
 		return tableName;
 	}
 

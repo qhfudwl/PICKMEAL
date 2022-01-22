@@ -6,13 +6,14 @@
 	<nav id="gnb">
 		<h2 class="hidden">게시판메뉴</h2>
 		<ul>
-			<li><form action="" method="">공지사항</form></li>
-			<li><form action="" method="">식당추천</form></li>
-			<li>
+			<li><a href="${pageContext.request.contextPath}/posting/notice">공지사항</a></li>
+			<li><a href="${pageContext.request.contextPath}/posting/recommend">식당추천</a></li>
+			<li><a href="${pageContext.request.contextPath}/posting/together">밥친구</a></li>
+			<!--  
             <form name="indexView" action="${pageContext.request.contextPath}/posting/viewTogetherEatingComment" method="get">
             	<button type="submit" name="pageNum" value="1">밥친구</button>
             	밥친구
-            </form></li>
+            </form>-->
 		</ul>
 	</nav>
 	<nav id="snb">

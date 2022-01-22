@@ -3,6 +3,7 @@ package pickmeal.dream.pj.posting.service;
 import java.util.List;
 
 import pickmeal.dream.pj.posting.domain.Posting;
+import pickmeal.dream.pj.posting.util.Criteria;
 
 /**
  * 
@@ -45,7 +46,7 @@ public interface PostingService {
 	 * @param category
 	 * @return
 	 */
-	public List<Posting> findPostingsPerPageByCategory(char category, int page);
+	public List<Posting> findPostingsPerPageByCategory(Criteria criteria);
 	
 	
 	

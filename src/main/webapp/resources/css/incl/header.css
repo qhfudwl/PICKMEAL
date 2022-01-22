@@ -57,9 +57,12 @@ header{
 #gnb ul li {
   float:left;
   margin: 0 50px;
-  font-weight: 600;
-  font-size: 1.2em;
+ 
   
+}
+#gnb ul li a{
+	 font-weight: 600;
+  	 font-size: 1.2em;
 }
 
 

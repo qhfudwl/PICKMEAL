@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/incl/link.jsp"%>
+<script src="${pageContext.request.contextPath}/resources/js/posting/post_list.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/posting/post.css" />
 <title>게시판</title>
 </head>

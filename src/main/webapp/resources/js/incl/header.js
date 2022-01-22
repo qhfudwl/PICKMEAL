@@ -142,7 +142,7 @@ $('.chatImg').hover(function(){
 /*
     게시판 메뉴 리스트 hover
 */
-$('#gnb ul li').hover(function(){
+$('#gnb ul li a').hover(function(){
   if(!$(this).hasClass('header_BoardOnclick')){
     $(this).css({color:'#f23f3f',cursor:'pointer'});
   }
@@ -155,7 +155,7 @@ $('#gnb ul li').hover(function(){
 /*
     게시판 메뉴 리스트 onclick
 */
-$('#gnb ul li').on('click',function(){
+$('#gnb ul li a').on('click',function(){
   console.log('hi')
   $('#gnb ul li').removeClass('header_BoardOnclick');
   $('#gnb ul li').css({color:'#000'});

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.java.Log;
 import pickmeal.dream.pj.posting.domain.Posting;
 import pickmeal.dream.pj.posting.repository.PostingDao;
+import pickmeal.dream.pj.posting.util.Criteria;
 
 @Service("postingService")
 @Log
@@ -40,7 +41,7 @@ public class PostingServiceImpl implements PostingService {
 	}
 	
 	@Override
-	public List<Posting> findPostingsPerPageByCategory(char category, int page) {
+	public List<Posting> findPostingsPerPageByCategory(Criteria criteria) {
 		
 		/*
 		 * (공통)
@@ -51,21 +52,25 @@ public class PostingServiceImpl implements PostingService {
 		 * 4page / 36-47
 		 * 5page / 48-59
 		 */
-		int pageStart = (page-1)*12;		//0, 12, 24, 36, 48...
-		int pageReadCnt = 12;
+		int pageStart = (criteria.getPage()-1)*criteria.getCntPerPage();		//0, 12, 24, 36, 48...
+		int pageReadCnt = criteria.getCntPerPage();
 		log.info("pageStart : "+pageStart);
 		
-		List<Posting> postList = pd.findPostingsPerPageByCategory(category,pageStart,pageReadCnt);
-		log.info("postingCount : "+postList.size());
+		List<Posting> postList = pd.findPostingsPerPageByCategory(criteria.getType(),pageStart,pageReadCnt);
+		log.info("postingCount(default:12) : "+postList.size());
 		
 		/*
 		 * (공통)
 		 * 게시글별 댓글 갯수 불러오기
 		 * 		- CommentService를 이용한다
+		 * 		- 공지사항 게시판은 제외한다
 		 */
-		for(Posting post : postList) {
-			post.setCommentsNumber(cs.countCommentByPostId(post.getId(),post.getCategory()));
+		if(!(postList.get(0).getCategory()=='N')) {
+			for(Posting post : postList) {
+				post.setCommentsNumber(cs.countCommentByPostId(post.getId(),post.getCategory()));
+			}
 		}
+		
 		return postList;
 	}
 
